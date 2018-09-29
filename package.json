@@ -1,0 +1,25 @@
+{
+  "name": "Cogent",
+  "description": "A light-weight modular Discord bot built with DiscordJS.",
+  "version": "1.0",
+  "keywords": [
+    "cogent",
+    "discord",
+    "discordjs",
+    "bot"
+  ],
+  "dependencies": {
+    "discordjs": "11.4.2",
+    "nodejs": "^9.0.0"
+  },
+  "bugs": {
+    "web": "https://github.com/VenkSociety/Cogent/issues"
+  },
+  "licenses": [
+    {
+      "name": "Apache 2",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "homepage": "https://github.com/VenkSociety/Cogent"
+}
