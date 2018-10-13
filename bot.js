@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { bot_name, logo, prefix, token, loaded_msg, active_msg, error_msg, default_role, welcome_channel, log_channel } = require('./config.json');
+const { bot_name, prefix, logo, token, loaded_msg, active_msg, error_msg, default_role, welcome_channel, log_channel } = require('./config.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands');
@@ -37,14 +37,6 @@ client.on('message', message => {
     // if (!channel) return;
     // message.channel.send(`:no_entry_sign: Deleted message: ${message}`);
 // });
-          
-client.on('message', (message) => {
-  if (message.content.startsWith(`${prefix}logo`)) {
-      message.channel.send("", {
-        file: "./lib/avatar3.png"
-      });
-  }
-});
 
 client.on('guildMemberAdd', member => {
     const channel = member.guild.channels.find('name', (log_channel));

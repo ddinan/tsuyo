@@ -16,7 +16,7 @@ module.exports = {
             .addField("Server name:", `${message.guild.name}`, true)
             .addField("Verified:", `${message.guild.verified}`, true)
             .addField("Total members:", `${message.guild.memberCount}`, true)
-            .addField("Server ID", `${message.guild.name}`, true)
+            .addField("Server ID", `${message.guild.id}`, true)
             .addField("Created", `By **${message.guild.owner.user.tag}** on ${message.guild.createdAt}`, true)
             .addField("AFK", `**Channel:** ${message.guild.afkChannel}\n **Timeout:** ${message.guild.afkTimeout} seconds.`, true)
             .addField("Region", `${message.guild.region}`, true);

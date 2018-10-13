@@ -10,8 +10,8 @@ module.exports = {
             .setAuthor(`${message.author.username}`)
             .setColor(config.color)
             .setThumbnail(`${message.author.displayAvatarURL}`)
-            .addField("ID", `${message.author.status}`, true)
-            .addField("Status", `${message.author.status}`, true)
+            .addField("ID", `${message.author.id}`, true)
+            .addField("Status", `${message.author.presence.status}`, true)
             .addField("Joined", `${message.author.joinedTimestamp}`, true)
             .addField("Last Message", `${message.author.lastMessage}`, true)
         
@@ -25,6 +25,7 @@ module.exports = {
             .setColor(config.color)
             .setThumbnail(`${user.displayAvatarURL}`)
             .addField("ID", `${user.id}`, true)
+            .addField("Status", `${user.presence.status}`, true)
             .addField("Last Message", `${user.lastMessage}`, true);
 
 		message.channel.send(embed2);

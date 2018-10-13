@@ -1,4 +1,4 @@
-
+﻿
 [![Discord](https://discordapp.com/api/guilds/492875641713328143/embed.png)](https://discord.gg/3hbeQgY) ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg) ![Github Release](https://img.shields.io/github/release/VenkSociety/Cogent.svg) [![DiscordJS](https://img.shields.io/npm/v/discord.js.svg?maxAge=2592000)](https://www.npmjs.com/package/discord.js)
 
 ![](/lib/img/avatar3.png)
@@ -10,8 +10,8 @@ A couple of dependencies you will need:
 
 Once installed, type the following into a command prompt:
 
-```npm install discord.js```
-```npm install got```
+- ```npm install discord.js```
+- ```npm install got```
 
 After that, installation is a simple as a couple of mouse clicks *(and patience depending on your internet speed)*. Simply download the latest release .zip from [here](https://github.com/VenkSociety/Cogent/releases), extract and run **_Cogent-Bot.exe_** and you're done, it's that easy!
 
@@ -40,6 +40,9 @@ A full list of commands and how to use them can be found [here](https://github.c
 
 ### Contributing guidelines:
 Due to the extremely long amount of text, you can find information on editing files, pull requests, merge requests and issues [here](https://github.com/VenkSociety/Cogent/wiki/Contributing-Guidelines).
+
+### Don't want to host the bot yourself?
+We have a public instance of the bot which you can add to your Discord [here](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=8 ).
 
 ### Didn't answer your question?
 Why not join the [official Cogent Bot Discord](https://discord.gg/3hbeQg)? With lots of things to do and loads of members to chat with, it's one of the most friendly places on the internet... sorta.
