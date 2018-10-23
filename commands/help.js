@@ -4,8 +4,8 @@ const { prefix, color } = require('../config.json');
 const embed = new Discord.RichEmbed()
     .setTitle("Help")
     .setColor(config.color)
-    .setImage("https://imgur.com/S7m3PJv.png")
-    .setThumbnail("https://imgur.com/AWOMrDm.png")
+    .setImage("https://imgur.com/2gTfR3j.png")
+    .setThumbnail("https://imgur.com/VvwXmEI.png")
     .addField("Commands", `Commands can be found by typing ${prefix}commands.`, true)
     .addField("Want to invite me to your Discord?", `https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=8`, true)
     .addField(`Join the official Cogent Discord`, `https://discord.gg/3hbeQg`, true);

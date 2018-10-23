@@ -12,8 +12,6 @@ module.exports = {
             .setThumbnail(`${message.author.displayAvatarURL}`)
             .addField("ID", `${message.author.id}`, true)
             .addField("Status", `${message.author.presence.status}`, true)
-            .addField("Joined", `${message.author.joinedTimestamp}`, true)
-            .addField("Last Message", `${message.author.lastMessage}`, true)
         
 		if (!message.mentions.users.size) {
 			return message.channel.send(embed);
@@ -26,7 +24,6 @@ module.exports = {
             .setThumbnail(`${user.displayAvatarURL}`)
             .addField("ID", `${user.id}`, true)
             .addField("Status", `${user.presence.status}`, true)
-            .addField("Last Message", `${user.lastMessage}`, true);
 
 		message.channel.send(embed2);
 	},

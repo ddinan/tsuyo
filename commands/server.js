@@ -9,7 +9,7 @@ module.exports = {
 	execute(message) {
         const embed = new Discord.RichEmbed()
             .setTitle(`${message.guild.name}`)
-            .setAuthor("Author Name", `${message.guild.iconURL}`)
+            .setAuthor("Server information", `${message.guild.iconURL}`)
             .setColor(color.color)
             .setDescription(`Showing statistics for **${message.guild.name}**:`)
             .setThumbnail(`${message.guild.iconURL}`)
