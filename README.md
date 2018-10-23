@@ -1,7 +1,7 @@
 ﻿
 [![Discord](https://discordapp.com/api/guilds/492875641713328143/embed.png)](https://discord.gg/3hbeQgY) ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg) ![Github Release](https://img.shields.io/github/release/VenkSociety/Cogent.svg) [![DiscordJS](https://img.shields.io/npm/v/discord.js.svg?maxAge=2592000)](https://www.npmjs.com/package/discord.js)
 
-![](/lib/img/avatar3.png)
+![](/lib/img/3D.png)
 
 ## A light-weight modular Discord bot built with DiscordJS.
 ### Installation:
