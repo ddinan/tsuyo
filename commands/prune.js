@@ -4,7 +4,7 @@ module.exports = {
 	execute(message, args) {
 		const amount = parseInt(args[0]) + 1;
         const { no_perm_msg, mod_role, log_channel } = require('../config.json');
-		const modRole = message.guild.roles.find("name", (mod_role));
+		const modRole = message.guild.roles.find(role => role.name === mod_role);
         
         if (!modRole)
             return message.reply(`there is no ${mod_role} role.`);

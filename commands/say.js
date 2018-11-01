@@ -3,7 +3,7 @@ module.exports = {
 	description: 'Says given message as the bot.',
 	execute(message, args) {
         const { no_perm_msg, mod_role, log_channel } = require('../config.json');
-		const modRole = message.guild.roles.find("name", (mod_role));
+		const modRole = message.guild.roles.find(role => role.name === mod_role);
         
 		String.prototype.replaceAll = function(target, replacement) {
             return this.split(target).join(replacement);
