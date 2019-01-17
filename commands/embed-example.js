@@ -1,10 +1,9 @@
 const Discord = require('discord.js');
-const config = require('../config.json');
-const color = require('../config.json');
+const colors = require('../lib/colors.json');
 const embed = new Discord.RichEmbed()
     .setTitle("This is your title, it can hold 256 characters")
     .setAuthor("Author Name", "https://i.imgur.com/lm8s41J.png")
-    .setColor(config.color)
+    .setColor(colors.blue)
     .setDescription("This is the main body of text, it can hold 2048 characters.")
     .setFooter("This is the footer text, it can hold 2048 characters", "http://i.imgur.com/w1vhFSR.png")
     .setImage("http://i.imgur.com/yVpymuV.png")

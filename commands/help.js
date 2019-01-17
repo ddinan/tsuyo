@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
-const { prefix, color } = require('../config.json');
+const { prefix, sent_msg } = require('../config.json');
+const colors = require('../lib/colors.json');
 const embed = new Discord.RichEmbed()
     .setTitle("Help")
-    .setColor(config.color)
+    .setColor(colors.blue)
     .setImage("https://imgur.com/2gTfR3j.png")
     .setThumbnail("https://imgur.com/VvwXmEI.png")
     .addField("Commands", `Commands can be found by typing ${prefix}commands.`, true)
@@ -14,7 +15,8 @@ module.exports = {
 	name: 'help',
 	description: 'Helpful stuff.',
 	execute(message) {
-		message.channel.send({embed});
+		message.author.send({embed});
+        message.channel.send(sent_msg);
 	},
 };
 

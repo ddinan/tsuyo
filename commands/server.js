@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const guild = new Discord.Guild();
-const config = require('../config.json');
-const color = require('../config.json');
+const colors = require('../lib/colors.json');
 
 module.exports = {
 	name: 'server',
@@ -9,10 +8,10 @@ module.exports = {
 	execute(message) {
         const embed = new Discord.RichEmbed()
             .setTitle(`${message.guild.name}`)
-            .setAuthor("Server information", `${message.guild.iconURL}`)
-            .setColor(color.color)
+            .setAuthor("Server information", `${message.guild.icon}`)
+            .setColor(colors.blue)
             .setDescription(`Showing statistics for **${message.guild.name}**:`)
-            .setThumbnail(`${message.guild.iconURL}`)
+            .setThumbnail(`${message.guild.icon}`)
             .addField("Server name:", `${message.guild.name}`, true)
             .addField("Verified:", `${message.guild.verified}`, true)
             .addField("Total members:", `${message.guild.memberCount}`, true)

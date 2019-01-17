@@ -1,7 +1,6 @@
 const { get } = require("snekfetch");
 const Discord = require('discord.js');
-const config = require('../config.json');
-const color = require('../config.json');
+const colors = require('../lib/colors.json');
 
 module.exports = {
 	name: 'cat',
@@ -11,7 +10,7 @@ module.exports = {
 			get('https://aws.random.cat/meow').then(res => {
 				const embed = new Discord.RichEmbed()
 				    .setImage(res.body.file)
-                    .setColor(config.color)
+                    .setColor(colors.blue)
                 
 				return message.channel.send({embed});
 			});
