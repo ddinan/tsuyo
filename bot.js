@@ -12,7 +12,7 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', () => {
-	console.log('\x1b[35m%s\x1b[0m', 'Cogent bot is now online. If you encounter any errors, please submit to our GitHub issues page via https://github.com/VenkSociety/Cede/issues.');
+	console.log('\x1b[96m%s\x1b[0m', 'Cogent bot is now online. If you encounter any errors, please submit to our GitHub issues page via https://github.com/VenkSociety/Cogent/issues.');
     client.user.setActivity(active_msg)
 });
 

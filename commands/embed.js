@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const colors = require('../lib/colors.json');
 
 module.exports = {
 	name: 'embed',
@@ -6,20 +7,15 @@ module.exports = {
 	execute(message, args) {
         let title = args[0];
         let description = args[1];
-        let color = args[2];
-        let image = args[3];
-        let thumbnail = args[4];
         let input = args.join(" ");
         const embed = new Discord.RichEmbed()
             .setTitle(title)
             .setDescription(description)
-            .setColor(color)
-            .setImage(image)
-            .setThumbnail(thumbnail)
+            .setColor(colors.blue)
         
         if (!input) { 
             const { prefix } = require('../config.json');
-            message.reply(`Invalid syntax. **${prefix}embed [title] <description> <hex> <image> <thumbnail>**`);
+            message.reply(`Invalid syntax. **${prefix}embed [title] <description>`);
         } else { 
             message.channel.send({embed});
         }
