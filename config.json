@@ -2,9 +2,9 @@
     "bot_name": "Cogent",
     "prefix": "/",
     "token": "BOT-TOKEN",
+    "color": "#3498DB",
 
     "loaded_msg": "Bot loaded.",
-    "active_msg": "Cogent | /help",
     "no_perm_msg": "you don't have permission to use this command.",
     "error_msg": "there was an error trying to use that command.",
     "sent_msg": "I just sent you a message, check your DMs!",

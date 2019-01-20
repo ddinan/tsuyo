@@ -8,10 +8,10 @@ module.exports = {
 	execute(message) {
         const embed = new Discord.RichEmbed()
             .setTitle(`${message.guild.name}`)
-            .setAuthor("Server information", `${message.guild.icon}`)
+            .setAuthor("Server information", `${message.guild.iconURL}`)
             .setColor(colors.blue)
             .setDescription(`Showing statistics for **${message.guild.name}**:`)
-            .setThumbnail(`${message.guild.icon}`)
+            .setThumbnail(`${message.guild.iconURL}`)
             .addField("Server name:", `${message.guild.name}`, true)
             .addField("Verified:", `${message.guild.verified}`, true)
             .addField("Total members:", `${message.guild.memberCount}`, true)

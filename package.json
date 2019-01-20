@@ -1,25 +1,34 @@
 {
-  "name": "Cogent",
-  "description": "A light-weight modular Discord bot built with DiscordJS.",
-  "version": "1.0",
-  "keywords": [
-    "cogent",
-    "discord",
-    "discordjs",
-    "bot"
-  ],
-  "dependencies": {
-    "discordjs": "11.4.2",
-    "nodejs": "^9.0.0"
-  },
-  "bugs": {
-    "web": "https://github.com/VenkSociety/Cogent/issues"
-  },
-  "licenses": [
-    {
-      "name": "Apache 2",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    "name": "Cogent",
+    "description": "A light-weight modular Discord bot built with DiscordJS.",
+    "version": "1.0.0",
+    "directories": {
+        "lib": "lib"
+    },
+    "keywords": [
+        "cogent",
+        "discord",
+        "discordjs",
+        "bot"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node bot.js"
+    },
+    "dependencies": {
+        "discordjs": "11.4.2",
+        "fs": "0.0.1-security",
+        "got": "^9.6.0",
+        "nodejs": "^9.0.0",
+        "snekfetch": "^4.0.4"
+    },
+    "bugs": {
+        "web": "https://github.com/VenkSociety/Cogent/issues"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/VenkSociety/Cogent",
+    "engines": {
+        "node": "^9.0.0",
+        "npm": "^6.4.1"
     }
-  ],
-  "homepage": "https://github.com/VenkSociety/Cogent"
 }

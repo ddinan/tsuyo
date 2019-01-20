@@ -13,12 +13,12 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
 	console.log('\x1b[96m%s\x1b[0m', 'Cogent bot is now online. If you encounter any errors, please submit to our GitHub issues page via https://github.com/VenkSociety/Cogent/issues.');
-    client.user.setActivity(active_msg)
+    client.user.setActivity(`with ${client.users.size} users`);
 });
 
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
-    if (message.channel.type === "dm") return; // Ignore DM channels.
+    if (message.channel.type === "dm") return;
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
 
