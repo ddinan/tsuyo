@@ -9,8 +9,8 @@
     "error_msg": "there was an error trying to use that command.",
     "sent_msg": "I just sent you a message, check your DMs!",
     
-    "default_role": "welcome",
-    "mod_role": "Moderator",
-    "welcome_channel": "general",
-    "log_channel": "logs"
+    "default_role": "Member",
+    "mod_role": "CogentMod",
+    "log_role": "logs",
+    "welcome_channel": "general"
 }

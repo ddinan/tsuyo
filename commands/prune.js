@@ -1,6 +1,5 @@
 module.exports = {
 	name: 'prune',
-	description: 'Prune up to 99 messages.',
 	execute(message, args) {
 		const amount = parseInt(args[0]) + 1;
         const { no_perm_msg, mod_role, log_channel } = require('../config.json');

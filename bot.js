@@ -1,40 +1,50 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { token, bot_name, prefix, logo, loaded_msg, active_msg, error_msg, default_role, welcome_channel, leave_channel, log_channel } = require('./config.json');
-const { green, red } = require('./lib/colors.json');
+const {
+    token,
+    bot_name,
+    prefix,
+    logo,
+    loaded_msg,
+    active_msg,
+    error_msg,
+    default_role,
+    welcome_channel,
+    leave_channel,
+    log_channel
+} = require('./config.json');
+
+const colors = require('./lib/colors.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands');
 
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
 }
 
 client.on('ready', () => {
-	console.log('\x1b[96m%s\x1b[0m', 'Cogent bot is now online. If you encounter any errors, please submit to our GitHub issues page via https://github.com/VenkSociety/Cogent/issues.');
+    console.log('Bot loaded.');
     client.user.setActivity(`with ${client.users.size} users`);
 });
 
-client.on('message', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
-    if (message.channel.type === "dm") return;
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const command = args.shift().toLowerCase();
+client.on('message', async message => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return; // Ignore bots and non-commands
 
-	if (!client.commands.has(command)) return;
+    /* Handle Commands */
 
-	try {
-		client.commands.get(command).execute(message, args);
-	}
-	catch (error) {
-		console.error(error);
-		message.reply(error_msg);
-	}
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const command = args.shift().toLowerCase();
+
+    if (!client.commands.has(command)) return;
+
+    try {
+        client.commands.get(command).execute(message, args);
+    } catch (error) {console.log(error)};
 });
 
-/* Logging deleted messages system, needs more work.
-
+/* Logging deleted messages system, needs more work
  client.on('messageDelete', (message) => {
      const channel = message.guild.channels.find('name', (log_channel));
      if (!channel) return;
@@ -46,51 +56,52 @@ client.on('message', message => {
 
 client.on('guildMemberAdd', member => {
     const embed = new Discord.RichEmbed()
-    .setAuthor("Member joined", `${member.user.displayAvatarURL}`)
-    .setColor(green)
-    .setDescription(`${member.user.username} joined the Discord.\nTotal member count: **${member.guild.memberCount}**`)
-    .setThumbnail(`${member.user.displayAvatarURL}`)
-    .setTimestamp()
-    
+        .setAuthor("Member joined", `${member.user.displayAvatarURL}`)
+        .setColor(colors.green)
+        .setDescription(`${member.user.username} joined the Discord.\nTotal member count: **${member.guild.memberCount}**`)
+        .setThumbnail(`${member.user.displayAvatarURL}`)
+        .setTimestamp();
+
     const channel = member.guild.channels.find(channel => channel.name === log_channel);
     if (!channel) return;
     channel.send(embed);
-    
+
     const embed2 = new Discord.RichEmbed()
-    .setAuthor("Member joined", `${member.user.displayAvatarURL}`)
-    .setColor(green)
-    .setDescription(`${member.user.username} joined the Discord.\nTotal member count: **${member.guild.memberCount}**`)
-    .setThumbnail(`${member.user.displayAvatarURL}`)
-    .setTimestamp()
-    
+        .setAuthor("Member joined", `${member.user.displayAvatarURL}`)
+        .setColor(colors.green)
+        .setDescription(`${member.user.username} joined the Discord.\nTotal member count: **${member.guild.memberCount}**`)
+        .setThumbnail(`${member.user.displayAvatarURL}`)
+        .setTimestamp();
+
     const welcomechannel = member.guild.channels.find(channel => channel.name === welcome_channel);
     if (!welcomechannel) return;
     welcomechannel.send(embed2);
-    
-    member.addRole(member.guild.roles.find(role => role.name === default_role))
+
+    let roleName = member.guild.roles.find(role => role.name === default_role);
+    member.addRole(roleName);
 });
 
 /* When a member leaves the guild */
 
 client.on('guildMemberRemove', member => {
     const embed = new Discord.RichEmbed()
-    .setAuthor("Member left", `${member.user.displayAvatarURL}`)
-    .setColor(red)
-    .setDescription(`${member.user.username} left the Discord or was kicked.\nTotal member count: **${member.guild.memberCount}**`)
-    .setThumbnail(`${member.user.displayAvatarURL}`)
-    .setTimestamp()
-    
+        .setAuthor("Member left", `${member.user.displayAvatarURL}`)
+        .setColor(colors.red)
+        .setDescription(`${member.user.username} left the Discord or was kicked.\nTotal member count: **${member.guild.memberCount}**`)
+        .setThumbnail(`${member.user.displayAvatarURL}`)
+        .setTimestamp()
+
     const channel = member.guild.channels.find(channel => channel.name === log_channel);
     if (!channel) return;
     channel.send(embed);
-    
+
     const embed2 = new Discord.RichEmbed()
-    .setAuthor("Member left", `${member.user.displayAvatarURL}`)
-    .setColor(red)
-    .setDescription(`${member.user.username} left the Discord.\nTotal member count: **${member.guild.memberCount}**`)
-    .setThumbnail(`${member.user.displayAvatarURL}`)
-    .setTimestamp()
-    
+        .setAuthor("Member left", `${member.user.displayAvatarURL}`)
+        .setColor(colors.red)
+        .setDescription(`${member.user.username} left the Discord.\nTotal member count: **${member.guild.memberCount}**`)
+        .setThumbnail(`${member.user.displayAvatarURL}`)
+        .setTimestamp()
+
     const leavechannel = member.guild.channels.find(channel => channel.name === leave_channel);
     if (!leavechannel) return;
     leavechannel.send(embed2);
@@ -103,11 +114,11 @@ client.on('channelCreate', channel => {
     if (!channel.guild) return
     const logChannel = channel.guild.channels.find(channel => channel.name === log_channel);
     const embed = new Discord.RichEmbed()
-    .setAuthor("Channel created")
-    .setColor(green)
-    .setDescription(`Created channel ${createdChannel}`)
-    .setTimestamp()
-    
+        .setAuthor("Channel created")
+        .setColor(colors.green)
+        .setDescription(`Created channel ${createdChannel}`)
+        .setTimestamp()
+
     if (!logChannel) return;
     logChannel.send(embed);
 });
@@ -118,11 +129,11 @@ client.on('channelDelete', channel => {
     const deletedChannel = channel;
     const logChannel = channel.guild.channels.find(channel => channel.name === log_channel);
     const embed = new Discord.RichEmbed()
-    .setAuthor("Channel deleted")
-    .setColor(red)
-    .setDescription(`Deleted channel ${deletedChannel}`)
-    .setTimestamp()
-    
+        .setAuthor("Channel deleted")
+        .setColor(colors.red)
+        .setDescription(`Deleted channel ${deletedChannel}`)
+        .setTimestamp()
+
     if (!logChannel) return;
     logChannel.send(embed);
 });

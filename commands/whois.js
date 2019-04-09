@@ -4,7 +4,6 @@ const colors = require('../lib/colors.json');
 
 module.exports = {
 	name: 'whois',
-	description: 'Display information about the mentioned user, or your own avatar if no user is mentioned.',
 	execute(message) {
         const embed = new Discord.RichEmbed() // Embed for when a user isn't mentioned.
             .setAuthor(`${message.author.username}`)

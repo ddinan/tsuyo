@@ -8,14 +8,14 @@ const embed = new Discord.RichEmbed()
     .setFooter("This is the footer text, it can hold 2048 characters", "http://i.imgur.com/w1vhFSR.png")
     .setImage("http://i.imgur.com/yVpymuV.png")
     .setThumbnail("http://i.imgur.com/p2qNFag.png")
-    .setTimestamp()
     .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
     .addField("Inline Field", "They can also be inline.", true)
-    .addField("Inline Field 3", "You can have a maximum of 25 fields.", true);
+    .addField("Inline Field 2", "Another inline.", true)
+    .addField("Inline Field 3", "You can have a maximum of 25 fields.", true)
+    .setTimestamp();
 
 module.exports = {
 	name: 'embed-example',
-	description: 'Embed example.',
 	execute(message) {
 		message.channel.send({embed});
 	},

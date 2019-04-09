@@ -1,22 +1,36 @@
-﻿module.exports = {
+﻿const Discord = require('discord.js');
+const colors = require('../lib/colors.json');
+
+module.exports = {
 	name: 'react',
-	description: 'Reacts to a given message with the given emoji.',
 	execute(message, args) {
         let id = args[0]
         let emoji = args[1];
         
         if (!id) {
-            message.channel.send("You need to provide the ID of the message for me to react to it.");
-        } else {
-            if (!emoji) {
-                message.channel.send("You didn't specify an emoji for me to react with. ");
-            } else {
+            const embed = new Discord.RichEmbed()
+            .setColor(colors.blue)
+            .setTitle('Invalid Syntax')
+            .setDescription('`/react [message ID] :emoji:`\n\nRemember to use `:emoji:` instead of just `emoji`.');
+            
+            message.channel.send(embed);
+        }
+        
+        else {
+            if (emoji) {
+                const embed = new Discord.RichEmbed()
+                .setColor(colors.blue)
+                .setTitle('Invalid Syntax')
+                .setDescription('`/react [message ID] :emoji:`\n\nRemember to use `:emoji:` instead of just `emoji`.');
+                
                 message.channel.fetchMessage(id)
                 .then(function (message) {
                     message.react(emoji);
                 }) .catch(function(error) {
-                    message.channel.send('Invalid message ID and/or emoji. Remember to use `:emoji:` instead of just `emoji`.');
+                    message.channel.send(embed);
                 })       
+            } else {
+                message.channel.send(embed);
             }
         }
 	}

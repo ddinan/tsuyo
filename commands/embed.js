@@ -3,19 +3,22 @@ const colors = require('../lib/colors.json');
 
 module.exports = {
 	name: 'embed',
-	description: 'Embeds your message.',
 	execute(message, args) {
-        let title = args[0];
-        let description = args[1];
         let input = args.join(" ");
+        
+        var arr = args.split(",");
+        var title = arr[0];
+        var desc = arr[1];
+        var color = arr[2];
+        
         const embed = new Discord.RichEmbed()
             .setTitle(title)
-            .setDescription(description)
-            .setColor(colors.blue)
+            .setDescription(desc)
+            .setColor(color)
         
         if (!input) { 
             const { prefix } = require('../config.json');
-            message.reply(`Invalid syntax. **${prefix}embed [title] <description>`);
+            message.reply(`Invalid syntax. **${prefix}embed [title] <description> <#color>`);
         } else { 
             message.channel.send({embed});
         }

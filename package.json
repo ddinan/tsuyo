@@ -1,34 +1,36 @@
 {
-    "name": "Cogent",
-    "description": "A light-weight modular Discord bot built with DiscordJS.",
-    "version": "1.0.0",
-    "directories": {
-        "lib": "lib"
-    },
-    "keywords": [
-        "cogent",
-        "discord",
-        "discordjs",
-        "bot"
-    ],
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node bot.js"
-    },
-    "dependencies": {
-        "discordjs": "11.4.2",
-        "fs": "0.0.1-security",
-        "got": "^9.6.0",
-        "nodejs": "^9.0.0",
-        "snekfetch": "^4.0.4"
-    },
-    "bugs": {
-        "web": "https://github.com/VenkSociety/Cogent/issues"
-    },
-    "license": "MIT",
-    "homepage": "https://github.com/VenkSociety/Cogent",
-    "engines": {
-        "node": "^9.0.0",
-        "npm": "^6.4.1"
-    }
+  "name": "Cogent",
+  "description": "A light-weight modular Discord bot built with DiscordJS.",
+  "version": "1.0.0",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [
+    "cogent",
+    "discord",
+    "discordjs",
+    "bot"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "11.4.2",
+    "fs": "0.0.1-security",
+    "got": "^9.6.0",
+    "ms": "^2.1.1",
+    "snekfetch": "^4.0.4",
+    "moment": "^2.24.0",
+    "discord-money": "^0.2.0",
+    "sqlite3": "^4.0.6",
+    "new-dblapi": "^1.3.1"
+  },
+  "bugs": {
+    "url": "https://github.com/VenkSociety/Cogent/issues"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/VenkSociety/Cogent",
+  "main": "bot.js",
+  "author": ""
 }
