@@ -1,3 +1,6 @@
+const Discord = require('discord.js');
+const colors = require('../lib/colors.json');
+
 module.exports = {
 	name: 'mute',
 	execute(message, args) {
@@ -5,9 +8,8 @@ module.exports = {
 		const modRole = message.guild.roles.find(role => role.name === mod_role);
         const mutedRole = message.guild.roles.find(role => role.name === "Muted");
         const verifiedRole = message.guild.roles.find(role => role.name === "Verified"); // New Blood exclusive
-        const channel = message.guild.channels.find(channel => channel.name === log_channel);
-        
-        
+        const logs = message.guild.channels.find(logs => logs.name === log_channel);
+
         if (!message.guild.me.hasPermission("MANAGE_ROLES")) { // If bot can't manage messages
             message.channel.send("I don't have the `MANAGE_ROLES` permission.");
         } else { // If bot can manage messages
@@ -24,16 +26,35 @@ module.exports = {
                             message.channel.send(`There is no \`Muted\` role.`);
                         } else { // If there is a Muted role
                             const mentioned = message.mentions.members.first();
-                            if(mentioned.roles.has(mutedRole.id)) { // If member has the Muted role
+                            if (mentioned.roles.has(mutedRole.id)) { // If member has the Muted role
                                 message.channel.send(`Member is already muted.`);
                             } else { // If member doesn't have the Muted role
+                                
+                                const embed = new Discord.RichEmbed()
+                                .setAuthor("🔇 User muted")
+                                .setColor(colors.blue)
+                                .setDescription(`${args} was muted by ${message.author.username}.`)
+                                .setTimestamp();
+                                
                                 if (message.guild.id === '263365621712945154') { // If message was typed in New Blood
                                     mentioned.addRole(mutedRole).catch(console.error);
                                     mentioned.removeRole(verifiedRole).catch(console.error);
+                                    
+                                    if (logs) { // If #logs exists
+                                        logs.send(embed);
+                                    }
+                                    
                                     message.channel.send(`Successfully muted member.`);
+                                    // message.mentions.members.send(`:mute: You have been muted in the **${message.guild.name}** Discord.`);
                                 } else { // If message wasn't typed in New Blood
                                     mentioned.addRole(mutedRole).catch(console.error);
+                                    
+                                    if (logs) { // If #logs exists
+                                        logs.send(embed);
+                                    }
+                                    
                                     message.channel.send(`Successfully muted member.`);
+                                    // message.mentions.members.first(`:mute: You have been muted in the **${message.guild.name}** Discord.`);
                                 }
                             }
                         }
