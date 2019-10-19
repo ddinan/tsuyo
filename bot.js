@@ -8,8 +8,6 @@ const process = require('process');
 const ms = require('parse-ms');
 const got = require('got');
 
-// Enmap
-
 const Enmap = require('enmap');
 client.points = new Enmap({name: "points"});
 
@@ -54,11 +52,6 @@ client.on("guildMemberAdd", member => {
         .setTimestamp();
 	
 	channel.send(embed);
-  
-  /*member.guild.channels
-    .find("name", client.settings.get(member.guild.id, "welcomeChannel"))
-    .send(welcomeMessage)
-    .catch(console.error);*/
 });
 
 client.on('guildMemberRemove', member => {
@@ -240,67 +233,7 @@ client.on("message", async (message) => {
 		}
 	}
 	
-	/* Points commands */
-	
-	if (cmd === "points") {
-		const key = `${message.guild.id}-${message.author.id}`;
-		return message.channel.send(`You currently have ${client.points.get(key, "points")} points, and are level ${client.points.get(key, "level")}!`);
-  	}
-	
-	if (cmd === "leaderboard") {
-	  // Get a filtered list (for this guild only), and convert to an array while we're at it.
-	  const filtered = client.points.filter( p => p.guild === message.guild.id ).array();
-
-	  // Sort it to get the top results... well... at the top. Y'know.
-	  const sorted = filtered.sort((a, b) => b.points - a.points);
-
-	  // Slice it, dice it, get the top 10 of it!
-	  const top10 = sorted.splice(0, 10);
-
-	  // Now shake it and show it! (as a nice embed, too!)
-	  const embed = new Discord.RichEmbed()
-		.setTitle("Leaderboard")
-		.setAuthor(client.user.username, client.user.avatarURL)
-		.setDescription("Our top 10 points leaders!")
-		.setColor(0x00AE86);
-	  for(const data of top10) {
-		embed.addField(client.users.get(data.user).tag, `${data.points} points (level ${data.level})`);
-	  }
-	  return message.channel.send({embed});
-}
-	
-	if (cmd === "give") {
-    // Limited to guild owner - adjust to your own preference!
-    if (message.author.id !== message.guild.ownerID) 
-      return message.reply("You're not the boss of me, you can't do that!");
-
-    const user = message.mentions.users.first() || client.users.get(args[0]);
-    if (!user) return message.reply("You must mention someone or give their ID!");
-
-    const pointsToAdd = parseInt(args[1], 10);
-    if (!pointsToAdd) 
-      return message.reply("You didn't tell me how many points to give...")
-
-    // Ensure there is a points entry for this user.
-    client.points.ensure(`${message.guild.id}-${user.id}`, {
-      user: message.author.id,
-      guild: message.guild.id,
-      points: 0,
-      level: 1
-    });
-
-    // Get their current points.
-    let userPoints = client.points.get(`${message.guild.id}-${user.id}`, "points");
-    userPoints += pointsToAdd;
-    
-
-    // And we save it!
-    client.points.set(`${message.guild.id}-${user.id}`, userPoints, "points")
-
-    message.channel.send(`${user.tag} has received ${pointsToAdd} points and now stands at ${userPoints} points.`);
-  }
-	
-	/* Economy commands */
+	/* Economy Commands */
 	
 	if (cmd === "add") {
 		let adminRole = message.guild.roles.find(role => role.name === guildConf.adminRole);
@@ -348,6 +281,64 @@ client.on("message", async (message) => {
 		}
 	}
 	
+	if (cmd === "give") {
+		// Limited to guild owner
+		if (message.author.id !== message.guild.ownerID) 
+		  return message.reply("You're not the boss of me, you can't do that!");
+
+		const user = message.mentions.users.first() || client.users.get(args[0]);
+		if (!user) return message.reply("You must mention someone or give their ID!");
+
+		const pointsToAdd = parseInt(args[1], 10);
+		if (!pointsToAdd) return message.reply("You didn't tell me how many points to give...")
+
+		// Ensure there is a points entry for this user.
+		client.points.ensure(`${message.guild.id}-${user.id}`, {
+			user: message.author.id,
+			guild: message.guild.id,
+			points: 0,
+			level: 1
+		});
+
+		// Get their current points.
+		let userPoints = client.points.get(`${message.guild.id}-${user.id}`, "points");
+		userPoints += pointsToAdd;
+
+
+		// And we save it!
+		client.points.set(`${message.guild.id}-${user.id}`, userPoints, "points")
+
+		message.channel.send(`${user.tag} has received ${pointsToAdd} points and now stands at ${userPoints} points.`);
+	}
+	
+	if (cmd === "leaderboard") {
+	 	// Get a filtered list (for this guild only), and convert to an array while we're at it.
+	 	const filtered = client.points.filter( p => p.guild === message.guild.id ).array();
+
+	 	// Sort it to get the top results... well... at the top. Y'know.
+	 	const sorted = filtered.sort((a, b) => b.points - a.points);
+
+	 	// Slice it, dice it, get the top 10 of it!
+	 	const top10 = sorted.splice(0, 10);
+
+	 	// Now shake it and show it! (as a nice embed, too!)
+	 	const embed = new Discord.RichEmbed()
+		.setTitle("Leaderboard")
+		.setAuthor(client.user.username, client.user.avatarURL)
+		.setDescription("Our top 10 points leaders!")
+		.setColor(0x00AE86);
+	 	for (const data of top10) {
+			embed.addField(client.users.get(data.user).tag, `${data.points} points (level ${data.level})`);
+	  	}
+		
+	 	return message.channel.send({embed});
+	}
+	
+	if (cmd === "xp") {
+		const key = `${message.guild.id}-${message.author.id}`;
+		return message.channel.send(`You currently have ${client.points.get(key, "points")} XP, and are level ${client.points.get(key, "level")}!`);
+  	}
+	
 	if (cmd === "store" || cmd === "shop") {
 		let embed = new Discord.RichEmbed()
     .setTitle(`${client.user.tag} Store!`)
@@ -385,7 +376,7 @@ client.on("message", async (message) => {
         }
 	}
 	
-	if (cmd === "coin") {
+	if (cmd === "coin" || cmd === "flipcoin" || cmd === "headsortails") {
 		const sides = ["heads", "tails"];
 		const side = sides[Math.floor(Math.random()*sides.length)];
 		message.channel.send("The coin landed on " + side + ".");
@@ -522,12 +513,12 @@ client.on("message", async (message) => {
 		message.channel.send(embed2);
 	}
 	
-	if (cmd === "bot") {
+	if (cmd === "bot" || cmd === "botinfo") {
 		const embed = new Discord.RichEmbed()
             .setAuthor("Bot Information")
             .setColor(colors.teal)
             .setThumbnail("https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048")
-            .addField("Total guilds:", message.client.guilds.size + 98, true)
+            .addField("Total guilds:", message.client.guilds.size, true)
             .addField("Total members:", `${message.client.users.size}`, true)
             .addField("ID", `${message.client.user.id}`, true)
             .addField("Hosted in", `:flag_us: United States`, true)
@@ -538,20 +529,65 @@ client.on("message", async (message) => {
 		message.channel.send({embed});
 	}
 	
-	if (cmd === "commands" || cmd === "cmds") {
-
+	if (cmd === "cmds" || cmd === "commands" || cmd === "c") {
 		const embed = new Discord.RichEmbed()
-		.setTitle("Help")
+		.setTitle("Commands")
+		.setColor(colors.teal)
+		.addField(`Type ${guildConf.prefix}commands [category] to view all commands in that category`, `Valid categories:\n\`admin\`, \`eco\`, \`fun\`, \`info\`, \`mod\``)
+		
+		const admin = new Discord.RichEmbed()
+		.setTitle("Commands")
 		.setColor(colors.teal)
 		.setThumbnail("https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048")
-
-		.addField("Fun", `\`${guildConf.prefix}8ball [question]\` - Responds with "yes, no or maybe" or if containing "who", it will randomly select a user in the Discord.\n\`${guildConf.prefix}coin\` - Flips a coin. Great for disputes.\n\`${guildConf.prefix}gif [query]\` - Searches for a gif based on your query.\n\`${guildConf.prefix}react [message ID] :emoji:\` - Reacts to [message ID] with :emoji:.\n\`${guildConf.prefix}rps [rock/paper/scissors]\` - Rock paper scissors.`)
-
-		.addField(`Info`, `\`${guildConf.prefix}avatar <@user>\` - Shows the avatar of the specified user. If <@user> isn't specified, it will show your avatar instead.\n\`${guildConf.prefix}commands\` - Shows this menu.\n\`${guildConf.prefix}embed [msg]\` - Embeds your message.\n\`${guildConf.prefix}embed-example\` - Shows an example embedded message.\n\`${guildConf.prefix}help\` - Shows information and a link to the official Tsuyo Discord.\n\`${guildConf.prefix}ping\` - Shows your ping in milliseconds.\n\`${guildConf.prefix}remind [time] [message]\` - Messages you [message] after [time] amount. Use 's' for seconds, 'm' for minutes, 'h' for hours and 'd' for days. If a measurement of time is not specified, the time will be in seconds.\n\`${guildConf.prefix}server\` - Shows information about the server.\n\`${guildConf.prefix}whois\` -  Shows information about the specified user. If <@user> isn't specified, it will show your information instead.`)
-
-		.addField(`Moderation`, `\`${guildConf.prefix}addrole [role name]\` - Creates a new role.\n\`${guildConf.prefix}kick [@user]\` - Kicks the specified user from the guild.\n\`${guildConf.prefix}prune [1-99]\` - Deletes specified amount of messages.\n\`${guildConf.prefix}say [message]\` - Say something as the bot.`);
+		.addField("🔮 Admin Commands", `\`${guildConf.prefix}showconf\` - Shows the settings for the guild.\n\n\`${guildConf.prefix}setconf [setting] [input]\` - Sets [setting] to [input] in the guild you are in.`)
 		
-		message.channel.send(embed);
+		const eco = new Discord.RichEmbed()
+		.setTitle("Commands")
+		.setColor(colors.teal)
+		.setThumbnail("https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048")
+		.addField("💰 Economy Commands", `\`${guildConf.prefix}bal\` - Shows your balance.\n\n\`${guildConf.prefix}daily\` - Claims your daily bonus.\n\n\`${guildConf.prefix}leaderboard\` - Shows the top 10 users in the Discord with the most XP.\n\n\`${guildConf.prefix}Store\` - Shows buyable items.`)
+		
+		const fun = new Discord.RichEmbed()
+		.setTitle("Commands")
+		.setColor(colors.teal)
+		.setThumbnail("https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048")
+		.addField("🎲 Fun Commands", `\`${guildConf.prefix}8ball [question]\` - Responds with "yes, no or maybe" or if containing "who", it will randomly select a user in the Discord.\n\n\`${guildConf.prefix}coin\` - Flips a coin. Great for disputes.\n\n\`${guildConf.prefix}gif [query]\` - Searches for a gif based on your query.\n\n\`${guildConf.prefix}rps [rock/paper/scissors]\` - Rock paper scissors.`)
+		
+		const info = new Discord.RichEmbed()
+		.setTitle("Commands")
+		.setColor(colors.teal)
+		.setThumbnail("https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048")
+		.addField(`❓ Information Commands`, `\`${guildConf.prefix}avatar <@user>\` - Shows the avatar of the specified user. If <@user> isn't specified, it will show your avatar instead.\n\n\`${guildConf.prefix}bot\` - Shows info about the bot.\n\n\`${guildConf.prefix}commands [category]\` - Shows all commands in [category].\n\n\`${guildConf.prefix}help\` - Shows information and a link to the official Tsuyo Discord.\n\n\`${guildConf.prefix}info\` -  Shows information about the specified user. If <@user> isn't specified, it will show your information instead.\n\n\`${guildConf.prefix}ping\` - Shows your ping in milliseconds.\n\n\`${guildConf.prefix}remind [time] [message]\` - Messages you [message] after [time]. Use 's' for seconds, 'm' for minutes, 'h' for hours and 'd' for days. If a measurement of time is not specified, the time will be in seconds.\n\n\`${guildConf.prefix}server\` - Shows information about the server.\n\n\`${guildConf.prefix}vote\` - Shows voting links.`)
+		
+		const mod = new Discord.RichEmbed()
+		.setTitle("Commands")
+		.setColor(colors.teal)
+		.setThumbnail("https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048")
+		.addField("👮 Moderation Commands", `\`${guildConf.prefix}ban [user]\` - Bans [@user] from the guild.\n\n\`${guildConf.prefix}kick [@user]\` - Kicks [@user] from the guild.\n\n\`${guildConf.prefix}mute [@user]\` - Prevents [@user] from talking.\n\n\`${guildConf.prefix}poll [question]\` - Creates a yes or no poll for [input].\n\n\`${guildConf.prefix}prune [1-99]\` - Deletes specified amount of messages.\n\n\`${guildConf.prefix}react [message ID] :emoji:\` - Reacts to [message ID] with :emoji:.\n\n\`${guildConf.prefix}say [message]\` - Say something as the bot.`)
+		
+		if (args.length === 0) {
+			message.channel.send(embed);
+		}
+
+		if (args[0] === "admin" || args === "administration") {
+			message.channel.send(admin);
+		}
+		
+		if (args[0] === "eco" || args === "economy") {
+			message.channel.send(eco);
+		}
+
+		if (args[0] === "fun") {
+			message.channel.send(fun);
+		}
+
+		if (args[0] === "info" || args === "information") {
+			message.channel.send(info);
+		}
+		
+		if (args[0] === "mod" || args === "moderation") {
+			message.channel.send(mod);
+		}
 	}
 	
 	if (cmd === "donate") {
@@ -691,7 +727,7 @@ client.on("message", async (message) => {
         }
 	}
 	
-	if (cmd === "server") {
+	if (cmd === "server" || cmd === "serverinfo") {
 		const embed = new Discord.RichEmbed()
             .setAuthor("Server Information")
             .setColor(colors.teal)
