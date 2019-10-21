@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs') %>
+<body>
+  <%- include('partials/navbar.ejs') %>
+  
+  <center>
+    <% let cmd = djsclient.commands.get(command); %>
+    <h2><%= cmd.help.name %></h2>
+    <p>
+      <%= cmd.help.description %>
+      <br>
+      <b>Usage</b>: <%= cmd.help.usage %>
+      <br>
+      <b>Aliases</b>: <%= cmd.conf.aliases.join(' | ') || 'none' %>
+      <br>
+      <b>Permission Level</b>: <%= djsclient.levelCache[cmd.conf.permLevel] %> - <%= cmd.conf.permLevel %>
+      <br>
+      <b>Category</b>: <%= cmd.help.category %>
+      <br>
+      <b>Guild Only</b>: <%= cmd.conf.guildOnly ? 'Yes' : 'No' %>
+      <br>
+      <b>Enabled</b>: <%= cmd.conf.enabled ? 'Yes' : 'No' %>
+    </p>
+  </center>
+</body>
+</html>

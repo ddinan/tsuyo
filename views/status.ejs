@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs') %>
+<body>
+  <%- include('partials/navbar.ejs') %>
+  
+  <div>
+    <center>
+      <% Object.keys(stats).forEach(key => { %>
+        <div>
+          <h3><%= key.replace(/1/g, '.').replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase()) %></h3>
+          <p><%= stats[key] %></p>
+        </div><br>
+      <%}) %>
+    </center>
+  </div>
+</body>
+</html>

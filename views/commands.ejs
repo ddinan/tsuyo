@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs') %>
+<body>
+  <%- include('partials/navbar.ejs') %>
+  
+    <center>
+      <%
+        let commandNames = djsclient.commands.keyArray();
+        let longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+
+        let currentCategory = '';
+        let output = '';
+        let sorted = djsclient.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 :  p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
+
+        sorted.forEach(c => {
+          const cat = c.help.category;
+          
+          if (currentCategory !== cat) {
+        %>
+          </div><h3><%= cat %> Commands</h3><div style="display: block;width: 35%;background-color: #222222;border-radius: 10px;padding: 10px;">
+        <%
+            currentCategory = cat;
+          }
+        %>
+        <span style="font-family: 'Roboto', sans-serif;font-weight: 300;color: #ffffff;"><a style="text-decoration: none;" href="/commands?command=<%= c.help.name %>"><%= c.help.name %></a></span>
+      <%
+        });
+      %>
+    </div><br><br>
+    </center>
+</body>
+</html>

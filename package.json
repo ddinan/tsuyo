@@ -1,35 +1,60 @@
 {
-  "name": "tsuyo",
+  "name": "Tsuyo",
   "version": "1.0.0",
-  "description": "Multi-purpose Discord bot.",
+  "description": "A multipurpose bot to handle all your needs.",
   "main": "bot.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js"
+    "start": "node bode.js",
+    "node": "node bot.js",
+    "forever": "forever start bot.js",
+    "pm2": "pm2 start bot.js",
+    "pnpm": "pnpm server start",
+    "yarn": "yarn run bot.js",
+    "nodemon": "nodemon bot.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect",
+    "test": "jest"
   },
+  "engines": {
+    "node": "10.x"
+  },
+  "repository": "github:TsuyoBot/main",
+  "author": "Venk#2020",
+  "license": "MIT",
   "dependencies": {
-    "discord.js": "11.4.2",
-	"better-sqlite-pool": "0.2.2",
-    "quick.db": "7.0.0-b22",
-    "canvas": "^2.6.0",
-    "dblapi.js": "^2.3.0",
-    "enmap": "^4.8.4",
-    "fs": "0.0.1-security",
+    "better-sqlite-pool": "^0.2.2",
+    "better-sqlite3": "^5.4.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "discord.js": "^11.5.1",
+    "discord.js-minesweeper": "^1.0.4",
+    "ejs": "^2.6.1",
+    "enmap": "^5.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "form-data": "^2.4.0",
+    "js-beautify": "^1.10.0",
+    "mathjs": "^6.0.2",
     "moment": "^2.24.0",
-    "ms": "^2.1.1",
-    "got": "^9.6.0",
-    "sqlite3": "^4.0.6",
-    "parse-ms": "^2.1.0",
-    "process": "^0.11.10"
+    "moment-duration-format": "^2.2.2",
+    "ms": "^2.1.2",
+    "node-fetch": "^2.6.0",
+    "numeral": "^2.0.6",
+    "one-liner-joke": "^1.2.0",
+    "request": "^2.88.0",
+	"snyk": "^1.192.1",
+    "rhyme": "^0.0.3",
+    "zaq": "^2.1.3",
+    "zxcvbn": "^4.4.2"
   },
-  "keywords": [
-    "tsuyo",
-    "discord",
-    "bot"
-  ],
-  "author": "Venk",
-  "license": "MIT"
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "forever": "^1.0.0",
+    "nodemon": "^1.18.10"
+  },
+  "bugs": {
+    "url": "https://github.com/TsuyoBot/main/issues"
+  },
+  "homepage": "https://github.com/TsuyoBot/main",
+  "snyk": true
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<%- include('../partials/header') %>
+<body>
+  <%- include('../partials/navbar') %>
+  <% const entrys = [
+    {
+      path: '/invite',
+      url: 'https://web.cytrus.ga/api/invite',
+      response: `{ status: 200, invite: "https://discordapp.com/oauth2/authorize?client_id=526593597118873620&scope=bot&permissions=8" }`,
+      description: 'Returns the bot invite',
+      method: 'GET'
+    },
+    {
+      path: '/upvote',
+      url: 'https://web.cytrus.ga/api/upvote',
+      response: `{ status: 200, upvote: 'https://discordbotlist.com/bots/526593597118873620/upvote' }`,
+      description: 'Returns the bot upvote link',
+      method: 'GET'
+    },
+    {
+      path: '/client_id',
+      url: 'https://web.cytrus.ga/api/client_id',
+      response: `{ status: 200, client_id: '526593597118873620' }`,
+      description: 'Returns the bot Client ID',
+      method: 'GET'
+    },
+    {
+      path: '/server',
+      url: 'https://web.cytrus.ga/api/server',
+      response: `{ status: 200, server: 'https://discord.gg/VfTE9GH' }`,
+      description: 'Returns the bot support server',
+      method: 'GET'
+    },
+    {
+      path: '/subgap',
+      url: 'https://web.cytrus.ga/api/subgap',
+      response: `{ status: 200, subgap: NUMBER }`,
+      description: 'Returns the sub gap between PewDiePie and T-Series',
+      method: 'GET'
+    },
+    {
+      path: '/minesweeper',
+      url: 'https://web.cytrus.ga/api/minesweeper',
+      response: `{ status: 200, minesweeper: STRING }`,
+      description: 'Returns a string to put in discord to play minesweeper',
+      method: 'GET'
+    }
+  ]; %>
+  <div class="main-div" id="main-div">
+    <center><p style="font-size: 26px;">Cytrus API Documentation</p></center>
+    <br>
+    <table style="width:100%;">
+      <tr>
+        <th><p>Method</p></th>
+        <th><p>Path</p></th>
+        <th><p>Example Response</p></th>
+        <th><p>Description</p></th>
+      </tr>
+      <%
+        entrys.forEach(entry => {
+      %>
+        <tr>
+          <td><p><%= entry.method %></p></td>
+          <td><a style="text-decoration: none;" href="<%= entry.url %>"><%= entry.path %></a></td>
+          <td><p style="font-size: 12px"><%= entry.response %></p></td>
+          <td><p><%= entry.description %></p></td>
+        </tr>
+      <%
+        });
+      %>
+    </table>
+    <br>
+  </div>
+</body>
+</html>

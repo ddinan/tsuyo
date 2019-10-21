@@ -1,0 +1,29 @@
+exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+  try {
+  //command code
+  
+  //error log
+  
+  } catch (err) {
+    message.channel.send('There was an error!\n' + err).catch();
+  }
+};
+
+//permissions and aliases
+
+exports.conf = {
+  enabled: true,
+  aliases: [],
+  guildOnly: false,
+  permLevel: 'User'
+};
+
+
+//what the command does
+
+exports.help = {
+  name: '',
+  category: '',
+  description: '',
+  usage: ''
+};

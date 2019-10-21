@@ -1,0 +1,55 @@
+<div>
+  <%
+    const acr = (s) => {
+      let words = s.split(' ');
+      let acronym = '';
+      let nextWord;
+      let i = 0;
+ 
+      while (i < words.length) {
+        nextWord = words[i];
+        acronym = acronym + nextWord.charAt(0);
+        i++;
+      }
+            
+      return acronym;
+    }
+  %>
+  <% guilds.forEach((guild) => { %>
+    <% if (!djsclient.guilds.has(guild.id)) { %>
+      <% if (guild.icon) { %>
+        <div class="toolelem">
+          <a target="_blank" href="https://discordapp.com/oauth2/authorize?client_id=526593597118873620&permissions=8&scope=bot&guild_id=<%= guild.id %>">
+            <img style="border-radius: 50px;" width="100" height="100" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png?size=256">
+          </a>
+          <span class="tooltext"><%= guild.name %></span>
+        </div>
+      <% } else { %>
+        <div class="toolelem" style="position: relative;text-align: center;">
+          <a target="_blank" href="https://discordapp.com/oauth2/authorize?client_id=526593597118873620&permissions=8&scope=bot">
+            <img style="border-radius: 50px;" width="100" height="100" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEUkJCRV1daRAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC">
+            <h3 style="text-decoration: none;position: absolute;top: 30%;left: 50%;transform: translate(-50%, -50%);"><%= acr(guild.name) %></h3>
+          </a>
+          <span class="tooltext"><%= guild.name %></span>
+        </div>
+      <% } %>
+    <% } else { %>
+      <% if (guild.icon) { %>
+        <div class="toolelem">
+          <a href="./guild?id=<%= guild.id %>">
+            <img style="border-radius: 50px;" width="100" height="100" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png?size=256">
+          </a>
+          <span class="tooltext"><%= guild.name %></span>
+        </div>
+      <% } else { %>
+        <div class="toolelem" style="position: relative;text-align: center;">
+          <a href="./guild?id=<%= guild.id %>">
+            <img style="border-radius: 50px;" width="100" height="100" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEUkJCRV1daRAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC">
+            <h3 style="text-decoration: none;position: absolute;top: 30%;left: 50%;transform: translate(-50%, -50%);"><%= acr(guild.name) %></h3>
+          </a>
+          <span class="tooltext"><%= guild.name %></span>
+        </div>
+      <% } %>
+    <% } %>
+  <% }) %>
+</div>

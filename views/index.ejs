@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs') %>
+<body>
+  <%- include('partials/navbar.ejs') %>
+
+  <div class="page-content">
+    <% if (!user || !guilds) { %>
+      <h1>Welcome</h1>
+      <p>To get started, login by clicking <em>Login</em> on the navbar, then go to the servers page and choose a server to manage.</p>
+    <% } else { %>
+      <div class="userinfo">
+        <h1>
+          Welcome <%= user.username %>#<%= user.discriminator %>
+        </h1>
+
+        <p>Choose a server to begin</p><br><br>
+      </div>
+      <%- include('partials/servers.ejs') %>
+    <% } %>    
+    </div>
+</body>
+</html>

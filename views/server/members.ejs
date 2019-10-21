@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/header.ejs') %>
+<body>
+  <%- include('../partials/navbar.ejs') %>
+  <% const members = djsclient.guilds.get(guild).members %>
+  
+  <div class="page-content">
+    <a style="text-decoration: none;" href="/guild/config?id=<%= guild %>">Guild Config</a>
+    <br>
+    <br>
+    <br>
+    <% members.forEach((member) => { %>
+      <div class="toolelem">
+        <img src="<%= member.user.avatarURL %>" width="100" style="border-radius: 50px">
+        <span class="tooltext"><%= member.user.tag %></span>
+      </div>
+    <%}) %>
+  </div>
+</body>
+</html>

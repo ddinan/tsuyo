@@ -1,0 +1,16 @@
+<div class="navbar">
+  <a href="/">Dashboard</a>
+
+  <div class="right">
+    <% if (user) { %>
+      <a href="/status">Status</a>
+      <a href="/commands">Commands</a>
+      <a href="/api">API</a>
+      <a href="/servers">Servers</a>
+      <a href="/money">Money</a>
+      <a href="/authorization/logout">Logout</a>
+    <% } else { %>
+      <a href="/authorization">Login</a>
+    <% } %>
+  </div>
+</div>

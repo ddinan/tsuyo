@@ -1,0 +1,5 @@
+{
+  "clientId": "492871769485475840",
+  "scopes": ["identify", "guilds", "guilds.join"],
+  "redirectUri": ""
+}
