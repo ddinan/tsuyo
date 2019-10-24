@@ -2,17 +2,22 @@ const Discord = require('discord.js');
 const colors = require('../lib/colors.json');
 
 module.exports = (client, member) => {
-  let settings = client.getSettings(member.guild.id);
-  if (settings.logMessageUpdates == 'true') {
-	const embed = new Discord.RichEmbed()
-	.setAuthor("❌ Member left")
-	.setColor(colors.red)
-	.setDescription(`**Total member count:** \`${member.guild.memberCount}\`\n<@${member.user.id}> left the Discord.`)
-	.setThumbnail(`${member.user.displayAvatarURL}`)
-	.setTimestamp();
-		
+ 	let settings = client.getSettings(member.guild.id);
 	let modLogChannel = member.guild.channels.find(c => c.name == settings.modLogChannel);
-		
-	modLogChannel.send(embed);
-  }
+ 	if (settings.logMessageUpdates === 'true') {
+		if (settings.modLogChannel && member.guild.channels.find(c => c.name == settings.modLogChannel)) {
+			let modLogChannel = member.guild.channels.find(c => c.name == settings.modLogChannel);
+			if (!modLogChannel.permissionsFor(member.guild.me).has('VIEW_CHANNEL')) return;
+			if (!modLogChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES')) return;
+
+			const embed = new Discord.RichEmbed()
+			.setAuthor("❌ Member left")
+			.setColor(colors.red)
+			.setDescription(`**Total member count:** \`${member.guild.memberCount}\`\n<@${member.user.id}> left the Discord.`)
+			.setThumbnail(`${member.user.displayAvatarURL}`)
+			.setTimestamp();
+
+			modLogChannel.send(embed);
+		}
+	}
 };
