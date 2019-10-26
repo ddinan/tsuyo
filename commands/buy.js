@@ -40,7 +40,7 @@ RickRoll - $75`);
 exports.conf = {
   enabled: true,
   aliases: ['shop'],
-  guildOnly: false,
+  guildOnly: true,
   permLevel: 'User'
 };
 

@@ -17,8 +17,8 @@ module.exports = (client, oldMember, newMember) => {
     	.setAuthor("👤 Nickname changed")
     	.setColor(colors.teal)
     	.setDescription(`<@${newMember.id}> changed their nickname`)
-		.addField(`Old nickname:`, `${oldMember.nickname !== null ? `${oldMember.nickname}` : oldMember.username}`, true)
-		.addField(`New nickname:`, `${newMember.nickname !== null ? `${oldMember.nickname}` : oldMember.username}`, true)
+		.addField(`Old nickname:`, `${oldMember.nickname !== undefined ? `${oldMember.nickname}` : oldMember.username}`, true)
+		.addField(`New nickname:`, `${newMember.nickname !== undefined ? `${newMember.nickname}` : oldMember.username}`, true)
 		.setThumbnail(`${oldMember.user.displayAvatarURL}`)
     	.setTimestamp();
     

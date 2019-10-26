@@ -156,9 +156,9 @@ module.exports = (client) => {
 
 
   process.on('uncaughtException', (err) => {
+	console.log(err);
     console.log(err.stack);
-    client.destroy();
-    process.exit(1);
+	client.destroy();
   });
 
   process.on('unhandledRejection', (err) => {

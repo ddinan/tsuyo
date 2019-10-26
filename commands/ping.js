@@ -18,7 +18,7 @@ Average Websocket Heartbeat: ${Math.floor(client.pings.average())}ms`
 exports.conf = {
   enabled: true,
   aliases: [],
-  guildOnly: false,
+  guildOnly: true,
   permLevel: 'User'
 };
 

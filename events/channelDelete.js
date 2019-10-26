@@ -15,8 +15,6 @@ module.exports = (client, channel) => {
 			.setDescription(`Deleted channel \`${channel.name}\``)
 			.setTimestamp();
 		
-			let modLogChannel = channel.guild.channels.find(c => c.name == settings.modLogChannel);
-		
 			modLogChannel.send(embed);
 		}
   	}

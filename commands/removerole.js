@@ -8,13 +8,12 @@ exports.run = async (client, message, args, level) => {
       if (message.guild.members.get(message.author.id).highestRole.name == '@everyone') message.reply('The role you are trying to add is above your roles position!');
       else {
         if (message.guild.members.get(message.author.id).highestRole.position >= message.guild.roles.find(r => r.name == args.slice(1).join(' ')).position) {
-          if (message.member.hasPermission('MANAGE_ROLES')) {
+          if (message.member.hasPermission('SEND_MESSAGES')) {
               const member = message.guild.member(user);
               if (member) {
                 if (message.guild.roles.find(r => r.name == args.slice(1).join(' '))) {
                   member.removeRole(message.guild.roles.find(r => r.name == args.slice(1).join(' '))).then(() => {
                     message.reply(`Successfully added Role to ${user.tag}`);
-                    }
                   }).catch('There was an error!');
                 } else message.reply('I can\'t find that Role!');
               } else message.reply('That user isn\'t in this guild!');

@@ -31,7 +31,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 exports.conf = {
   enabled: true,
   aliases: [],
-  guildOnly: false,
+  guildOnly: true,
   permLevel: 'User'
 };
 

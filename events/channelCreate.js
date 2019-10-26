@@ -13,9 +13,7 @@ module.exports = (client, channel) => {
 			.setColor(colors.green)
 			.setDescription(`Created channel ${channel}`)
 			.setTimestamp();
-
-			let modLogChannel = channel.guild.channels.find(c => c.name == settings.modLogChannel);
-
+			
 			modLogChannel.send(embed);
 		}
 	}

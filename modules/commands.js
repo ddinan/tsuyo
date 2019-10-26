@@ -7,8 +7,7 @@ module.exports = (client) => {
   let i = 1;
 
   readdir(__dirname + '/../commands/', (err, files) => {
-    if (err) return console.log(err);
-
+	if (err) return console.log(err);
     files.forEach((file) => {
       if (!file.endsWith('.js')) return;
       let props = require(`../commands/${file}`);
@@ -23,7 +22,5 @@ module.exports = (client) => {
 
       i++;
     });
-
-    console.log();
   });
 };

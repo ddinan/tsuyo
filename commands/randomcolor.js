@@ -18,7 +18,7 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: ['color', 'randomcolour', 'colour', 'rcol'],
-  guildOnly: false,
+  guildOnly: true,
   permLevel: 'User'
 };
 
