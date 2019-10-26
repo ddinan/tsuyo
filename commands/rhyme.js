@@ -1,31 +1,29 @@
+const Discord = require('discord.js');
 const rhyme = require('rhyme');
+const colors = require('../lib/colors.json');
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  try {
-    if (!args[0]) return message.reply('You need to input the word to rhyme!');
+    if (!args[0]) return message.channel.send('You need to input the word to rhyme!');
     
-    let msg = await message.reply('Finding rhymes...');
+    let msg = await message.channel.send('Finding rhymes...');
     
     rhyme(async (rl) => {
-      let rhymes = '';
-      let words = rl.rhyme(args.join(' '));
+    	let rhymes = '';
+      	let words = rl.rhyme(args.join(' '));
       
-      words.forEach(word => {
-        rhymes += word.toPropperCase() + ', ';
-      });
+      	words.forEach(word => {
+        	rhymes += word.toPropperCase() + ', ';
+      	});
 
-      rhymes = rhymes.slice(0, -2);
+      	rhymes = rhymes.slice(0, -2);
+		
+		const embed = new Discord.RichEmbed()
+		.setTitle('Rhyme')
+    	.setColor(colors.teal)
+    	.setDescription(`Rhyming words`, `${rhymes || 'None Found.'}`, true);
 
-      let embed = new client.Embed('blend', {
-        title: 'Rhyme',
-        description: `**Rhyming Words**\n${rhymes || 'None Found.'}`
-      });
-
-      msg.edit(embed);
+      	msg.edit(embed);
     });
-  } catch (err) {
-    message.channel.send('There was an error!\n' + err).catch();
-  }
 };
 
 exports.conf = {

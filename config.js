@@ -19,7 +19,7 @@ const config = {
     'muteRole': 'Muted',
     'noPermissionNotice': 'true',
     'welcomeChannel': 'general',
-    'welcomeMessage': 'Welcome to the server {{ping}}!',
+    'welcomeMessage': 'Welcome to the server {{mention}}!',
     'welcomeEnabled': 'true',
     'logMessageUpdates': 'true',
 	'logChannelUpdates': 'true',

@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
   	.addField("Region", `${message.guild.region}`, true)
   	.setTimestamp();
 	
-	message.channel.send('There was an error!\n' + err).catch();
+	message.channel.send(embed);
 };
 
 exports.conf = {

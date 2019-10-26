@@ -1,9 +1,11 @@
+const Discord = require('discord.js');
+const colors = require('../lib/colors.json');
+
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
 	const embed = new Discord.RichEmbed()
-    .setColor(colors.blue)
+    .setColor(colors.teal)
     .setImage(`${message.author.displayAvatarURL}`)
-    .setThumbnail(`${message.author.displayAvatarURL}`)
-    .addField("Your avatar:", `${message.author.displayAvatarURL}`, true)
+    .addField("Your avatar:", `[Image URL](${message.author.displayAvatarURL})`, true)
         
 	if (!message.mentions.users.size) {
 		return message.channel.send(embed);
@@ -11,7 +13,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         
     const user = message.mentions.users.first() || message.author;
     const embed2 = new Discord.RichEmbed()
-    .setColor(colors.blue)
+    .setColor(colors.teal)
     .setImage(`${user.displayAvatarURL}`)
     .setThumbnail(`${user.displayAvatarURL}`)
     .addField(`${user.username}'s avatar:`, `${user.displayAvatarURL}`, true);

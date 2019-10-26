@@ -40,7 +40,7 @@ exports.run = (client, message, args, level) => {
         }
             
     } else {
-        let settings = client.getSettings(member.guild.id);
+        let settings = client.getSettings(message.guild.id);
         message.channel.send(`**INVALID SYNTAX:** ${settings.prefix}rps [rock/paper/scissors]`);
     }
 };
