@@ -12,11 +12,12 @@ const client = new Discord.Client({
 const token = require('./token.json');
 
 client.starttime = new Date().getTime();
+client.points = new Enmap({name: "points"});
 client.items = new Enmap({name: 'glptmitems'});
 client.money = new Enmap({name: 'glptm'});
 client.profiles = new Enmap({name: 'profiles'});
 client.logins = new Enmap({name: 'logins'});
-client.spotify = new Enmap({name: 'spotify'});
+client.reputation = new Enmap({name: 'reputation'});
 client.settings = new Enmap({name: 'settings'});
 client.notes = new Enmap({name: 'notes'});
 client.bugs = new Enmap({name: 'bugreports'});
@@ -40,9 +41,9 @@ for (let i = 0; i <= 1500; i++)
   .slice(-6) + i;
 
 client.config = require('./config.js');
+require('./modules/_functions')(client);
 require('./modules/commands')(client);
 require('./modules/events')(client);
-require('./modules/_functions')(client);
 
 for (let i = 0; i < client.config.permLevels.length; i++) {
   let currentlevel = client.config.permLevels[i];
