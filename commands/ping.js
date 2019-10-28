@@ -13,7 +13,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     let embed = new Discord.RichEmbed()
       .setColor(0x4699AA)
       .setFooter('PONG')
-      .setThumbnail(server.guild.iconURL)
+      .setThumbnail(client.guild.iconURL)
 
       .addField('Message Trip',
       `${msg.createdTimestamp - message.createdTimestamp}ms`)
