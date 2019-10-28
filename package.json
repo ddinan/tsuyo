@@ -4,7 +4,7 @@
   "description": "A multipurpose bot to handle all your needs.",
   "main": "bot.js",
   "scripts": {
-    "start": "node bode.js",
+    "start": "node bot.js",
     "node": "node bot.js",
     "forever": "forever start bot.js",
     "pm2": "pm2 start bot.js",
