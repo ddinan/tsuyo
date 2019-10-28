@@ -50,7 +50,7 @@ for (let i = 0; i < client.config.permLevels.length; i++) {
   client.levelCache[currentlevel.name] = currentlevel.level;
 }
 
-client.login(token);
+client.login(token.token);
 
 module.exports = client;
 
