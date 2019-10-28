@@ -1,13 +1,28 @@
+const Discord = require('discord.js')
+const colors = require('../lib/colors.json');
+
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   try {
-    let msg = await message.channel.send('<@'+message.author.id+'>');
+    let pingEmbed = new Discord.RichEmbed()
+      .setColor(colors.teal)
+      .setFooter('PING')
+      
+      .addField(`${message.author.id}`, 'Hello world!');
 
-    let embed = new client.Embed('normal', {
-      title: 'Ping',
-      description: `Message Trip: ${msg.createdTimestamp - message.createdTimestamp}ms
-Websocket Heartbeat: ${Math.floor(client.pings[0])}ms
-Average Websocket Heartbeat: ${Math.floor(client.pings.average())}ms`
-    });
+    let msg = await message.channel.send(pingEmbed);
+
+    let embed = new Discord.RichEmbed()
+      .setColor(colors.teal)
+      .setFooter('PONG',
+      'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
+      .setThumbnail(message.guild.iconURL)
+
+      .addField('Message Trip',
+      `${msg.createdTimestamp - message.createdTimestamp}ms`)
+      .addField(`WebSocket\nHeartbeat`,
+      `${Math.floor(client.pings[0])}ms`, true)
+      .addField(`Average WebSocket\nHeartbeat`,
+      `${Math.floor(client.pings.average())}ms`, true);
 
     msg.edit(embed);
   } catch (err) {

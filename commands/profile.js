@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const colors = require('../lib/colors.json');
 const Canvas = require('canvas');
+
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
 	const member = message.mentions.members.first() ? message.mentions.members.first() : message.member;
 	
@@ -62,6 +63,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 	message.channel.send(attachment);
 };
 
+
 exports.conf = {
   enabled: true,
   aliases: ['p'],
@@ -75,3 +77,4 @@ exports.help = {
   description: 'Shows yours or [member]\'s profile.',
   usage: 'profile [member]'
 };
+
