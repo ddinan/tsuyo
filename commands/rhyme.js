@@ -5,7 +5,13 @@ const colors = require('../lib/colors.json');
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
     if (!args[0]) return message.channel.send('You need to input the word to rhyme!');
     
-    let msg = await message.channel.send('Finding rhymes...');
+    let msg = await message.channel.send(
+      new Discord.RichEmbed()
+      .setColor(colors.teal)
+      .setDescription('Finding rhymes...')
+      .setFooter(`RHYME`,
+      'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
+    );
     
     rhyme(async (rl) => {
     	let rhymes = '';
@@ -17,12 +23,14 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
       	rhymes = rhymes.slice(0, -2);
 		
-		const embed = new Discord.RichEmbed()
-		.setTitle('Rhyme')
-    	.setColor(colors.teal)
-    	.setDescription(`Rhyming words`, `${rhymes || 'None Found.'}`, true);
+      const embed = new Discord.RichEmbed()
+        .setTitle(`${args[0]}`)
+        .setColor(colors.teal)
+        .setDescription(`${rhymes || 'None Found.'}`)
+        .setFooter(`RHYME`,
+        'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048');
 
-      	msg.edit(embed);
+      msg.edit(embed);
     });
 };
 

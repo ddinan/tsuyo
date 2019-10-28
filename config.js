@@ -12,7 +12,7 @@ const config = {
   'blacklisted': [],
   
   'defaultSettings' : {
-    'prefix': ';;',
+    'prefix': '::',
     'modLogChannel': 'mod-log',
     'modRole': 'Moderator',
     'adminRole': 'Administrator',
