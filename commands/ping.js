@@ -1,13 +1,22 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   try {
-    let msg = await message.channel.send('<@'+message.author.id+'>');
+    let pingEmbed = new client.RichEmbed()
+      .setColor(0x3498DB)
+      .setFooter('PING')
+      
+      .addField(`@${message.author.id}`);
 
-    let embed = new client.Embed('normal', {
-      title: 'Ping',
-      description: `Message Trip: ${msg.createdTimestamp - message.createdTimestamp}ms
-Websocket Heartbeat: ${Math.floor(client.pings[0])}ms
-Average Websocket Heartbeat: ${Math.floor(client.pings.average())}ms`
-    });
+    let msg = await message.channel.send(pingEmbed);
+
+    let embed = new client.RichEmbed()
+      .setColor(0x4699AA)
+      .setFooter('PONG')
+
+      .addField('Message Trip',
+      `${msg.createdTimestamp - message.createdTimestamp}ms`)
+      .addField('Websocket Heartbeat', `${Math.floor(client.pings[0])}ms`)
+      .addField('Average Websocket Heartbeat',
+      `${Math.floor(client.pings.average())}ms`);
 
     msg.edit(embed);
   } catch (err) {
