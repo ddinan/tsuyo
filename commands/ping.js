@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       .setColor(0x3498DB)
       .setFooter('PING')
       
-      .addField(`@${message.author.id}`);
+      .addField(`@<${message.author.id}>`, 'Hello world!');
 
     let msg = await message.channel.send(pingEmbed);
 
