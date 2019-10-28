@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     let embed = new Discord.RichEmbed()
       .setColor(0x4699AA)
-      .setFooter('PONG')
+      .setFooter('PONG', message.author.avatarURL)
       .setThumbnail(message.guild.iconURL)
 
       .addField('Message Trip',
