@@ -9,12 +9,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       .addField(`${message.author.id}`, 'Hello world!');
 
     let msg = await message.channel.send(pingEmbed);
-    let icon = client.guild.iconURL;
 
     let embed = new Discord.RichEmbed()
       .setColor(0x4699AA)
       .setFooter('PONG')
-      .setThumbnail(icon)
+      .setThumbnail(client.guild.iconURL)
 
       .addField('Message Trip',
       `${msg.createdTimestamp - message.createdTimestamp}ms`)
