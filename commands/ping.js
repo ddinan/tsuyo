@@ -3,10 +3,10 @@ const Discord = require('discord.js')
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   try {
     let pingEmbed = new Discord.RichEmbed()
-      .setColor(0x3498DB)
+      .setColor(0xF74847)
       .setFooter('PING')
       
-      .addField(`@<${message.author.id}>`, 'Hello world!');
+      .addField(`${message.author.id}`, 'Hello world!');
 
     let msg = await message.channel.send(pingEmbed);
 
