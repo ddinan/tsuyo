@@ -25,6 +25,7 @@
     "better-sqlite-pool": "^0.2.2",
     "better-sqlite3": "^5.4.0",
     "body-parser": "^1.19.0",
+    "canvas": "^2.6.0",
     "chalk": "^2.4.2",
     "discord.js": "^11.5.1",
     "discord.js-minesweeper": "^1.0.4",
@@ -42,8 +43,8 @@
     "numeral": "^2.0.6",
     "one-liner-joke": "^1.2.0",
     "request": "^2.88.0",
-    "snyk": "^1.192.1",
     "rhyme": "^0.0.3",
+    "snyk": "^1.192.1",
     "zaq": "^2.1.3",
     "zxcvbn": "^4.4.2"
   },
