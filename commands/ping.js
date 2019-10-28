@@ -1,6 +1,8 @@
+const Discord = require('discord.js')
+
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   try {
-    let pingEmbed = new client.RichEmbed()
+    let pingEmbed = new Discord.RichEmbed()
       .setColor(0x3498DB)
       .setFooter('PING')
       
@@ -8,7 +10,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     let msg = await message.channel.send(pingEmbed);
 
-    let embed = new client.RichEmbed()
+    let embed = new Discord.RichEmbed()
       .setColor(0x4699AA)
       .setFooter('PONG')
 
