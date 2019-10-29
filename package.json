@@ -29,6 +29,7 @@
     "chalk": "^2.4.2",
     "discord.js": "^11.5.1",
     "discord.js-minesweeper": "^1.0.4",
+    "dotenv": "^8.2.0",
     "ejs": "^2.6.1",
     "enmap": "^5.0.0",
     "express": "^4.16.4",

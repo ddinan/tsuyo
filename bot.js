@@ -2,6 +2,7 @@
 
 if (Number(process.version.slice(1).split('.')[0]) < 10) throw new Error('NodeJS 10.0.0 or higher is required. Re-run this with NodeJS 10.0.0+')
 if (process.env.PREBOOT) eval(process.env.PREBOOT)
+require('dotenv').config()
 
 const Discord = require('discord.js')
 const Enmap = require('enmap')
@@ -9,7 +10,6 @@ const client = new Discord.Client({
   disableEveryone: true,
   disabledEvents: ['TYPING_START']
 })
-const token = require('./token.json')
 
 client.starttime = new Date().getTime()
 client.points = new Enmap({ name: 'points' })
@@ -51,6 +51,6 @@ for (let i = 0; i < client.config.permLevels.length; i++) {
   client.levelCache[currentlevel.name] = currentlevel.level
 }
 
-client.login(token.token)
+client.login(process.env.token)
 
 module.exports = client
