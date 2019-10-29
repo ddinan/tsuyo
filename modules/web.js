@@ -69,4 +69,4 @@ const initWeb = (client) => {
   app.listen(port, () => console.log('Web server started.', 'ready'));
 };
 
-module.exports = initWeb;*/
+module.exports = initWeb; */

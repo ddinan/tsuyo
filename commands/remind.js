@@ -1,35 +1,58 @@
-const ms = require('ms');
+const Discord = require('discord.js')
+const ms = require('ms')
 
-exports.run = async (client, message, args, level) => {
-  try {
-    if (!ms(args[0])) return message.reply('You have to give a valid time!');
-    if (!args[1]) return message.reply('You have to say what to remind you about!');
-    
-    setTimeout(async () => {
-      let embed = new client.Embed('normal', {
-        title: 'Reminder',
-        description: args.slice(1).join(' ')
-      });
-      
-      message.author.send(embed);
-    }, ms(args[0]));
-    
-    message.channel.send("Reminder set!\nReminding you in: " + ms(ms(args[0]), {long: true}) + "\nI'll remind you in your DMS!");
-  } catch (err) {
-    message.channel.send('There was an error!\n' + err).catch();
+exports.run = async (client, message, args) => {
+  const reminderTime = args[0]
+  if (!reminderTime) {
+    const embed = new Discord.RichEmbed()
+      .setColor(colors.teal)
+      .setTitle('Invalid Syntax')
+      .setDescription("`/remind [time] [message]`\n\nUse 's' for seconds, 'm' for minutes, 'h' for hours and 'd' for days. If a measurement of time is not specified, the time will be in seconds.")
+
+    message.channel.send(embed)
   }
-};
+
+  const reminder = args.slice(1).join(' ')
+
+  if (reminder) {
+    const success = new Discord.RichEmbed()
+      .setColor(colors.green)
+      .setTitle('**SUCCESS:**')
+      .setDescription(`I will send you a DM in **${reminderTime}**!`)
+      .setTimestamp()
+
+    const fail = new Discord.RichEmbed()
+      .setColor(colors.red)
+      .setTitle('**FAIL:**')
+      .setDescription('I couldn\'t send you a DM. Please check to see if you have direct messaging enabled.')
+      .setTimestamp()
+
+    message.channel.send(success)
+
+    setTimeout(function () {
+      const remindEmbed = new Discord.RichEmbed()
+        .setColor(colors.teal)
+        .addField('Reminder:', `${reminder}`)
+        .setTimestamp()
+
+      message.author.send(remindEmbed)
+        .catch(() => message.channel.send(fail))
+    }, ms(reminderTime))
+  } else {
+    message.channel.send(embed)
+  }
+}
 
 exports.conf = {
   enabled: true,
   aliases: [],
   guildOnly: true,
   permLevel: 'User'
-};
+}
 
 exports.help = {
   name: 'remind',
   category: 'Utility',
   description: 'Reminds you at the specified time of the specified thing.',
   usage: 'remind <time> <text>'
-};
+}

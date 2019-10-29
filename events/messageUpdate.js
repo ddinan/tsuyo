@@ -1,25 +1,25 @@
-const Discord = require('discord.js');
-const colors = require('../lib/colors.json');
+const Discord = require('discord.js')
+const colors = require('../lib/colors.json')
 
 module.exports = (client, message, messageNew) => {
-  if (message.author.bot) return;
-  if (message.pinned && !messageNew.pinned) return;
-  if (!message.pinned && messageNew.pinned) return;
-  if (message.content == messageNew.content) return;
-  
-  let settings = client.getSettings(message.guild.id);
-  
+  if (message.author.bot) return
+  if (message.pinned && !messageNew.pinned) return
+  if (!message.pinned && messageNew.pinned) return
+  if (message.content == messageNew.content) return
+
+  const settings = client.getSettings(message.guild.id)
+
   if (settings.logMessageUpdates == 'true') {
-    let embed = new Discord.RichEmbed()
-    .setAuthor("📝 Message updated")
-    .setColor(colors.teal)
-    .setDescription(`Message edited by <@${messageNew.author.id}> in ${message.channel}`)
-	.addField(`Old message:`, `${message}`, true)
-	.addField(`New message:`, `${messageNew}`, true)
-    .setTimestamp();
+    const embed = new Discord.RichEmbed()
+      .setAuthor('📝 Message updated')
+      .setColor(colors.teal)
+      .setDescription(`Message edited by <@${messageNew.author.id}> in ${message.channel}`)
+      .addField('Old message:', `${message}`, true)
+      .addField('New message:', `${messageNew}`, true)
+      .setTimestamp()
 
     if (message.guild.channels.find(channel => channel.name == settings.modLogChannel)) {
-      message.guild.channels.find(channel => channel.name == settings.modLogChannel).send(embed).catch();
+      message.guild.channels.find(channel => channel.name == settings.modLogChannel).send(embed).catch()
     }
   }
-};
+}
