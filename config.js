@@ -21,6 +21,7 @@ const config = {
     welcomeChannel: 'general',
     welcomeMessage: 'Welcome to the server {{mention}}!',
     welcomeEnabled: 'false',
+    pointsEnabled: 'false',
     logMessageUpdates: 'false',
     logChannelUpdates: 'false',
     logEmojiUpdates: 'false',

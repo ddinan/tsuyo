@@ -11,6 +11,11 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START']
 })
 
+const dbl = require('dblposter')
+const DBLPoster = new dbl(process.env.DBL_TOKEN)
+
+DBLPoster.bind(client)
+
 client.starttime = new Date().getTime()
 client.points = new Enmap({ name: 'points' })
 client.items = new Enmap({ name: 'items' })
@@ -22,7 +27,7 @@ client.settings = new Enmap({ name: 'settings' })
 client.fish = new Enmap({ name: 'fish' })
 client.flags = new Enmap({ name: 'flags' })
 client.treasure = new Enmap({ name: 'treasure' })
-client.warns = new Enmap({ name: 'warns' })
+client.life = new Enmap({ name: 'life' })
 client.tags = new Enmap({ name: 'tags' })
 client.uses = new Enmap({ name: 'commandpop' })
 client.minecooldown = new Discord.Collection()
