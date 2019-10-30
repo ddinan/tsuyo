@@ -7,33 +7,21 @@ exports.run = async (client, message, args, level) => {
   const verified_ = message.guild.verified !== true ? 'No' : 'Yes'
   const afk_channel = message.guild.afkChannel === null ? '**No channel**' : message.guild.afkChannel
 
-  const Sregion = ['brazil', 'central-europe',
-    'hong-kong', 'india', 'japan', 'russia',
-    'singapore', 'south-africa', 'sydney',
-    'us-central', 'us-east', 'us-south',
-    'us-west', 'western-europe']
-
-  region_to_text = () => {
-    let i = 0
-    let def
-
-    const sr_text = ['Brazil', 'Central Europe',
-      'Hong Kong', 'India', 'Japan', 'Russia',
-      'Singapore', 'South Africa', 'Sydney',
-      'US Central', 'US South', 'US West',
-      'Western Europe']
-
-    while (message.guild.region !== Sregion[i]) {
-      i++
-    };
-
-    def = (value) => {
-      v = value - 1
-      return sr_text[v]
-    }
-
-    return def(i)
-  }
+  let region = ''
+  if (message.guild.region === 'brazil') region = ':flag_br: Brazil'
+  if (message.guild.region === 'central-europe') region = ':flag_eu: Central Europe'
+  if (message.guild.region === 'western-europe') region = ':flag_eu: Western Europe'
+  if (message.guild.region === 'hong-kong') region = ':flag_hk: Hong Kong'
+  if (message.guild.region === 'india') region = ':flag_in: India'
+  if (message.guild.region === 'japan') region = ':flag_jp: Japan'
+  if (message.guild.region === 'russia') region = ':flag_ru: Russia'
+  if (message.guild.region === 'singapore') region = ':flag_sg: Singapore'
+  if (message.guild.region === 'south-africa') region = ':flag_za: South Africa'
+  if (message.guild.region === 'sydney') region = ':flag_au: Australia'
+  if (message.guild.region === 'us-central') region = ':flag_us: US Central'
+  if (message.guild.region === 'us-east') region = ':flag_us: US East'
+  if (message.guild.region === 'us-south') region = ':flag_us: US South'
+  if (message.guild.region === 'us-west') region = ':flag_us: US West'
 
   const embed = new Discord.RichEmbed()
     .setColor(colors.teal)
@@ -47,7 +35,7 @@ exports.run = async (client, message, args, level) => {
     .addField('Verified?', `${verified_}`)
     .addField('Created on', `${message.guild.createdAt}`, true)
     .addField('AFK', `${afk_channel}\n **Timeout:** ${message.guild.afkTimeout} seconds.`, true)
-    .addField('Region', `${region_to_text()}`, true)
+    .addField('Region', `${region}`, true)
     .setTimestamp()
 
   message.channel.send(embed)
