@@ -11,10 +11,10 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START']
 })
 
-const dbl = require('dblposter')
-const DBLPoster = new dbl(process.env.DBL_TOKEN)
+const dblposer = require('dblposter')
+const DBLPoster = new dblposer(process.env.DBL_TOKEN, client)
 
-DBLPoster.bind(client)
+DBLPoster.bind()
 
 client.starttime = new Date().getTime()
 client.points = new Enmap({ name: 'points' })
@@ -50,6 +50,7 @@ client.config = require('./config.js')
 require('./modules/_functions')(client)
 require('./modules/commands')(client)
 require('./modules/events')(client)
+require('./modules/webhooks')(client)
 
 for (let i = 0; i < client.config.permLevels.length; i++) {
   const currentlevel = client.config.permLevels[i]
