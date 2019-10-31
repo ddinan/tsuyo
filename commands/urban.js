@@ -2,7 +2,8 @@ const request = require('request')
 const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+exports.run = async (client, message, args, level) => {
+  if (message.channel.nsfw === false) return message.channel.send('You need to be in an NSFW channel to use this command.')
   if (!args[0]) {
     return message.channel.send(
       new Discord.RichEmbed()
