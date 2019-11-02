@@ -14,7 +14,6 @@ exports.run = async (client, message, args, level) => {
       .setColor(colors.teal)
       .setFooter('PONG',
         'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
-      .setThumbnail(message.guild.iconURL)
 
       .addField('Message Trip',
       `${msg.createdTimestamp - message.createdTimestamp}ms`)

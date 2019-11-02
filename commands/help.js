@@ -5,7 +5,6 @@ exports.run = (client, message, args, level) => {
   const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
   try {
     if (!args[0]) {
-      const settings = client.getSettings(message.guild.id)
       const embed = new Discord.RichEmbed()
 	  .setTitle('Help')
 	  .setColor(colors.teal)
@@ -20,14 +19,13 @@ exports.run = (client, message, args, level) => {
       let command = args[0]
       if (client.commands.has(command) || client.aliases.has(command)) {
         command = client.commands.get(command) || client.aliases.get(command)
-        const settings = client.getSettings(message.guild.id)
 
         const embedTiny = new Discord.RichEmbed()
-	    .setTitle(`Help - ${prefix}${command.help.name}`)
-	    .setColor(colors.teal)
+	      .setTitle(`Help - ${prefix}${command.help.name}`)
+	      .setColor(colors.teal)
           .setThumbnail(client.user.avatarURL)
           .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
-	    .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
+	      .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
           .addField('Category', command.help.category, true)
           .addField('Guild only', command.conf.guildOnly ? 'Yes' : 'No', true)
 
