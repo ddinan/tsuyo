@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
   if (!user) return message.channel.send('You must mention someone or give their ID!')
   if (user.bot === true) return message.channel.send('Bots cannot receive rep!')
 
-  if (message.mentions.users.first() === message.author) return message.channel.send('You cannot give yourself +rep.')
+  if (user === message.author || message.author.id === user.id) return message.channel.send('You cannot give yourself +rep.')
   
   client.cooldown.ensure(`${message.author.id}`, {
     member: message.author.id,
