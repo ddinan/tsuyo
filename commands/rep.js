@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => { // eslint-disable-line no-unuse
 exports.conf = {
   enabled: true,
   aliases: ['+rep', 'giverep', 'repgive'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

@@ -15,7 +15,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: ['donating'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

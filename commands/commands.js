@@ -2,19 +2,20 @@ const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
+  const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
   try {
     if (!args[0]) {
       const userCommands = client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level)
 
       let currentCategory = ''
-	  const settings = client.getSettings(message.guild.id)
-      let output = `Type ${settings.prefix}commands [category] to view all commands in that category`
+
+      let output = `Type ${prefix}commands <category> to view all commands in that category`
       const sorted = userCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
 
       sorted.forEach(async c => {
         const cat = c.help.category
         if (currentCategory !== cat) {
-          output += `\n**${settings.prefix}commands ${cat.toLowerCase()}**`
+          output += `\n**${prefix}commands ${cat.toLowerCase()}**`
           currentCategory = cat
         }
       })
@@ -22,19 +23,17 @@ exports.run = (client, message, args, level) => {
       const embed = new Discord.RichEmbed()
 	  .setTitle('Commands')
 	  .setColor(colors.teal)
-	  .addField(`Type ${settings.prefix}commands [category] to view all commands in that category`, 'Valid categories:\n`admin`, `eco`, `fun`, `mod`, `utility`')
+	  .addField(`Type ${prefix}commands <category> to view all commands in that category`, 'Valid categories:\n`admin`, `economy`, `fun`, `moderation`, `utility`')
 
       message.channel.send(embed)
     } else {
-      // Show individual command/alias/category's help
       let command = args[0]
       if (client.commands.has(command) || client.aliases.has(command)) {
         command = client.commands.get(command) || client.aliases.get(command)
-        const settings = client.getSettings(message.guild.id)
 
         const embedTiny = new Discord.RichEmbed()
-	    .setTitle(`Help - ${settings.prefix}${command.help.name}`)
-	    .setColor(colors.teal)
+	      .setTitle(`Help - ${prefix}${command.help.name}`)
+	      .setColor(colors.teal)
           .setThumbnail(client.user.avatarURL)
           .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
 	    .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
@@ -58,8 +57,8 @@ exports.run = (client, message, args, level) => {
 
         if (!output) return message.reply('That\'s not a valid category!')
 		 const embed = new Discord.RichEmbed()
-	    .setTitle('Commands')
-	    .setColor(colors.teal)
+	      .setTitle('Commands')
+	      .setColor(colors.teal)
           .setThumbnail(client.user.avatarURL)
           .setDescription(output)
 
@@ -74,7 +73,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: ['cmds', 'c'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

@@ -17,13 +17,13 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: [],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 
 exports.help = {
   name: 'meme',
   category: 'Fun',
-  description: 'Searches for the dankest of memes.',
+  description: 'Searches for the dankest of memes in the dankest of subreddits.',
   usage: 'meme'
 }

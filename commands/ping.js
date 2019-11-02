@@ -1,12 +1,11 @@
 const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+exports.run = async (client, message, args, level) => {
   try {
     const pingEmbed = new Discord.RichEmbed()
       .setColor(colors.teal)
       .setFooter('PING')
-
       .addField(`${message.author.id}`, 'Hello world!')
 
     const msg = await message.channel.send(pingEmbed)
@@ -33,7 +32,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 exports.conf = {
   enabled: true,
   aliases: [],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

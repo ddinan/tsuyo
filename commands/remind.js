@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   const reminderTime = args[0]
   if (!reminderTime) {
     const embed = new Discord.RichEmbed()
-      .setColor(colors.teal)
+      .setColor(colors.red)
       .setTitle('Invalid Syntax')
       .setDescription("`/remind [time] [message]`\n\nUse 's' for seconds, 'm' for minutes, 'h' for hours and 'd' for days. If a measurement of time is not specified, the time will be in seconds.")
 
@@ -45,8 +45,8 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  aliases: [],
-  guildOnly: true,
+  aliases: ['r', 'remindme'],
+  guildOnly: false,
   permLevel: 'User'
 }
 

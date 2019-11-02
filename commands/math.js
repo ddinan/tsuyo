@@ -13,7 +13,7 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: ['calc', 'maths', 'solve'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

@@ -2,6 +2,7 @@ const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
+  const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
   try {
     if (!args[0]) {
       const settings = client.getSettings(message.guild.id)
@@ -9,7 +10,7 @@ exports.run = (client, message, args, level) => {
 	  .setTitle('Help')
 	  .setColor(colors.teal)
 	  .setThumbnail('https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
-	  .addField('Commands', `Commands can be found by typing \`${settings.prefix}commands\`.`)
+	  .addField('Commands', `Commands can be found by typing \`${prefix}commands\`.`)
 	  .addField('Want to invite me to your Discord?', '[Click here to invite me to your server.](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)')
 	  .addField('Need more assistance?', '[Click here to join the official Tsuyo support server](https://discord.gg/3hbeQgY)')
 
@@ -22,7 +23,7 @@ exports.run = (client, message, args, level) => {
         const settings = client.getSettings(message.guild.id)
 
         const embedTiny = new Discord.RichEmbed()
-	    .setTitle(`Help - ${settings.prefix}${command.help.name}`)
+	    .setTitle(`Help - ${prefix}${command.help.name}`)
 	    .setColor(colors.teal)
           .setThumbnail(client.user.avatarURL)
           .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
@@ -56,7 +57,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: ['h'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

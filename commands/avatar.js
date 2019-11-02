@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+exports.run = async (client, message, args, level) => {
   const embed = new Discord.RichEmbed()
     .setColor(colors.teal)
     .setImage(`${message.author.displayAvatarURL}`)
@@ -24,7 +24,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 exports.conf = {
   enabled: true,
   aliases: [],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

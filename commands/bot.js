@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 const moment = require('moment')
-const { version } = require('discord.js')
+const version = require('discord.js')
 require('moment-duration-format')
 
 exports.run = (client, message, args, level) => {
@@ -13,9 +13,10 @@ exports.run = (client, message, args, level) => {
     .addField('Total guilds:', message.client.guilds.size, true)
     .addField('Total members:', `${message.client.users.size}`, true)
     .addField('ID', `${message.client.user.id}`, true)
-    .addField('Hosted in', ':flag_us: United States', true)
+    .addField('Hosted in', ':flag_ca: Canada', true)
     .addField('Uptime', `${duration}`, true)
     .addField('Created by', '<@191517443519152129>', true)
+    .addField('Support server', '[Click here](https://discord.gg/3hbeQgY)')
     .setTimestamp()
   message.channel.send(embed)
 }
@@ -23,7 +24,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: ['botinfo'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

@@ -18,13 +18,13 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   aliases: ['fox', 'kitsune'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 
 exports.help = {
   name: 'fox',
   category: 'Fun',
-  description: 'Shows a random fox.',
+  description: 'Shows a random picture of a fox.',
   usage: 'fox'
 }

@@ -2,6 +2,7 @@ const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
+  const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
   const input = args[0]
   if (input == 'rock' || input == 'paper' || input == 'scissors') {
     const result = [
@@ -39,15 +40,14 @@ exports.run = (client, message, args, level) => {
       message.channel.send('I chose :raised_hand:\n**You win**!')
     }
   } else {
-    const settings = client.getSettings(message.guild.id)
-    message.channel.send(`**INVALID SYNTAX:** ${settings.prefix}rps [rock/paper/scissors]`)
+    message.channel.send(`**INVALID SYNTAX:** ${prefix}rps [rock/paper/scissors]`)
   }
 }
 
 exports.conf = {
   enabled: true,
   aliases: ['psr', 'spr'],
-  guildOnly: true,
+  guildOnly: false,
   permLevel: 'User'
 }
 

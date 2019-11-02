@@ -6,8 +6,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
 exports.conf = {
   enabled: true,
-  aliases: [],
-  guildOnly: true,
+  aliases: ['flipcoin', 'fc'],
+  guildOnly: false,
   permLevel: 'User'
 }
 
