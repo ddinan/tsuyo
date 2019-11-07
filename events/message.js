@@ -19,6 +19,8 @@ module.exports = async (client, message) => {
       .addField('Need more assistance?', '[Click here to join the official Tsuyo support server](https://discord.gg/3hbeQgY)')
       return message.channel.send(embed)
   }
+  
+  if (!message.content.startsWith(prefix)) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
