@@ -1,7 +1,7 @@
 ![](https://i.imgur.com/TA9sw0C.png)
 
 <p align="center">
-    <a href="https://standardjs.com/"><img width='90px' src="https://cdn.rawgit.com/standard/standard/master/badge.svg"></a>
+    <a href="https://standardjs.com/"><img width='108px' src="https://i.imgur.com/7nT5ptA.png"></a>
     <img src="https://img.shields.io/discord/492875641713328143?color=%237086D2&label=Discord&logo=Discord&style=for-the-badge">
     <img src="https://img.shields.io/github/license/TsuyoBot/main?logo=Apache&style=for-the-badge">
     <img src="https://img.shields.io/github/repo-size/TsuyoBot/main.svg?style=for-the-badge">
@@ -23,10 +23,10 @@ A couple of dependencies you will need:
 
 Once NodeJS is installed, install the npm dependencies in the windows command prompt.
 - ```cd [folder where the package.json is]```
-- ```npm install discord.js```
+- ```npm install```
 
 Now that the hard part is over, installation is a simple as a couple of clicks *(and patience depending on your internet speed)*. Simply fork or download the repository and then execute this in the windows command prompt.
-- ```cd [folder where bot.js is]``
+- ```cd [folder where bot.js is]```
 - ```node bot```
 
 ### Setting up the bot:
