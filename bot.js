@@ -1,64 +1,41 @@
-'use strict'
+const request = require('request')
 
-if (Number(process.version.slice(1).split('.')[0]) < 10) throw new Error('NodeJS 10.0.0 or higher is required. Re-run this with NodeJS 10.0.0+')
-if (process.env.PREBOOT) eval(process.env.PREBOOT)
-require('dotenv').config()
+module.exports = async client => {
+  const statusList = [
+    { msg: 'outside (JK who does that?)', type: 'PLAYING' },
+    { msg: 'alone :\'(', type: 'PLAYING' },
+    { msg: 'with your heart </3', type: 'PLAYING' },
+    { msg: `with over ${client.users.size} users`, type: 'PLAYING' },
+    { msg: 'who even reads these anyways?', type: 'PLAYING' },
+    { msg: 'the haters hate', type: 'WATCHING' },
+    { msg: 'you (turn around)', type: 'WATCHING' },
+    { msg: 'grass grow', type: 'WATCHING' },
+    { msg: `over ${client.guilds.size} servers`, type: 'WATCHING' },
+    { msg: 'funny cat videos', type: 'WATCHING' },
+    { msg: `Déjà vu Watching Déjà vu Watching Déjà vu Watching Déjà vu`, type: 'WATCHING' },
+    { msg: 'the world crumble', type: 'WATCHING' },
+    { msg: 'MrBeast plant 20,000,000 trees | 🌲 #TeamTrees', type: 'WATCHING' },
+    { msg: 'YouTubers fail to box', type: 'WATCHING' },
+    { msg: 'over you from above 👼', type: 'WATCHING' },
+    { msg: 'in on your conversations', type: 'LISTENING' }
+  ]
 
-const Discord = require('discord.js')
-const Enmap = require('enmap')
-const client = new Discord.Client({
-  disableEveryone: true,
-  disabledEvents: ['TYPING_START']
-})
+  setInterval(async () => {
+    const index = Math.floor(Math.random() * statusList.length + 1) - 1
+    await client.user.setActivity(statusList[index].msg, {
+      type: statusList[index].type
+    })
+  }, 60000)
 
-const dblposer = require('dblposter')
-const DBLPoster = new dblposer(process.env.DBL_TOKEN, client)
+  /* setInterval(async () => {
+    request('https://web.tsuyobot.ga', (err, res, html) => {
+      if (err) client.logger.error(err);
+    });
+}, 28000); */
 
-DBLPoster.bind()
+  client.user.setStatus('online')
+  console.log('Finished setting up the bot.')
 
-client.starttime = new Date().getTime()
-client.points = new Enmap({ name: 'points' })
-client.pingwords = new Enmap({ name: 'pingwords' })
-client.items = new Enmap({ name: 'items' })
-client.money = new Enmap({ name: 'money' })
-client.cooldown = new Enmap({ name: 'cooldown' })
-client.badges = new Enmap({ name: 'badges' })
-client.logins = new Enmap({ name: 'logins' })
-client.reputation = new Enmap({ name: 'reputation' })
-client.settings = new Enmap({ name: 'settings' })
-client.fish = new Enmap({ name: 'fish' })
-client.flags = new Enmap({ name: 'flags' })
-client.treasure = new Enmap({ name: 'treasure' })
-client.life = new Enmap({ name: 'life' })
-client.tags = new Enmap({ name: 'tags' })
-client.uses = new Enmap({ name: 'commandpop' })
-client.minecooldown = new Discord.Collection()
-client.commands = new Discord.Collection()
-client.aliases = new Discord.Collection()
-client.liusers = new Discord.Collection()
-client.music = {}
-client.levelCache = {}
-
-process.env.SESSION_SECRET = ''
-for (let i = 0; i <= 1500; i++) {
-  process.env.SESSION_SECRET += Math.random()
-    .toString(16)
-    .slice(2, 8)
-    .toUpperCase()
-    .slice(-6) + i
+  // Starts the web server/API
+  // require('../modules/web')(client);
 }
-
-client.config = require('./config.js')
-require('./modules/_functions')(client)
-require('./modules/commands')(client)
-require('./modules/events')(client)
-require('./modules/webhooks')(client)
-
-for (let i = 0; i < client.config.permLevels.length; i++) {
-  const currentlevel = client.config.permLevels[i]
-  client.levelCache[currentlevel.name] = currentlevel.level
-}
-
-client.login(process.env.token)
-
-module.exports = client
