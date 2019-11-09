@@ -1,13 +1,8 @@
 // Put member IDs in these for special perms, competely optional
 const config = {
   owners: ['191517443519152129', '493922020783030282'],
-  managers: [],
-  admins: [],
   devs: ['160357118539595776', '291272018773671937'],
   mods: [],
-  support: [],
-  helpers: [],
-  token: [],
 
   blacklisted: [],
 
@@ -81,48 +76,20 @@ const config = {
 
     {
       level: 5,
-      name: 'Bot Helper',
-
-      check: (message) => config.helpers.includes(message.author.id)
-    },
-
-    {
-      level: 6,
       name: 'Bot Support',
 
       check: (message) => config.support.includes(message.author.id)
     },
 
     {
-      level: 7,
-      name: 'Bot Moderator',
-
-      check: (message) => config.mods.includes(message.author.id)
-    },
-
-    {
-      level: 8,
+      level: 6,
       name: 'Bot Dev',
 
       check: (message) => config.devs.includes(message.author.id)
     },
 
     {
-      level: 9,
-      name: 'Bot Admin',
-
-      check: (message) => config.admins.includes(message.author.id)
-    },
-
-    {
-      level: 10,
-      name: 'Bot Manager',
-
-      check: (message) => config.admins.includes(message.author.id)
-    },
-
-    {
-      level: 11,
+      level: 7,
       name: 'Bot Owner',
 
       check: (message) => config.owners.includes(message.author.id)

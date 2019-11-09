@@ -20,6 +20,11 @@ module.exports = async (client, message) => {
       return message.channel.send(embed)
   }
   
+  const pingWords = require('../modules/pingWords.js')
+  pingWords(client, message)
+  
+  // Commands
+  
   if (!message.content.startsWith(prefix)) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
@@ -53,7 +58,7 @@ module.exports = async (client, message) => {
   } catch (err) {
     message.channel.send('There was an error!\n' + err).catch()
   }
-  
+
   if (message.channel.type !== "dm") {
     if (client.tags.has(message.guild.id)) {
       Object.keys(client.tags.get(message.guild.id)).forEach(tagid => {

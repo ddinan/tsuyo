@@ -18,6 +18,7 @@ DBLPoster.bind()
 
 client.starttime = new Date().getTime()
 client.points = new Enmap({ name: 'points' })
+client.pingwords = new Enmap({ name: 'pingwords' })
 client.items = new Enmap({ name: 'items' })
 client.money = new Enmap({ name: 'money' })
 client.cooldown = new Enmap({ name: 'cooldown' })
