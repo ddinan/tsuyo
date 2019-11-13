@@ -27,6 +27,7 @@ module.exports = (client, message) => {
 
       if (message.content.includes(pingOne) || message.content.includes(pingTwo) || message.content.includes(pingThree)) {
         const guild = client.guilds.get(message.guild.id)
+        if (message.content.includes('null')) return // DO NOT SEND MESSAGE TO EVERY USER
         if (!guild.member(user.id)) return // If member is not in the guild, why ping them?
         user.send(pingEmbed).catch((e) => {})
     }
