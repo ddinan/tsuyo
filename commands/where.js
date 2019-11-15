@@ -24,7 +24,7 @@ exports.conf = {
 
 exports.help = {
   name: 'where',
-  category: 'Admin',
+  category: 'Dev',
   description: 'Shows you which Discord has <channel id> and the owner\'s ID',
   usage: 'where <channel id>'
 }

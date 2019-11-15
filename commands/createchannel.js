@@ -22,7 +22,7 @@ exports.conf = {
 
 exports.help = {
   name: 'createchannel',
-  category: 'Mod',
+  category: 'Moderation',
   description: 'Creates a channel in the server.',
   usage: 'createchannel <voice/text> <name>'
 }

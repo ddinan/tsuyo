@@ -3,9 +3,10 @@ const colors = require('../lib/colors.json')
 
 module.exports = (client, message, messageNew) => {
   if (message.author.bot) return
+  if (message.guild === null)
   if (message.pinned && !messageNew.pinned) return
   if (!message.pinned && messageNew.pinned) return
-  if (message.content == messageNew.content) return
+  if (message.content === messageNew.content) return
 
   const settings = client.getSettings(message.guild.id)
 

@@ -48,11 +48,11 @@ module.exports = (client, member) => {
   if (settings.logMessageUpdates === 'true') {
     const modLogChannel = member.guild.channels.find(c => c.name === settings.modLogChannel)
     if (settings.modLogChannel && modLogChannel) {
-	 		if (!modLogChannel.permissionsFor(member.guild.me).has('VIEW_CHANNEL')) return
+      if (!modLogChannel.permissionsFor(member.guild.me).has('VIEW_CHANNEL')) return
       if (!modLogChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES')) return
 
       const embed = new Discord.RichEmbed()
-        .setAuthor('✔️ Member joined')
+        .setAuthor('📥 Member joined')
         .setColor(colors.green)
         .setDescription(`**Total member count:** \`${member.guild.memberCount}\`\n<@${member.user.id}> joined the Discord.`)
         .setThumbnail(`${member.user.displayAvatarURL}`)

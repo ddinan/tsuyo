@@ -3,6 +3,7 @@ const colors = require('../lib/colors.json')
 
 module.exports = (client, message) => {
   	if (message.author.bot) return
+    if (message.guild === null) return
 
   	const settings = client.getSettings(message.guild.id)
   	if (settings.logMessageUpdates == 'true') {

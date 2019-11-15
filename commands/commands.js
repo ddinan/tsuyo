@@ -5,12 +5,10 @@ exports.run = (client, message, args, level) => {
   const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
   try {
     if (!args[0]) {
-      const userCommands = client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level)
-
       let currentCategory = ''
 
       let output = `Type ${prefix}commands <category> to view all commands in that category`
-      const sorted = userCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
+      const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
 
       sorted.forEach(async c => {
         const cat = c.help.category
@@ -36,7 +34,7 @@ exports.run = (client, message, args, level) => {
 	      .setColor(colors.teal)
           .setThumbnail(client.user.avatarURL)
           .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
-	    .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
+	      .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
           .addField('Category', command.help.category, true)
           .addField('Guild only', command.conf.guildOnly ? 'Yes' : 'No', true)
 
@@ -44,9 +42,8 @@ exports.run = (client, message, args, level) => {
       } else {
         const currentCategory = ''
         let output = ''
-        const userCommands = client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level)
 
-        const sorted = userCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
+        const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
         sorted.forEach(c => {
           const cat = c.help.category.toLowerCase()
           if (cat == args[0].toLowerCase()) {
