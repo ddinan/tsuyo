@@ -4,10 +4,16 @@ exports.run = async (client, message, args) => {
   if (user.bot === true) return message.channel.send('Bots cannot receive money!')
   if (!args[1]) return message.channel.send('You need to specify a number to give.')
   if (message.mentions.users.first() === message.author) return message.channel.send('You cannot give yourself money.')
+  if (isNaN(args[1])) return message.channel.send('Invalid amount.')
+  
+  client.money.ensure(`${message.author.id}`, {
+    user: message.author.id,
+    money: 0
+  })
+  
   const yourMoney = client.money.get(`${message.author.id}`, 'money')
   if (yourMoney < args[1]) return message.channel.send('You do not have enough money.')
 
-  // Ensure this user has gotten rep before
   client.money.ensure(`${user.id}`, {
     user: user.id,
     money: 0
@@ -15,8 +21,11 @@ exports.run = async (client, message, args) => {
 
   const money = client.money.get(`${user.id}`, 'money')
   client.money.set(`${user.id}`, parseInt(money) + parseInt(args[1]), 'money')
-  client.money.set(`${message.author.id}`, yourMoney - args[1], 'money')
-  message.channel.send(`You gave **${user.tag}** \`${args[1]}\`\n**${user.tag}'s balance:** $${parseInt(money) + parseInt(args[1])}\n**Your balance:** $${yourMoney - args[1]}`)
+  console.log(parseInt(money))
+  console.log(parseInt(args[1]))
+  console.log(parseInt(money) + parseInt(args[1]))
+  client.money.set(`${message.author.id}`, parseInt(yourMoney) - parseInt(args[1]), 'money')
+  message.channel.send(`You gave **${user.tag}** \`${parseInt(args[1])}\`\n**${user.tag}'s balance:** $${parseInt(args[1])}\n**Your balance:** $${parseInt(yourMoney) - parseInt(args[1])}`)
 }
 
 exports.conf = {

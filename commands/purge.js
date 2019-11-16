@@ -19,7 +19,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
   enabled: true,
-  aliases: ['clear', 'prune', 'delete'],
+  aliases: ['clear', 'prune', 'delete', 'del'],
   guildOnly: true,
   permLevel: 'Moderator'
 }

@@ -9,6 +9,7 @@ exports.run = async (client, message, args, level) => {
   const embed = new Discord.RichEmbed()
     .setColor(colors.teal)
     .addField(`Guild: `, channel.guild.name)
+    .addField(`Channel: `, channel.name)
     .addField(`Guild Owner: `, channel.guild.owner)
     .setTimestamp();
   
