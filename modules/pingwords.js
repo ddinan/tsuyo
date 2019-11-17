@@ -6,7 +6,7 @@ module.exports = (client, message) => {
   if (message.guild === null) return
   
   const pingEmbed = new Discord.RichEmbed()
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .setAuthor(`Ping Words`)
     .addField(`${message.guild.name} (#${message.channel.name})`, `<@${message.author.id}>\n${message.content}\n[Click to view message](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`)
     .setTimestamp();

@@ -8,7 +8,7 @@ exports.run = async (client, message, args, level) => {
 
   const img = await randomPuppy(random)
   const embed = new Discord.RichEmbed()
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .setImage(img)
 
   message.channel.send(embed)

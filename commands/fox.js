@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => {
   request('https://randomfox.ca/floof/', function (error, body) {
     var result = JSON.parse(body.body)
     const embed = new Discord.RichEmbed()
-      .setColor(colors.teal)
+      .setColor(colors.default)
       .setImage(result.image)
       .setFooter('🦊',
         'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')

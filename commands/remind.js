@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
 
     setTimeout(function () {
       const remindEmbed = new Discord.RichEmbed()
-        .setColor(colors.teal)
+        .setColor(colors.default)
         .addField('Reminder:', `${reminder}`)
         .setTimestamp()
 

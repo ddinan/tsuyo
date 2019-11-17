@@ -7,7 +7,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
   const msg = await message.channel.send(
     new Discord.RichEmbed()
-      .setColor(colors.teal)
+      .setColor(colors.default)
       .setDescription('Finding rhymes...')
       .setFooter('RHYME',
         'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
@@ -25,7 +25,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     const embed = new Discord.RichEmbed()
       .setTitle(`${args[0]}`)
-      .setColor(colors.teal)
+      .setColor(colors.default)
       .setDescription(`${rhymes || 'None Found.'}`)
       .setFooter('RHYME',
         'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')

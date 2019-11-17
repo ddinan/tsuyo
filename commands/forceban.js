@@ -14,7 +14,7 @@ exports.run = async (client, message, args, level) => {
         if (modLogChannel && message.guild.channels.find(c => c.name === settings.modLogChannel)) {
           const embed = new Discord.RichEmbed()
             .setTitle('User Banned')
-            .setColor(colors.teal)
+            .setColor(colors.default)
             .setDescription(`Name: ${user.username}\nID: ${args[0]}\nReason: ${args.slice(1).join(' ')}\nModerator: ${message.author.username}`)
 
           message.guild.channels.find(c => c.name === settings.modLogChannel).send(embed)

@@ -20,7 +20,7 @@ exports.run = (client, message, args, level) => {
 
       const embed = new Discord.RichEmbed()
 	  .setTitle('Commands')
-	  .setColor(colors.teal)
+	  .setColor(colors.default)
 	  .addField(`Type ${prefix}commands <category> to view all commands in that category`, 'Valid categories:\n`admin`, `economy`, `fun`, `moderation`, `utility`')
 
       message.channel.send(embed)
@@ -31,7 +31,7 @@ exports.run = (client, message, args, level) => {
 
         const embedTiny = new Discord.RichEmbed()
 	      .setTitle(`Help - ${prefix}${command.help.name}`)
-	      .setColor(colors.teal)
+	      .setColor(colors.default)
           .setThumbnail(client.user.avatarURL)
           .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
 	      .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
@@ -55,7 +55,7 @@ exports.run = (client, message, args, level) => {
         if (!output) return message.reply('That\'s not a valid category!')
 		 const embed = new Discord.RichEmbed()
 	      .setTitle('Commands')
-	      .setColor(colors.teal)
+	      .setColor(colors.default)
           .setThumbnail(client.user.avatarURL)
           .setDescription(output)
 

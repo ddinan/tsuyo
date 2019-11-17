@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
   
   const embed = new Discord.RichEmbed()
     .setTitle('🎒 Your Inventory')
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .addField(`💍 Wedding Rings:`, client.inventory.get(key, 'rings'))
     .addField(`🌰 Seeds:`, client.inventory.get(key, 'seeds'))
     .addField(`🥫 Pet Food`, client.inventory.get(key, 'petfood') + ' cans')

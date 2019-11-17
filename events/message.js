@@ -11,7 +11,7 @@ module.exports = async (client, message) => {
   if (message.content.match(prefixMention)) {
     const embed = new Discord.RichEmbed()
       .setTitle('Help')
-      .setColor(colors.teal)
+      .setColor(colors.default)
       .setThumbnail('https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
       .addField('Commands', `Commands can be found by typing \`${prefix}commands\`.`)
       .addField('Want to invite me to your Discord?', '[Click here to invite me to your server.](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)')

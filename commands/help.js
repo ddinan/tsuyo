@@ -7,8 +7,8 @@ exports.run = (client, message, args, level) => {
     if (!args[0]) {
       const embed = new Discord.RichEmbed()
 	  .setTitle('Help')
-	  .setColor(colors.teal)
-	  .setThumbnail('https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
+	  .setColor(colors.default)
+	  .setThumbnail(client.user.avatarURL)
 	  .addField('Commands', `Commands can be found by typing \`${prefix}commands\`.`)
 	  .addField('Want to invite me to your Discord?', '[Click here to invite me to your server.](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)')
 	  .addField('Need more assistance?', '[Click here to join the official Tsuyo support server](https://discord.gg/3hbeQgY)')
@@ -22,7 +22,7 @@ exports.run = (client, message, args, level) => {
 
         const embedTiny = new Discord.RichEmbed()
 	      .setTitle(`Help - ${prefix}${command.help.name}`)
-	      .setColor(colors.teal)
+	      .setColor(colors.default)
           .setThumbnail(client.user.avatarURL)
           .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
 	      .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)

@@ -15,7 +15,7 @@ module.exports = (client, oldMember, newMember) => {
   if (oldMember.nickname !== newMember.nickname) {
     const embed = new Discord.RichEmbed()
       .setAuthor('👤 Nickname changed')
-      .setColor(colors.teal)
+      .setColor(colors.default)
       .setDescription(`<@${newMember.id}> changed their nickname`)
       .addField('Old nickname:', `${oldMember.nickname !== undefined ? `${oldMember.nickname}` : oldMember.username}`, true)
       .addField('New nickname:', `${newMember.nickname !== undefined ? `${newMember.nickname}` : oldMember.username}`, true)
@@ -28,7 +28,7 @@ module.exports = (client, oldMember, newMember) => {
   	if (oldMember.user.name !== newMember.user.name) {
     const embed = new Discord.RichEmbed()
       .setAuthor('👤 Username changed')
-      .setColor(colors.teal)
+      .setColor(colors.default)
       .setDescription(`<@${newMember.id}> changed their username`)
       .addField('Old username', `${oldMember.username}`, true)
       .addField('New username:', `${newMember.username}`, true)
@@ -54,7 +54,7 @@ module.exports = (client, oldMember, newMember) => {
 
     	embed = new Discord.RichEmbed()
       .setAuthor('👤 Member roles updated')
-    	.setColor(colors.teal)
+    	.setColor(colors.default)
     	.setDescription(`\Roles updated for <@${newMember.id}>`)
       .addField('Old roles:', `${output}`, true)
       .addField('New roles:', `឵${outputNew}`, true)

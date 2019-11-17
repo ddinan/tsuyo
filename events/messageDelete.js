@@ -14,7 +14,7 @@ module.exports = (client, message) => {
 
       const embed = new Discord.RichEmbed()
         .setAuthor('🗑️ Message deleted')
-        .setColor(colors.teal)
+        .setColor(colors.default)
         .setDescription(`Message deleted by <@${message.author.id}> in ${message.channel}`)
         .addField('Message:', `${message}`)
         .setTimestamp()

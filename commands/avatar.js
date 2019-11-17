@@ -3,7 +3,7 @@ const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
   const embed = new Discord.RichEmbed()
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .setImage(`${message.author.displayAvatarURL}`)
     .addField('Your avatar:', `[Image URL](${message.author.displayAvatarURL})`, true)
 
@@ -13,7 +13,7 @@ exports.run = async (client, message, args, level) => {
 
   const user = message.mentions.users.first() || message.author
   const embed2 = new Discord.RichEmbed()
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .setImage(`${user.displayAvatarURL}`)
     .setThumbnail(`${user.displayAvatarURL}`)
     .addField(`${user.username}'s avatar:`, `${user.displayAvatarURL}`, true)

@@ -9,7 +9,7 @@ exports.run = async (client, message, args, level) => {
 
   const embed = new Discord.RichEmbed()
     .setTitle('🗳 Poll')
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .addField(input, `React with either ✅ or ${noEmoji} to vote.`, true)
     .setTimestamp()
 

@@ -13,7 +13,7 @@ module.exports = (client, message, messageNew) => {
   if (settings.logMessageUpdates == 'true') {
     const embed = new Discord.RichEmbed()
       .setAuthor('📝 Message updated')
-      .setColor(colors.teal)
+      .setColor(colors.default)
       .setDescription(`Message edited by <@${messageNew.author.id}> in ${message.channel}`)
       .addField('Old message:', `${message}`, true)
       .addField('New message:', `${messageNew}`, true)

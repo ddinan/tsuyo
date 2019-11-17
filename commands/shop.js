@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   const embed = new Discord.RichEmbed()
     .setTitle('🛒 Shop')
     .setDescription(`To purchase an item, type \`${prefix}buy <item>\``)
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .addField('💍 Wedding Ring ($1,300)', `Used to propose to your partner via \`${prefix}marry\`.`, true)
     .addField('🥫 Pet Food ($50)', `Used to feed your \`${prefix}pet\`.`, true)
     .addField('🌰 Seed ($5)', `Random seed to plant in your \`${prefix}garden\`.`, true)

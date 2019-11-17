@@ -47,7 +47,7 @@ exports.run = async (client, message, args, level) => {
     } else {
       let embed = new Discord.RichEmbed()
         .setTitle('⚙️ Server Settings')
-        .setColor(colors.teal)
+        .setColor(colors.default)
       Object.keys(client.getSettings(message.guild.id)).forEach((setting) => embed = embed.addField(setting, settings[setting], true))
 
       await message.channel.send(embed)

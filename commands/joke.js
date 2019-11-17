@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   try {
     message.channel.send(
       new Discord.RichEmbed()
-        .setColor(colors.teal)
+        .setColor(colors.default)
         .setDescription(joke({ exclude_tags: ['dirty', 'racist', 'marriage', 'sex', 'death'] }).body)
         .setFooter('😂',
           'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')

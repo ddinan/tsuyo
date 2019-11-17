@@ -7,7 +7,7 @@ exports.run = async (client, message, args, level) => {
   const channel = client.channels.find(ch => ch.id === args[0])
   
   const embed = new Discord.RichEmbed()
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .addField(`Guild: `, channel.guild.name)
     .addField(`Channel: `, channel.name)
     .addField(`Guild Owner: `, channel.guild.owner)

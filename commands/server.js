@@ -4,7 +4,7 @@ const colors = require('../lib/colors.json')
 exports.run = async (client, message, args, level) => {
   const Icon = message.guild.iconURL === null
     ? 'https://discordapp.com/assets/6debd47ed13483642cf09e832ed0bc1b.png' : message.guild.iconURL
-  const verified_ = message.guild.verified !== true ? 'No' : 'Yes'
+  const verified = message.guild.verified !== true ? 'No' : 'Yes'
   const afk_channel = message.guild.afkChannel === null ? '**No channel**' : message.guild.afkChannel
 
   let region = ''
@@ -24,7 +24,7 @@ exports.run = async (client, message, args, level) => {
   if (message.guild.region === 'us-west') region = ':flag_us: US West'
 
   const embed = new Discord.RichEmbed()
-    .setColor(colors.teal)
+    .setColor(colors.default)
     .setThumbnail(Icon)
     .setFooter(`${message.guild.id}`,
       'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
@@ -32,10 +32,10 @@ exports.run = async (client, message, args, level) => {
 
     .addField('Owner', `${message.guild.owner}`, true)
     .addField('Members', `${message.guild.memberCount}`, true)
-    .addField('Verified?', `${verified_}`)
+    .addField('Verified?', `${verified}`)
     .addField('Created on', `${message.guild.createdAt}`, true)
     .addField('AFK', `${afk_channel}\n **Timeout:** ${message.guild.afkTimeout} seconds.`, true)
-    .addField('Region', `${region}`, true)
+    //.addField('Region', `${region}`, true)
     .setTimestamp()
 
   message.channel.send(embed)
