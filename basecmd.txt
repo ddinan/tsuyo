@@ -1,12 +1,11 @@
-exports.run = async (client, message, args, level) => {
-  const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
+exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   try {
   //command code
   
   //error log
   
   } catch (err) {
-    where.send('There was an error!\n' + err).catch();
+    message.channel.send('There was an error!\n' + err).catch();
   }
 };
 
