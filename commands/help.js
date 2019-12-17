@@ -3,15 +3,17 @@ const Discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
   const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
+
   try {
     if (!args[0]) {
       const embed = new Discord.RichEmbed()
-	  .setTitle('Help')
-	  .setColor(colors.default)
-	  .setThumbnail(client.user.avatarURL)
-	  .addField('Commands', `Commands can be found by typing \`${prefix}commands\`.`)
-	  .addField('Want to invite me to your Discord?', '[Click here to invite me to your server.](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)')
-	  .addField('Need more assistance?', '[Click here to join the official Tsuyo support server](https://discord.gg/3hbeQgY)')
+				.setTitle('Help')
+				.setColor(colors.default)
+				.setThumbnail(client.user.avatarURL)
+				.addField('Commands', `Commands can be found by typing \`${prefix}commands\`.`)
+				.addField('Want to invite me to your Discord?', '[Click here to invite me to your server.](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)')
+				.addField('Need more assistance?', '[Click here to join the official Tsuyo support server](https://discord.gg/3hbeQgY)')
+				.setImage("https://i.imgur.com/QlKiesl.png")
 
       message.channel.send(embed)
     } else {
@@ -21,11 +23,11 @@ exports.run = (client, message, args, level) => {
         command = client.commands.get(command) || client.aliases.get(command)
 
         const embedTiny = new Discord.RichEmbed()
-	      .setTitle(`Help - ${prefix}${command.help.name}`)
-	      .setColor(colors.default)
+	      	.setTitle(`Help - ${prefix}${command.help.name}`)
+	      	.setColor(colors.default)
           .setThumbnail(client.user.avatarURL)
           .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
-	      .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
+	      	.addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
           .addField('Category', command.help.category, true)
           .addField('Guild only', command.conf.guildOnly ? 'Yes' : 'No', true)
 

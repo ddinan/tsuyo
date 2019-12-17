@@ -10,7 +10,7 @@ exports.run = async (client, message, args, level) => {
   const embed = new Discord.RichEmbed()
     .setTitle('🗳 Poll')
     .setColor(colors.default)
-    .addField(input, `React with either ✅ or ${noEmoji} to vote.`, true)
+    .addField(`React with either ✅ or ${noEmoji} to vote.`, input, true)
     .setTimestamp()
 
   if (args.length === 0) {

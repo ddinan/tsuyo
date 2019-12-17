@@ -13,19 +13,22 @@ const config = {
 
   defaultSettings: {
     prefix: ';;',
+	language: 'en-US',
     modLogChannel: 'mod-log',
     modRole: 'Moderator',
     adminRole: 'Administrator',
     muteRole: 'Muted',
     noPermissionNotice: 'true',
+    deniedChannel: 'denied-suggestions',
+		acceptedChannel: 'accepted-suggestions',
     welcomeChannel: 'general',
     welcomeMessage: 'Welcome to the server {{mention}}!',
-    welcomeEnabled: 'false',
-    pointsEnabled: 'false',
-    logMessageUpdates: 'false',
-    logChannelUpdates: 'false',
+    welcomeEnabled: 'true',
+    pointsEnabled: 'true',
+    logMessageUpdates: 'true',
+    logChannelUpdates: 'true',
     logEmojiUpdates: 'false',
-    logMemberUpdates: 'false',
+    logMemberUpdates: 'true',
     starboardChannel: 'starboard'
   },
 
