@@ -11,16 +11,22 @@ module.exports = (client, message, messageNew) => {
   const settings = client.getSettings(message.guild.id)
 
   if (settings.logMessageUpdates == 'true') {
-    const embed = new Discord.RichEmbed()
-      .setAuthor('📝 Message updated')
-      .setColor(colors.default)
-      .setDescription(`Message edited by <@${messageNew.author.id}> in ${message.channel}`)
-      .addField('Old message:', `${message}`, true)
-      .addField('New message:', `${messageNew}`, true)
-      .setTimestamp()
+		if (settings.modLogChannel && message.guild.channels.find(c => c.name == settings.modLogChannel)) {
+				const modLogChannel = message.guild.channels.find(c => c.name == settings.modLogChannel)
+				if (!modLogChannel.permissionsFor(message.guild.me).has('VIEW_CHANNEL')) return
+				if (!modLogChannel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
+				
+			const embed = new Discord.RichEmbed()
+				.setAuthor('📝 Message updated')
+				.setColor(colors.default)
+				.setDescription(`Message edited by <@${messageNew.author.id}> in ${message.channel}`)
+				.addField('Old message:', `${message}`, true)
+				.addField('New message:', `${messageNew}`, true)
+				.setTimestamp()
 
-    if (message.guild.channels.find(channel => channel.name == settings.modLogChannel)) {
-      message.guild.channels.find(channel => channel.name == settings.modLogChannel).send(embed).catch()
-    }
+			if (message.guild.channels.find(channel => channel.name == settings.modLogChannel)) {
+				message.guild.channels.find(channel => channel.name == settings.modLogChannel).send(embed).catch()
+			}
+		}
   }
 }
