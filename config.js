@@ -1,13 +1,13 @@
 // Put member IDs in these for special perms, competely optional
 const config = {
-  owners: ['191517443519152129', '493922020783030282'],
+  owners: ['569892612178444299'],
   managers: [],
   admins: [],
-  devs: ['160357118539595776', '291272018773671937'],
+  devs: ['569892612178444299'],
   mods: [],
   support: [],
   helpers: [],
-  token: [],
+  token: [NjY3Mzc0MjIzOTkxMjQyNzgy.XiBysg.AsxCYmztK8h9yLfln4980yhAFvc],
 
   blacklisted: [],
 
