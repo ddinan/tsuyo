@@ -20,7 +20,7 @@ const config = {
     muteRole: 'Muted',
     noPermissionNotice: 'true',
     deniedChannel: 'denied-suggestions',
-		acceptedChannel: 'accepted-suggestions',
+	acceptedChannel: 'accepted-suggestions',
     welcomeChannel: 'general',
     welcomeMessage: 'Welcome to the server {{mention}}!',
     welcomeEnabled: 'true',
@@ -29,7 +29,8 @@ const config = {
     logChannelUpdates: 'true',
     logEmojiUpdates: 'false',
     logMemberUpdates: 'true',
-    starboardChannel: 'starboard'
+    censor: '0',
+    logModerated: 'true'
   },
 
   permLevels: [

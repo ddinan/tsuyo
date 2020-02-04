@@ -1,5 +1,6 @@
-const Discord = require('discord.js')
+﻿const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
+const fs = require('fs');
 const cooled = new Discord.Collection()
 
 module.exports = async (client, message) => {
@@ -27,6 +28,9 @@ module.exports = async (client, message) => {
   
   const pingWords = require('../modules/pingWords.js')
   pingWords(client, message)
+  
+  const censorship = require('../modules/censorship.js')
+  censorship(client, message)
   
   // Commands
   
