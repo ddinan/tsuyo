@@ -5,7 +5,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   try {
     const member = message.mentions.members.first()
     let user = ''
-    if (member) user = message.mentions.members.first()
+    if (member) user = message.mentions.members.first().user
+    if (user.bot === true) return message.channel.send('Now why would you want to do that?')
     if (!member) user = message.author
     
     client.life.ensure(user.id, {
