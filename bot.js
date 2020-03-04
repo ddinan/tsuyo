@@ -74,6 +74,9 @@ for (let i = 0; i < client.config.permLevels.length; i++) {
   client.levelCache[currentlevel.name] = currentlevel.level
 }
 
-client.login(process.env.token)
+process.env.token ?
+  client.login(process.env.token)
+  :
+  client.login(process.env.TOKEN);
 
 module.exports = client
