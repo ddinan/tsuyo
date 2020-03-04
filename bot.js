@@ -1,8 +1,20 @@
 'use strict'
 
+const fs = require('fs');
+const path = require('path');
+
 if (Number(process.version.slice(1).split('.')[0]) < 10) throw new Error('NodeJS 10.0.0 or higher is required. Re-run this with NodeJS 10.0.0+')
 if (process.env.PREBOOT) eval(process.env.PREBOOT)
-require('dotenv').config()
+
+  // Checks if a .env file exits
+  (
+    fs.existsSync(
+      path.join(`${process.cwd()}/.env`)
+    ) ?
+      require('dotenv').config()
+      :
+      null
+  );
 
 const Discord = require('discord.js')
 const Enmap = require('enmap')
@@ -11,10 +23,12 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START']
 })
 
-const dblposer = require('dblposter')
-const DBLPoster = new dblposer(process.env.DBL_TOKEN, client)
-
-DBLPoster.bind()
+// Checks if thee DBL token exits
+if (process.env.DBL_TOKEN) {
+  const dblposer = require('dblposter')
+  const DBLPoster = new dblposer(process.env.DBL_TOKEN, client)
+  DBLPoster.bind()
+}
 
 client.starttime = new Date().getTime()
 client.points = new Enmap({ name: 'points' })
@@ -53,7 +67,7 @@ client.config = require('./config.js')
 require('./modules/_functions')(client)
 require('./modules/commands')(client)
 require('./modules/events')(client)
-require('./modules/webhooks')(client)
+process.env.DBL_TOKEN ? require('./modules/webhooks')(client) : null;
 
 for (let i = 0; i < client.config.permLevels.length; i++) {
   const currentlevel = client.config.permLevels[i]
