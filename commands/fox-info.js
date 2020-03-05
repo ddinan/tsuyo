@@ -3,58 +3,97 @@ const Discord = require('discord.js');
 const request = require('request');
 const colors = require('../lib/colors.json');
 const { parse } = require('node-html-parser');
+const redis = require('redis');
 
-exports.run = async (client, message, args, level) => {
+const redisImageCollections = redis.createClient({
+    host: 'redis',
+    DB: 0
+});
 
-    // Grab the HTML source code from fox-info.net/fox-gallery
+const ENDPOINT = 'http://fox-info.net';
+const URL = `${ENDPOINT}/fox-gallery`;
+const COLLECTION = 'collection';
 
-    const ENDPOINT = 'http://fox-info.net';
+function locateAllGalleryBlock(DOM) {
+    const allImage = DOM.querySelectorAll('.gallery-item img');
+    const allGalleryImage = allImage.map(galleryBlock => {
+        return {
+            ID: Math.random().toString(36),
+            src: galleryBlock.getAttribute('src'),
+        }
+    });
+    return allGalleryImage;
+}
 
-    const URL = `${ENDPOINT}/fox-gallery`;
-
+function getDOM(cb) {
     request(URL, (err, body) => {
         // Randomly pick one <img /> as the source image URL
         if (err) {
             console.log(`Fail to complete a HTTP request to ${URL}`);
-            return console.error(err);
+            if (typeof cb === 'function') cb(err, null);
         }
 
         try {
             const DOM = parse(body.body);
-
-            const firstImageTag = DOM.querySelector('.gallery-item img');
-
-            if (firstImageTag) {
-                const imageSource = firstImageTag.getAttribute('src');
-
-                if (typeof imageSource !== 'string') {
-                    return console.error('Fail to get the image source from the first image tag');
-                }
-
-                const embed = new Discord.RichEmbed()
-                    .setColor(colors.default)
-                    .setImage(imageSource)
-                    .setFooter('🦊',
-                        'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
-
-                message.channel.send(embed)
-
-            } else {
-                console.log('Fail to locate the first image from the random gallery page');
-            }
-
+            if (typeof cb === 'function') cb(null, DOM);
         } catch (err) {
-            console.log(`Fail to parse the HTML content from ${URL}`);
-            return console.error(err);
+            if (typeof cb === 'function') cb(err, null);
         }
     });
+}
 
-    // WIP: Might put one batch of imgs into Redit cache
+function repopulateGalleryCollection() {
+    console.log('Repopulating fox-info.net gallery collection');
+    return new Promise((resolve, reject) => {
+        getDOM((err, DOM) => {
+            if (err) return reject(err);
+            const galleryCollection = locateAllGalleryBlock(DOM);
+            redisImageCollections.set(COLLECTION, JSON.stringify(galleryCollection));
+            return resolve();
+        })
+    });
+}
+
+exports.run = async (client, message, args, level) => {
+
+    const imageCollection = redisImageCollections.get(COLLECTION, async (err, collection) => {
+        if (err) return console.error(err);
+
+        if (collection === null) {
+            // Empty collection
+            // Grab the HTML source code from fox-info.net/fox-gallery
+            try {
+                await repopulateGalleryCollection();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // Using the existing cached collection
+
+        redisImageCollections.get(COLLECTION, (err, galleryBlock) => {
+            if (err) return console.error(err);
+            galleryBlock = JSON.parse(galleryBlock);
+            const randomIndex = Math.floor(Math.random() * galleryBlock.length);
+            const randomGallery = galleryBlock[randomIndex];
+            const embed = new Discord.RichEmbed()
+                .setColor(colors.default)
+                .setImage(randomGallery.src)
+                .setFooter('🦊',
+                    'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
+
+            message.channel.send(embed);
+            galleryBlock.splice(randomIndex, 1);
+            redisImageCollections.set(COLLECTION, JSON.stringify(galleryBlock));
+        });
+
+    });
+
 };
 
 exports.conf = {
     enabled: true,
-    aliases: ['fox', 'kitsune'],
+    aliases: ['foxi', 'kitsune'],
     guildOnly: false,
     permLevel: 'User'
 }
