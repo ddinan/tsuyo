@@ -10,7 +10,7 @@
     "pm2": "pm2 start bot.js",
     "pnpm": "pnpm server start",
     "yarn": "yarn run bot.js",
-    "nodemon": "nodemon bot.js",
+    "nodemon": "nodemon -L .",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
     "test": "jest"
@@ -46,6 +46,7 @@
     "numeral": "^2.0.6",
     "one-liner-joke": "^1.2.0",
     "random-puppy": "^1.1.0",
+    "redis": "^3.0.2",
     "request": "^2.88.0",
     "rhyme": "^0.0.3",
     "snyk": "^1.192.1",
