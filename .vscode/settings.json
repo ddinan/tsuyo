@@ -1,0 +1,6 @@
+{
+    "javascript.validate.enable": false,
+    "standard.enable": true,
+    "standard.run": "onSave",
+    "standard.autoFixOnSave": true
+}
