@@ -6,15 +6,9 @@ const path = require('path');
 if (Number(process.version.slice(1).split('.')[0]) < 10) throw new Error('NodeJS 10.0.0 or higher is required. Re-run this with NodeJS 10.0.0+')
 if (process.env.PREBOOT) eval(process.env.PREBOOT)
 
-  // Checks if a .env file exits
-  (
-    fs.existsSync(
-      path.join(`${process.cwd()}/.env`)
-    ) ?
-      require('dotenv').config()
-      :
-      null
-  );
+
+// Checks if a .env file exits
+fs.existsSync(path.join(`${__dirname}/.env`)) ? require('dotenv').config() : null;
 
 const Discord = require('discord.js')
 const Enmap = require('enmap')
