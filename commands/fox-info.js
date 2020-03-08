@@ -5,10 +5,24 @@ const colors = require('../lib/colors.json');
 const { parse } = require('node-html-parser');
 const redis = require('redis');
 
+let usingRedsi = true;
+
 const redisImageCollections = redis.createClient({
     host: 'redis',
     DB: 0
 });
+
+function redisErrorHandler(err) {
+    if (err.message.includes('Redis connection to redis:6379 failed')) {
+        console.log('[Redis] Redis connection fail, going to discontinue using Redis as a cache service for ;;fox-info');
+        usingRedsi = false;
+        console.log('[Redis] Quitting Redis connection');
+        return redisImageCollections.quit();
+    }
+    console.error(`[Redis Client Error] ${err}`);
+}
+
+redisImageCollections.on('error', redisErrorHandler);
 
 const ENDPOINT = 'http://fox-info.net';
 const URL = `${ENDPOINT}/fox-gallery`;
