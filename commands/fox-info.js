@@ -62,13 +62,42 @@ function repopulateGalleryCollection() {
         getDOM((err, DOM) => {
             if (err) return reject(err);
             const galleryCollection = locateAllGalleryBlock(DOM);
+            if (!usingRedsi) {
+                return resolve(galleryCollection);
+            }
             redisImageCollections.set(COLLECTION, JSON.stringify(galleryCollection));
             return resolve();
         })
     });
 }
 
+function sendFoxImageToChat(imageURL, message) {
+    if (imageURL && message) {
+        const embed = new Discord.RichEmbed()
+            .setColor(colors.default)
+            .setImage(imageURL)
+            .setFooter('🦊',
+                'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
+
+        message.channel.send(embed);
+    }
+}
+
+function pickRandomGallery(galleryCollection) {
+    const randomIndex = Math.floor(Math.random() * galleryCollection.length);
+    const randomGallery = galleryCollection[randomIndex];
+    return [randomGallery, randomIndex];
+}
+
 exports.run = async (client, message, args, level) => {
+
+    if (usingRedsi) redisImageCollections.ping();
+
+    if (!usingRedsi) {
+        const galleryCollection = await repopulateGalleryCollection();
+        const [randomGallery] = pickRandomGallery(galleryCollection);
+        return sendFoxImageToChat(randomGallery.src, message);
+    }
 
     const imageCollection = redisImageCollections.get(COLLECTION, async (err, collection) => {
         if (err) return console.error(err);
@@ -88,15 +117,8 @@ exports.run = async (client, message, args, level) => {
         redisImageCollections.get(COLLECTION, (err, galleryBlock) => {
             if (err) return console.error(err);
             galleryBlock = JSON.parse(galleryBlock);
-            const randomIndex = Math.floor(Math.random() * galleryBlock.length);
-            const randomGallery = galleryBlock[randomIndex];
-            const embed = new Discord.RichEmbed()
-                .setColor(colors.default)
-                .setImage(randomGallery.src)
-                .setFooter('🦊',
-                    'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
-
-            message.channel.send(embed);
+            const [randomGallery, randomIndex] = pickRandomGallery(galleryBlock);
+            sendFoxImageToChat(randomGallery.src, message);
             galleryBlock.splice(randomIndex, 1);
             redisImageCollections.set(COLLECTION, JSON.stringify(galleryBlock));
         });
