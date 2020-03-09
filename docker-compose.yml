@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+    bot:
+        build: .
+        volumes:
+            - ./:/usr/src/app
+            - /usr/src/app/node_modules # Remove this if you have pure JS dependencies
+        environment:
+            - TOKEN
+        depends_on:
+            - redis
+
+    redis:
+        image: redis:5.0.6-alpine
