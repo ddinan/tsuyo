@@ -1,4 +1,4 @@
-const request = require('request')
+﻿const request = require('request')
 
 module.exports = async client => {
   const statusList = [
@@ -12,10 +12,8 @@ module.exports = async client => {
     { msg: 'grass grow', type: 'WATCHING' },
     { msg: `over ${client.guilds.size} servers`, type: 'WATCHING' },
     { msg: 'funny cat videos', type: 'WATCHING' },
-    { msg: `Déjà vu Watching Déjà vu Watching Déjà vu Watching Déjà vu`, type: 'WATCHING' },
+    { msg: 'Déjà vu Watching Déjà vu Watching Déjà vu Watching Déjà vu', type: 'WATCHING' },
     { msg: 'the world crumble', type: 'WATCHING' },
-    { msg: 'MrBeast plant 20,000,000 trees | 🌲 #TeamTrees', type: 'WATCHING' },
-    { msg: 'YouTubers fail to box', type: 'WATCHING' },
     { msg: 'over you from above 👼', type: 'WATCHING' },
     { msg: 'in on your conversations', type: 'LISTENING' }
   ]

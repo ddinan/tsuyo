@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   if (message.author.bot === true) return
   if (!args[0]) return message.channel.send('You need to specify either add/del/list.')
 
-  // Ensure this user has gotten rep before
+  // Ensure this user has pingwords
   client.pingwords.ensure(`${message.author.id}`, {
     user: message.author.id,
     pingOne: null,

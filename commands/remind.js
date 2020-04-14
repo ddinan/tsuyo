@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const colors = require('../lib/colors.json')
 const ms = require('ms')
 
 exports.run = async (client, message, args) => {

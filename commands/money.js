@@ -1,14 +1,18 @@
 exports.run = async (client, message, args) => {
-  const key = `${message.author.id}`
+ const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
 
-  client.money.ensure(`${message.author.id}`, {
-    member: message.author.id,
+  client.money.ensure(`${member.id}`, {
+    member: member.id,
     money: 0
   })
 
-  const money = client.money.get(key, 'money')
+  const money = client.money.get(member.id, 'money')
 
-  message.channel.send(`You currently have $${money}.`)
+  if (member.id === message.author.id) {
+  	message.channel.send(`You currently have $${money}.`)
+  } else {
+  	message.channel.send(`${member.user.tag} currently has $${money}.`)
+  }
 }
 
 exports.conf = {
@@ -21,6 +25,6 @@ exports.conf = {
 exports.help = {
   name: 'money',
   category: 'Economy',
-  description: 'Shows your money.',
-  usage: 'money'
+  description: 'Shows either yours or a mentioned user\'s money.',
+  usage: 'money [@name]'
 }

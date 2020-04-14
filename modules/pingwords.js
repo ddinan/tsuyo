@@ -19,13 +19,7 @@ module.exports = (client, message) => {
     .setTimestamp();
 
     client.users.forEach(user => {
-      // Ensure this user has ping words
-      client.pingwords.ensure(`${user.id}`, {
-        user: user.id,
-        pingOne: null,
-        pingTwo: null,
-        pingThree: null
-      })
+    	if (!client.pingwords.has(user.id)) return // Don't create unnecessary data
 
       const pingOne = client.pingwords.get(`${user.id}`, 'pingOne')
       const pingTwo = client.pingwords.get(`${user.id}`, 'pingTwo')

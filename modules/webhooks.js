@@ -6,6 +6,7 @@ const server = http.createServer(app)
 const get = require('superagent')
 
 module.exports = (client) => {
+if (!process.env.DBL_TOKEN) return;
   const dbl = new dblapi(process.env.DBL_TOKEN, { webhookPort: 80, webhookAuth: process.env.DBL_AUTH })
 
   dbl.webhook.on('ready', hook => {
