@@ -18,7 +18,7 @@
   "engines": {
     "node": "10.x"
   },
-  "repository": "github:TsuyoBot/main",
+  "repository": "github:VenkSociety/Tsuyo,
   "author": "Venk#2020",
   "license": "MIT",
   "dependencies": {
@@ -59,8 +59,8 @@
     "nodemon": "^1.18.10"
   },
   "bugs": {
-    "url": "https://github.com/TsuyoBot/main/issues"
+    "url": "https://github.com/VenkSociety/Tsuyo/issues"
   },
-  "homepage": "https://github.com/TsuyoBot/main",
+  "homepage": "https://github.com/VenkSociety/Tsuyo",
   "snyk": true
 }
