@@ -17,7 +17,7 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START']
 })
 
-// Checks if thee DBL token exits
+// Checks if the DBL token exits
 if (process.env.DBL_TOKEN) {
   const dblposer = require('dblposter')
   const DBLPoster = new dblposer(process.env.DBL_TOKEN, client)
@@ -37,11 +37,12 @@ client.reputation = new Enmap({ name: 'reputation' })
 client.settings = new Enmap({ name: 'settings' })
 client.fish = new Enmap({ name: 'fish' })
 client.flags = new Enmap({ name: 'flags' })
-client.treasure = new Enmap({ name: 'treasure' })
+client.badges = new Enmap({ name: 'badges' })
+client.money = new Enmap({ name: 'money' })
+client.profile = new Enmap({ name: 'profile' })
 client.life = new Enmap({ name: 'life' })
 client.tags = new Enmap({ name: 'tags' })
 client.uses = new Enmap({ name: 'commandpop' })
-client.minecooldown = new Discord.Collection()
 client.commands = new Discord.Collection()
 client.aliases = new Discord.Collection()
 client.liusers = new Discord.Collection()

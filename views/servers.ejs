@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('partials/header.ejs') %>
+<head>
+	<link rel="stylesheet" href="/servers.css" type="text/css">
+</head>
 <body>
-  <%- include('partials/navbar.ejs') %>
-
+   <%- include('partials/navbar.ejs') %>
     <div class="page-content">
-      <%- include('partials/servers.ejs') %>
+      <div class="servers">
+		  <h1 class="title">Servers you can manage:</h1>
+		  <% guilds.forEach((guild) => { %>
+			<% if (!djsclient.guilds.has(guild.id)) { %>
+			  <a id="invite-btn" target="_blank" href="https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455&guild_id=<%= guild.id %>">Invite to server
+			  </a>
+		  	
+			  <% if (guild.icon) { %>
+				<div class="toolelem">
+					<div class="text"><span class="tooltext"><%= guild.name %></span></div>
+					<img style="border-radius: 50px;" width="100" height="100" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png?size=256">
+		  		</div>
+			  <% } else { %>
+				<div class="toolelem">
+					<div class="text"><span class="tooltext"><%= guild.name %></span></div>
+					<img style="border-radius: 50px;" width="100" height="100" src="https://discordapp.com/assets/6debd47ed13483642cf09e832ed0bc1b.png">
+				</div>
+			  <% } %>
+			<% } else { %>
+		  		<a id="manage-btn" href="./guild/config?id=<%= guild.id %>">Manage server</a>
+			  <% if (guild.icon) { %>
+				<div class="toolelem">
+					<div class="text"><span class="tooltext"><%= guild.name %></span></div>
+					<img style="border-radius: 50px;" width="100" height="100" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png?size=256">
+				</div>
+			  <% } else { %>
+				<div class="toolelem">
+					<div class="text"><span class="tooltext"><%= guild.name %></span></div>
+					<img style="border-radius: 50px;" width="100" height="100" src="https://discordapp.com/assets/6debd47ed13483642cf09e832ed0bc1b.png">
+				</div>
+			  <% } %>
+			<% } %>
+		  <% }) %>
+		</div>
     </div>
 </body>
 </html>

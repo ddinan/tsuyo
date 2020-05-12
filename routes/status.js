@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const client = require('../../bot')
+const client = require('../bot.js')
 const moment = require('moment')
 require('moment-duration-format')
 

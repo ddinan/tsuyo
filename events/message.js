@@ -29,6 +29,9 @@ module.exports = async (client, message) => {
   const pingWords = require('../modules/pingWords.js')
   pingWords(client, message)
   
+  /*const blacklist = require('../modules/blacklist.js')
+  blacklist(client, message)*/
+  
   const censorship = require('../modules/censorship.js')
   censorship(client, message)
   

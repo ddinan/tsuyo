@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="me.css" type="text/css">
+</head>
+<body>
+    <%- include('partials/navbar.ejs') %>
+  
+    <div class="cover">
+      <div class="text">
+        <img class="logo" src="<%- user.avatarURL %>" oncontextmenu="return false;" draggable="false" oncopy="return false;" oncut="return false;">
+        <h1 style="margin-top: -10px; margin-bottom: 10px"><%- user.username %> <span class="tag">#<%- user.tag %></span></h1>
+        <div class="speech-bubble">Insert description here.</div>
+      </div>
+    </div>
+  
+  <div class="info">
+    <h1 style="padding-top: 50px; text-align: left">Info</h1>
+    <table style="width:100%">
+      <tr>
+        <td><h2>Member since <span class="data">18 December 2008</span></h2></td>
+      </tr>
+      <tr>
+        <td><h2>Balance <span class="data">$21980321</span></h2></td>
+      </tr>
+    </table>
+  </div>
+</body>
+  <footer>
+    <%- include('partials/footer.ejs') %>
+  </footer>
+</html>

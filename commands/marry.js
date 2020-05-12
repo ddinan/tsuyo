@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
   let proposerID = message.author.id
   let proposerName = message.author.username
   
-  client.life.ensure(user.id, {
+  client.lifer.ensure(user.id, {
     member: user.id,
     spouse: 0,
     job: 0

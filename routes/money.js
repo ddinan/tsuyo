@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const client = require('../../bot')
+const client = require('../bot.js')
 
 router.get('/', async (req, res) => {
   if (!req.session.user) return res.redirect('/')

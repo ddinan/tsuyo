@@ -1,16 +1,26 @@
 <div class="navbar">
-  <a href="/">Dashboard</a>
+  <title>Tsuyo - A community-built Discord bot.</title>
+  <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon">
+  <!-- General stylesheet -->
+  <link rel="stylesheet" href="navbar.css" type="text/css">
+    <div class="left"><a href="/" style="color:#995BBD; font-weight:450;">Tsuyo</a>
+        <a href="/about">About</a>
+        <a href="https://github.com/VenkSociety/Tsuyo">GitHub</a>
+        <a href="https://discord.gg/3hbeQgY">Support Server</a>
+    </div>
+  
+    <div class="right">
+        <% if (user) { %>
+            <a href="/me"><%- user.username %></a>
 
-  <div class="right">
-    <% if (user) { %>
-      <a href="/status">Status</a>
-      <a href="/commands">Commands</a>
-      <a href="/api">API</a>
-      <a href="/servers">Servers</a>
-      <a href="/money">Money</a>
-      <a href="/authorization/logout">Logout</a>
-    <% } else { %>
-      <a href="/authorization">Login</a>
-    <% } %>
-  </div>
+            <a href="/servers">Manage Servers</a>
+            <a class="logout" href="/authorize/logout">Logout</a>
+        <% } else { %>
+            <a class="login" href="/authorize">Login</a>
+        <% } %>
+    </div>
+  
+  <% if (user) { %>
+      <a href="/me"><img class="pfp" src="<%- user.avatarURL %>"></a>
+    <% } else { %> <% } %>
 </div>

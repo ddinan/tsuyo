@@ -1,0 +1,37 @@
+h1 {
+  font-size: 20px;
+}
+
+p {
+  font-size: 20px;
+}
+
+.page-content {
+	background: #12071E;
+}
+
+.page-content .servers {
+	padding: 20px;
+}
+
+.page-content .servers .title {
+	text-align: center;
+}
+
+.text {
+	color: white;
+}
+
+#invite-btn {
+	padding: 4px 8px;
+	border-radius: 25px;
+	background: #47484B;
+	float: right;
+}
+
+#manage-btn {
+	padding: 4px 8px;
+	border-radius: 25px;
+	background: #3AD43E;
+	float: right;
+}

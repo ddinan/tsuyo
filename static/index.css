@@ -1,0 +1,99 @@
+h1 {
+  font-size: 40px;
+}
+
+p {
+  font-size: 20px;
+}
+
+.cover {
+  background: linear-gradient(to top, #220E3F20, #220E3F99), url("https://i.imgur.com/Zk2UrWl.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-top: -23px;
+  padding-top: 20px;
+  height: 550px;
+}
+
+.text {
+  padding-top: 20px;
+  color: white;
+  text-align: center;
+}
+
+/* Floating logo */
+
+@keyframes float {
+      0% {
+          box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+          transform: translatey(0px);
+      }
+      50% {
+          box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+          transform: translatey(-20px);
+      }
+      100% {
+          box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+          transform: translatey(0px);
+      }
+  }
+
+.text .logo {
+	width: 150px;
+	height: 150px;
+	box-sizing: border-box;
+	border: 5px white solid;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+	transform: translatey(0px);
+	animation: float 6s ease-in-out infinite;
+}
+	
+.text .logo img { width: 100%; height: auto; }
+
+/* Buttons */
+
+.text .buttons {
+  padding-top: 40px;
+}
+
+.text .buttons .add {
+  background-color: #3ad43e;
+  border-radius: 25px;
+  padding: 17px 25px;
+}
+
+.text .buttons .support {
+  background-color: #3db4ec;
+  border-radius: 25px;
+  padding: 17px 25px;
+}
+
+/* Features */
+
+table {
+  padding: 5px;
+}
+
+td {
+  padding-left: 25px;
+  background: #12071E;
+  width: 33.33%;
+}
+table {
+  border-spacing: 15px;
+}
+
+.features .box {
+  background: red;
+  width: 300px;
+}
+
+.features .box h1 {
+  font-size: 16px;
+}
+
+.features .box p {
+  font-size: 12px;
+}

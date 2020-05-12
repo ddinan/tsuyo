@@ -25,15 +25,15 @@ module.exports = async client => {
     })
   }, 60000)
 
-  /* setInterval(async () => {
-    request('https://web.tsuyobot.ga', (err, res, html) => {
-      if (err) client.logger.error(err);
+  /*setInterval(async () => {
+    request('localhost', (err, res, html) => {
+      if (err) console.log(err);
     });
-}, 28000); */
+}, 28000);*/
 
   client.user.setStatus('online')
   console.log('Finished setting up the bot.')
 
   // Starts the web server/API
-  // require('../modules/web')(client);
+  require('../modules/web')(client);
 }
