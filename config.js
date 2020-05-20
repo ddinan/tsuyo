@@ -1,3 +1,6 @@
+const port = process.env.port || 3000
+const ip = require("ip") // Only gets your IP, does nothing else
+
 // Put member IDs in these for special perms, competely optional
 const config = {
   owners: ['191517443519152129', '493922020783030282'],
@@ -11,16 +14,26 @@ const config = {
 
   blacklisted: [],
 
+  // Dashboard settings
+
+  port: port,
+  clientId: process.env.clientId,
+  clientSecret: process.env.clientId,
+  scopes: ["identify", "guilds"],
+  redirectUri: "http://" + ip.address() + ":" + port + "/authorize/callback",
+
+  // Per-guild settings
+
   defaultSettings: {
     prefix: ';;',
-	language: 'en-US',
+	  language: 'en-US',
     modLogChannel: 'mod-log',
     modRole: 'Moderator',
     adminRole: 'Administrator',
     muteRole: 'Muted',
     noPermissionNotice: 'true',
     deniedChannel: 'denied-suggestions',
-	acceptedChannel: 'accepted-suggestions',
+	  acceptedChannel: 'accepted-suggestions',
     welcomeChannel: 'general',
     welcomeMessage: 'Welcome to the server {{mention}}!',
     welcomeEnabled: 'true',

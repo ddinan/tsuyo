@@ -1,4 +1,6 @@
 node_modules
-data/
-*.log
-log/
+data
+.env
+.env2
+json.sqlite
+config.js

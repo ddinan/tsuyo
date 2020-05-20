@@ -1,4 +1,5 @@
 ﻿const request = require('request')
+const colors = require('colors')
 
 module.exports = async client => {
   const statusList = [
@@ -15,7 +16,7 @@ module.exports = async client => {
     { msg: 'Déjà vu Watching Déjà vu Watching Déjà vu Watching Déjà vu', type: 'WATCHING' },
     { msg: 'the world crumble', type: 'WATCHING' },
     { msg: 'over you from above 👼', type: 'WATCHING' },
-    { msg: 'in on your conversations', type: 'LISTENING' }
+    { msg: 'your conversations', type: 'LISTENING' }
   ]
 
   setInterval(async () => {
@@ -25,15 +26,14 @@ module.exports = async client => {
     })
   }, 60000)
 
-  /*setInterval(async () => {
-    request('localhost', (err, res, html) => {
-      if (err) console.log(err);
-    });
-}, 28000);*/
+  /* setInterval(async () => {
+      request('localhost', (err, res, html) => {
+        if (err) console.log(err);
+      });
+    }, 28000); */
 
   client.user.setStatus('online')
-  console.log('Finished setting up the bot.')
-
+  
   // Starts the web server/API
-  require('../modules/web')(client);
+  require('../modules/web')(client)
 }

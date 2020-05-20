@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const colors = require('../lib/colors.json')
 
 module.exports = (client) => {
   client.permlevel = (message) => {
@@ -153,16 +154,38 @@ module.exports = (client) => {
       return this[Math.floor(Math.random() * this.length + 1) - 1]
     }
   })
+  
+  const webhook = new Discord.WebhookClient(process.env.LOG_WEBHOOK_ID, process.env.LOG_WEBHOOK_TOKEN);
 
   process.on('uncaughtException', (err) => {
-    console.log(err)
-    console.log(err.stack)
+  	client.logger.error(err.stack)
+    const embed = new Discord.RichEmbed()
+	.setTitle('Bugs')
+	.setDescription(err.stack)
+	.setColor(colors.red);
+	
+	webhook.send({
+		username: 'Bugs',
+		avatarURL: 'https://i.imgur.com/GDNEv05.png',
+		embeds: [embed],
+	});
+	
     client.destroy()
   })
 
   process.on('unhandledRejection', (err) => {
-    console.log(err)
-    console.log(err.stack)
+    client.logger.error(err.stack)
+    
+    const embed = new Discord.RichEmbed()
+	.setTitle('Bugs')
+	.setDescription(err)
+	.setColor(colors.red);
+
+	webhook.send({
+		username: 'Bugs',
+		avatarURL: 'https://i.imgur.com/GDNEv05.png',
+		embeds: [embed],
+	});
   })
 
   process.on('exit', () => {

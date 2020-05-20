@@ -62,6 +62,7 @@ client.config = require('./config.js')
 require('./modules/_functions')(client)
 require('./modules/commands')(client)
 require('./modules/events')(client)
+client.logger = require('./modules/logger')
 process.env.DBL_TOKEN ? require('./modules/webhooks')(client) : null;
 
 for (let i = 0; i < client.config.permLevels.length; i++) {
