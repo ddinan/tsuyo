@@ -1,12 +1,12 @@
-const port = process.env.port || 3000
-const ip = require("ip") // Only gets your IP, does nothing else
+const port = process.env.port || 3000;
+const ip = require("ip"); // Only gets your IP, does nothing else
 
 // Put member IDs in these for special perms, competely optional
 const config = {
-  owners: ['191517443519152129', '493922020783030282'],
+  owners: ["191517443519152129", "493922020783030282"],
   managers: [],
   admins: [],
-  devs: ['160357118539595776', '291272018773671937'],
+  devs: ["160357118539595776", "291272018773671937"],
   mods: [],
   support: [],
   helpers: [],
@@ -25,126 +25,147 @@ const config = {
   // Per-guild settings
 
   defaultSettings: {
-    prefix: ';;',
-	  language: 'en-US',
-    modLogChannel: 'mod-log',
-    modRole: 'Moderator',
-    adminRole: 'Administrator',
-    muteRole: 'Muted',
-    noPermissionNotice: 'true',
-    deniedChannel: 'denied-suggestions',
-	  acceptedChannel: 'accepted-suggestions',
-    welcomeChannel: 'general',
-    welcomeMessage: 'Welcome to the server {{mention}}!',
-    welcomeEnabled: 'true',
-    pointsEnabled: 'true',
-    logMessageUpdates: 'true',
-    logChannelUpdates: 'true',
-    logEmojiUpdates: 'false',
-    logMemberUpdates: 'true',
-    censor: '0',
-    logModerated: 'true'
+    prefix: ";;",
+    language: "en-US",
+    modLogChannel: "mod-log",
+    modRole: "Moderator",
+    adminRole: "Administrator",
+    muteRole: "Muted",
+    noPermissionNotice: "true",
+    deniedChannel: "denied-suggestions",
+    acceptedChannel: "accepted-suggestions",
+    welcomeChannel: "general",
+    welcomeMessage: "Welcome to the server {{mention}}!",
+    welcomeEnabled: "true",
+    pointsEnabled: "true",
+    logMessageUpdates: "true",
+    logChannelUpdates: "true",
+    logEmojiUpdates: "false",
+    logMemberUpdates: "true",
+    censor: "0",
+    logModerated: "true",
   },
 
   permLevels: [
     {
       level: 0,
-      name: 'Blacklisted',
+      name: "Blacklisted",
 
-      check: () => true
+      check: () => true,
     },
 
     {
       level: 1,
-      name: 'User',
+      name: "User",
 
-      check: (message) => !config.blacklisted.includes(message.author.id) || !config.globalBan.includes(message.author.id)
+      check: (message) =>
+        !config.blacklisted.includes(message.author.id) ||
+        !config.globalBan.includes(message.author.id),
     },
 
     {
       level: 2,
-      name: 'Moderator',
+      name: "Moderator",
 
       check: (message) => {
         try {
-          const modRole = message.guild.roles.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).modRole.toLowerCase())
-          if (modRole && message.member.roles.has(modRole.id) || message.member.hasPermission('MANAGE_MESSAGES')) return true
+          const modRole = message.guild.roles.find(
+            (r) =>
+              r.name.toLowerCase() ===
+              client.getSettings(message.guild.id).modRole.toLowerCase()
+          );
+          if (
+            (modRole && message.member.roles.has(modRole.id)) ||
+            message.member.hasPermission("MANAGE_MESSAGES")
+          )
+            return true;
         } catch (e) {
-          return false
+          return false;
         }
-      }
+      },
     },
 
     {
       level: 3,
-      name: 'Administrator',
+      name: "Administrator",
 
       check: (message) => {
         try {
-          const adminRole = message.guild.roles.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase())
-          if (message.member.roles.has(adminRole.id) || message.member.hasPermission('ADMINISTRATOR')) return true
+          const adminRole = message.guild.roles.find(
+            (r) =>
+              r.name.toLowerCase() ===
+              client.getSettings(message.guild.id).adminRole.toLowerCase()
+          );
+          if (
+            message.member.roles.has(adminRole.id) ||
+            message.member.hasPermission("ADMINISTRATOR")
+          )
+            return true;
         } catch (e) {
-          return false
+          return false;
         }
-      }
+      },
     },
 
     {
       level: 4,
-      name: 'Server Owner',
+      name: "Server Owner",
 
-      check: (message) => message.channel.type === 'text' ? (message.guild.ownerID === message.author.id) : false
+      check: (message) =>
+        message.channel.type === "text"
+          ? message.guild.ownerID === message.author.id
+          : false,
     },
 
     {
       level: 5,
-      name: 'Bot Helper',
+      name: "Bot Helper",
 
-      check: (message) => config.helpers.includes(message.author.id)
+      check: (message) => config.helpers.includes(message.author.id),
     },
 
     {
       level: 6,
-      name: 'Bot Support',
+      name: "Bot Support",
 
-      check: (message) => config.support.includes(message.author.id)
+      check: (message) => config.support.includes(message.author.id),
     },
 
     {
       level: 7,
-      name: 'Bot Moderator',
+      name: "Bot Moderator",
 
-      check: (message) => config.mods.includes(message.author.id)
+      check: (message) => config.mods.includes(message.author.id),
     },
 
     {
       level: 8,
-      name: 'Bot Dev',
+      name: "Bot Dev",
 
-      check: (message) => config.devs.includes(message.author.id)
+      check: (message) => config.devs.includes(message.author.id),
     },
 
     {
       level: 9,
-      name: 'Bot Admin',
+      name: "Bot Admin",
 
-      check: (message) => config.admins.includes(message.author.id)
+      check: (message) => config.admins.includes(message.author.id),
     },
 
     {
       level: 10,
-      name: 'Bot Manager',
+      name: "Bot Manager",
 
-      check: (message) => config.admins.includes(message.author.id)
+      check: (message) => config.admins.includes(message.author.id),
     },
 
     {
       level: 11,
-      name: 'Bot Owner',
+      name: "Bot Owner",
 
-      check: (message) => config.owners.includes(message.author.id)
-    }
-  ]
-}
+      check: (message) => config.owners.includes(message.author.id),
+    },
+  ],
+};
 
-module.exports = config
+module.exports = config;
