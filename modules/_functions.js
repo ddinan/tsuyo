@@ -156,7 +156,7 @@ module.exports = (client) => {
   })
 
   process.on('uncaughtException', (err) => {
-  	client.logger.error(err.stack)
+  	console.error(err);
     const embed = new Discord.RichEmbed()
       .setTitle('Bugs')
       .setDescription(err.stack)
@@ -175,11 +175,11 @@ module.exports = (client) => {
   })
 
   process.on('unhandledRejection', (err) => {
-    client.logger.error(err.stack)
+    console.error(err.stack);
 
     const embed = new Discord.RichEmbed()
       .setTitle('Bugs')
-      .setDescription(err)
+      .setDescription(err.stack)
       .setColor(colors.red)
     if (process.env.LOG_WEBHOOK_ID && process.env.LOG_WEBHOOK_TOKEN) {
       const webhook = new Discord.WebhookClient(process.env.LOG_WEBHOOK_ID, process.env.LOG_WEBHOOK_TOKEN)
