@@ -16,10 +16,7 @@ module.exports = (client) => {
   });
 
   dbl.webhook.on("ready", (hook) => {
-    console.log(
-      `Top.gg API running at`.purple +
-        `http://${hook.hostname}:${hook.port}${hook.path}`.white
-    );
+    console.log(colors.magenta(`Top.gg API running at`) + colors.white(`http://${hook.hostname}:${hook.port}${hook.path}`));
   });
 
   dbl.webhook.on("vote", (vote) => {

@@ -15,7 +15,7 @@ const config = {
   blacklisted: [],
 
   // Dashboard settings
-
+  dashboardEnabled: false,
   port: port,
   clientId: process.env.clientId,
   clientSecret: process.env.clientId,

@@ -1,4 +1,4 @@
-/* 
+/*
 	TODO:
 		- Switch to a whitelist instead of all servers.
 		- Allow blacklisted strings. E.g: don't get pinged by "Venk:" but get pinged by "Venk".
@@ -12,14 +12,17 @@ const colors = require("../lib/colors.json");
 module.exports = (client, message) => {
   if (message.guild === null) return;
 
+
   const pingEmbed = new Discord.RichEmbed()
     .setColor(colors.default)
     .setAuthor(`Ping Words`)
     .addField(
       `${message.guild.name} (#${message.channel.name})`,
-      `<@${message.author.id}>\n${message.content}\n[Click to view message](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`
+      `<@${message.author.id}>\n${message.content.substr(0, 512)}\n[Click to view message](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`
     )
     .setTimestamp();
+    console.log(pingEmbed)
+    console.log(message.content.substr(0, 512))
 
   client.users.forEach((user) => {
     if (!client.pingwords.has(user.id)) return; // Don't create unnecessary data
@@ -32,11 +35,8 @@ module.exports = (client, message) => {
     const two = pingTwo === null ? "null" : pingTwo;
     const three = pingThree === null ? "null" : pingThree;
 
-    if (
-      message.content.toLowerCase().includes(one) ||
-      message.content.toLowerCase().includes(two) ||
-      message.content.toLowerCase().includes(three)
-    ) {
+    var text = message.content.toLowerCase()
+    if (text.includes(one) || text.includes(two) || text.includes(three)) {
       // For early pingwords participants we need to force ping words to be lowercase
       const guild = client.guilds.get(message.guild.id);
       if (message.content.includes("null")) return; // DO NOT SEND MESSAGE TO EVERY USER

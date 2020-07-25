@@ -9,6 +9,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const initWeb = (client) => {
+  if (!client.config.dashboardEnabled) {
+    console.log(colors.green("Finished setting up the bot.")); return;
+  } // If dashboard is disabled, skip starting web server
   app.set("view engine", "ejs");
   app.use(express.static("static"));
   app.use(
@@ -65,8 +68,9 @@ const initWeb = (client) => {
         "Web server running at: " + colors.white(`${ip.address()}:${port}`)
       )
     );
-    console.log(colors.green("Finished setting up the bot."));
   });
+
+  console.log(colors.green("Finished setting up the bot."));
 };
 
 module.exports = initWeb;
