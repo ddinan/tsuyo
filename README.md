@@ -1,4 +1,4 @@
-![](https://i.imgur.com/TA9sw0C.png)
+![](https://cdn.discordapp.com/attachments/745678226155634892/745942977804894259/SAVE_20200820_124943.jpeg)
 
 <p align="center">
     <a href="https://standardjs.com/"><img width='108px' src="https://i.imgur.com/7nT5ptA.png"></a>
@@ -40,7 +40,7 @@ Optionally, you can edit the other stuff too if you want to add DBL voting and s
 Due to the extremely long amount of text, you can find information on editing files, pull requests, merge requests and issues [here](https://github.com/TsuyoBot/main/wiki/Contributing-Guidelines).
 
 ### Don't want to host the bot yourself?
-We have a public instance of the bot which you can add to your Discord [here](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455).
+We have a public instance of the bot which you can add to your Discord [here](https://discordapp.com/oauth2/authorize?client_id=719544875082842192&scope=bot&permissions=1506142455).
 
 ### Having problems?
-Why not join the [official Tsuyo Bot Support Discord](https://discord.gg/3hbeQgY)? With lots of things to do and loads of members to chat with, it's one of the most friendly places on the internet... sorta.
+Why not join the [official Bot Support Discord](https://discord.gg/6YG8bWP)? With lots of things to do and loads of members to chat with, it's one of the most friendly places on the internet... sorta.
