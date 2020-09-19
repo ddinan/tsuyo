@@ -16,11 +16,14 @@ router.get('/', (req, res) => {
     res.redirect(authorizeUrl);
 });
 
-router.get('/callback', (req, res) => {
+router.get('/callback', async (req, res) => {
     if (req.session.user) return res.redirect('/');
-    
+
     const accessCode = req.query.code;
-    if (!accessCode) throw new Error('No access code returned from Discord.');
+    if (!accessCode) {
+        res.end('Login failed, please try it again. (Missing Discord access code)');
+        throw new Error('No access code returned from Discord.');
+    }
 
     const data = new FormData();
     data.append('client_id', clientId);
@@ -30,41 +33,75 @@ router.get('/callback', (req, res) => {
     data.append('scope', scopes.join(' '));
     data.append('code', accessCode);
 
-    fetch('https://discordapp.com/api/oauth2/token', {
-        method: 'POST',
-        body: data
-    })
-    .then(res => res.json())
-    .then(response => {
-        fetch('https://discordapp.com/api/users/@me', {
-            method: 'GET',
-            headers: {
-                authorization: `${response.token_type} ${response.access_token}`
-            },
-        })
-        .then(res2 => res2.json())
-        .then(userResponse => {
-        	userResponse.username = `${userResponse.username}`;
-        	userResponse.id = `${userResponse.id}`;
-        	userResponse.tag = `${userResponse.discriminator}`;
-            userResponse.tagName = `${userResponse.username}#${userResponse.discriminator}`;
-            userResponse.avatarURL = userResponse.avatar ? `https://cdn.discordapp.com/avatars/${userResponse.id}/${userResponse.avatar}.png?size=1024` : null;
+    try {
 
-            req.session.user = userResponse;
+        let authTokenRes = await fetch('https://discordapp.com/api/oauth2/token', {
+            method: 'POST',
+            body: data
         });
-		
-		fetch('https://discordapp.com/api/users/@me/guilds', {
-			method: 'GET',
-			headers: {
-			  authorization: `${response.token_type} ${response.access_token}`
-			}
-		}).then(res2 => res2.json())
-		  .then(guildResponse => {
-			 req.session.guilds = guildResponse;
-			 res.redirect('/');
-		});
-		
-    });
+
+        if (!authTokenRes.ok) {
+            console.log('Fail to fetch access token from Discord auth server');
+            throw new Error(
+                await authTokenRes.text()
+            );
+        }
+
+        let response = await authTokenRes.json();
+
+        let [userResponse, guildResponse] = await Promise.all(
+            [
+                fetch('https://discordapp.com/api/users/@me', {
+                    method: 'GET',
+                    headers: {
+                        authorization: `${response.token_type} ${response.access_token}`
+                    },
+                }),
+                fetch('https://discordapp.com/api/users/@me/guilds', {
+                    method: 'GET',
+                    headers: {
+                        authorization: `${response.token_type} ${response.access_token}`
+                    }
+                })
+            ]
+        );
+
+        if (!userResponse.ok) {
+            console.log('Fail to fetch user info from Discord server');
+            res.end('Fail to login, unable to fetch your basic user info from Discord');
+            throw new Error(
+                await userResponse.text()
+            );
+        }
+
+        userResponse = await userResponse.json();
+
+        if (!guildResponse.ok) {
+            console.log('Fail to fetch user guild info from Discord');
+            res.end('Fial to login, unable to fetch your guild info from Discord');
+            throw new Error(
+                await guildResponse.text()
+            );
+        }
+
+        userResponse.username = `${userResponse.username}`;
+        userResponse.id = `${userResponse.id}`;
+        userResponse.tag = `${userResponse.discriminator}`;
+        userResponse.tagName = `${userResponse.username}#${userResponse.discriminator}`;
+        userResponse.avatarURL = userResponse.avatar ? `https://cdn.discordapp.com/avatars/${userResponse.id}/${userResponse.avatar}.png?size=1024` : null;
+        req.session.user = userResponse;
+
+        req.session.guilds = guildResponse;
+        res.set('credentials', 'include');
+        res.redirect('/');
+
+    } catch (err) {
+        console.log('Fail to login a user in wtih Discord credential');
+        res.end('Fail to login, something terrible has happened')
+        throw new Error(err);
+    }
+
+
 });
 
 router.get('/logout', forceAuth, (req, res) => {
