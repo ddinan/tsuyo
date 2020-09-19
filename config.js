@@ -20,7 +20,7 @@ const config = {
   clientId: process.env.clientId,
   clientSecret: process.env.clientSecret,
   scopes: ["identify", "guilds"],
-  redirectUri: "http://" + ip.address() + ":" + port + "/authorize/callback",
+  redirectUri: process.env.DISCORD_REDIRECT_URI || "http://" + ip.address() + ":" + port + "/authorize/callback",
 
   // Per-guild settings
 
