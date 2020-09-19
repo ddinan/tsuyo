@@ -71,8 +71,13 @@ for (let i = 0; i < client.config.permLevels.length; i++) {
   client.levelCache[currentlevel.name] = currentlevel.level;
 }
 
-process.env.token
-  ? client.login(process.env.token)
-  : client.login(process.env.TOKEN);
+try {
+  process.env.token
+    ? client.login(process.env.token)
+    : client.login(process.env.TOKEN);
+} catch (err) {
+  console.error('Fail to authenticate with the current credentials to the Discord server\n');
+  console.error(err);
+}
 
 module.exports = client;
