@@ -18,7 +18,7 @@ const config = {
   dashboardEnabled: true,
   port: port,
   clientId: process.env.clientId,
-  clientSecret: process.env.clientId,
+  clientSecret: process.env.clientSecret,
   scopes: ["identify", "guilds"],
   redirectUri: "http://" + ip.address() + ":" + port + "/authorize/callback",
 
