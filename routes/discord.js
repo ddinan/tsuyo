@@ -20,6 +20,11 @@ router.get('/callback', async (req, res) => {
     if (req.session.user) return res.redirect('/');
 
     const accessCode = req.query.code;
+
+    if (req.query.error === 'access_denied') {
+        return res.end('You have canceled your login via Discord');
+    }
+
     if (!accessCode) {
         res.end('Login failed, please try it again. (Missing Discord access code)');
         throw new Error('No access code returned from Discord.');
