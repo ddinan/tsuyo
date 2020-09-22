@@ -1,7 +1,6 @@
 const express = require("express");
 const request = require("request");
 const session = require("express-session");
-const MongoStore = require('connect-mongo')(session);
 const bodyParser = require("body-parser");
 const colors = require("colors");
 const ip = require("ip"); // We're only using this to get the IP of the dashboard, only bot developers can see the IP
@@ -25,9 +24,6 @@ store.on('error', err => {
 });
 
 const initWeb = (client) => {
-  if (!client.config.dashboardEnabled) {
-    console.log(colors.green("Finished setting up the bot.")); return;
-  } // If dashboard is disabled, skip starting web server
   app.set("view engine", "ejs");
   app.set('trust proxy', true);
   app.use(express.static("static"));
@@ -39,16 +35,18 @@ const initWeb = (client) => {
       credentials: true
     })
   );
+  const cookieExpire = 1000 * 60 * 60 * 24 * 7// 1 week
   app.use(
     session({
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
       cookie: {
-        expires: 604800000,
+        expires: cookieExpire,
         secure: false,
+        maxAge: cookieExpire,
       },
-      store: mongoConnect,
+      store,
     })
   );
   app.use(bodyParser.json());
