@@ -4,11 +4,6 @@ const { clientId, clientSecret, scopes, redirectUri } = require('../config.js');
 const fetch = require('node-fetch');
 const FormData = require('form-data');
 
-const forceAuth = (req, res, next) => {
-    if (!req.session.user) return res.redirect('/authorize')
-    else return next();
-}
-
 router.get('/', (req, res) => {
     if (req.session.user) return res.redirect('/');
 
@@ -109,8 +104,9 @@ router.get('/callback', async (req, res) => {
 
 });
 
-router.get('/logout', forceAuth, (req, res) => {
+router.get('/logout', (req, res) => {
     req.session.destroy();
+    return res.redirect('/');
 });
 
 module.exports = router;
