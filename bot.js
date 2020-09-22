@@ -53,6 +53,8 @@ client.liusers = new Discord.Collection();
 client.music = {};
 client.levelCache = {};
 
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
 if (!SESSION_SECRET || SESSION_SECRET === '') {
   throw new Error('Environment variable "SESSION_SECRET" must NOT be empty or invalid');
 }
