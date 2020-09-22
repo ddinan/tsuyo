@@ -13,11 +13,16 @@ const MongoStore = require('connect-mongo')(session);
 const app = express();
 const port = process.env.PORT || 3000;
 
-const mongoConnect = new MongoStore(
-  {
-    url: `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.dzhnd.gcp.mongodb.net/user_sessions?retryWrites=true'`,
-  }
-);
+const store = new MongoStore({
+  url: process.env.MONGODB_HOST,
+  autoReconnect: true,
+  autoRemove: 'native',
+  stringify: false,
+});
+
+store.on('error', err => {
+  console.log(`Mongo Session Store Error: \n${err}`);
+});
 
 const initWeb = (client) => {
   if (!client.config.dashboardEnabled) {
