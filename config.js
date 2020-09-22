@@ -15,12 +15,12 @@ const config = {
   blacklisted: [],
 
   // Dashboard settings
-  dashboardEnabled: false,
+  dashboardEnabled: true,
   port: port,
   clientId: process.env.clientId,
-  clientSecret: process.env.clientId,
+  clientSecret: process.env.clientSecret,
   scopes: ["identify", "guilds"],
-  redirectUri: "http://" + ip.address() + ":" + port + "/authorize/callback",
+  redirectUri: process.env.DISCORD_REDIRECT_URI || "http://" + ip.address() + ":" + port + "/authorize/callback",
 
   // Per-guild settings
 

@@ -4,22 +4,49 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const colors = require("colors");
 const ip = require("ip"); // We're only using this to get the IP of the dashboard, only bot developers can see the IP
+const cors = require('cors');
+const { cookie } = require('request');
+const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+const store = new MongoStore({
+  url: process.env.MONGODB_HOST,
+  autoReconnect: true,
+  autoRemove: 'native',
+  stringify: false,
+});
+
+store.on('error', err => {
+  console.log(`Mongo Session Store Error: \n${err}`);
+});
+
 const initWeb = (client) => {
-  if (!client.config.dashboardEnabled) {
-    console.log(colors.green("Finished setting up the bot.")); return;
-  } // If dashboard is disabled, skip starting web server
   app.set("view engine", "ejs");
+  app.set('trust proxy', true);
   app.use(express.static("static"));
+  // app.use(
+  //   cookieParser()
+  // );
+  app.use(
+    cors({
+      credentials: true
+    })
+  );
+  const cookieExpire = 1000 * 60 * 60 * 24 * 7// 1 week
   app.use(
     session({
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      expires: 604800000,
+      cookie: {
+        expires: cookieExpire,
+        secure: false,
+        maxAge: cookieExpire,
+      },
+      store,
     })
   );
   app.use(bodyParser.json());

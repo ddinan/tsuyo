@@ -38,5 +38,11 @@ module.exports = async (client) => {
   client.user.setStatus("online");
 
   // Starts the web server/API
-  require("../modules/web")(client);
+  // If dashboard is disabled, skip starting web server
+  if (!client.config.dashboardEnabled) {
+    console.log(colors.green("Finished setting up the bot.")); return;
+  } else {
+    require("../modules/web")(client);
+  }
+
 };

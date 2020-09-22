@@ -53,10 +53,10 @@ client.liusers = new Discord.Collection();
 client.music = {};
 client.levelCache = {};
 
-process.env.SESSION_SECRET = "";
-for (let i = 0; i <= 1500; i++) {
-  process.env.SESSION_SECRET +=
-    Math.random().toString(16).slice(2, 8).toUpperCase().slice(-6) + i;
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+if (!SESSION_SECRET || SESSION_SECRET === '') {
+  throw new Error('Environment variable "SESSION_SECRET" must NOT be empty or invalid');
 }
 
 client.config = require("./config.js");
@@ -71,8 +71,13 @@ for (let i = 0; i < client.config.permLevels.length; i++) {
   client.levelCache[currentlevel.name] = currentlevel.level;
 }
 
-process.env.token
-  ? client.login(process.env.token)
-  : client.login(process.env.TOKEN);
+try {
+  process.env.token
+    ? client.login(process.env.token)
+    : client.login(process.env.TOKEN);
+} catch (err) {
+  console.error('Fail to authenticate with the current credentials to the Discord server\n');
+  console.error(err);
+}
 
 module.exports = client;
