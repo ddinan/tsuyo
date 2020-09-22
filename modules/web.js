@@ -8,6 +8,7 @@ const ip = require("ip"); // We're only using this to get the IP of the dashboar
 const cors = require('cors');
 const { cookie } = require('request');
 const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 const port = process.env.PORT || 3000;
