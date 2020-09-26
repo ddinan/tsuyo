@@ -15,8 +15,8 @@
       const sellStone = () => {
         let sts;
 
-        let stone = djsclient.money.get(user.id, 'stone');
-        let money = djsclient.money.get(user.id, 'money');
+        let stone = djsclient.money.cache.get(user.id, 'stone');
+        let money = djsclient.money.cache.get(user.id, 'money');
 
         djsclient.money.set(user.id, 0, 'stone');
         djsclient.money.set(user.id, money + Math.floor(stone), 'money');
@@ -29,8 +29,8 @@
         Money
       </h2>
       
-      <% let money = djsclient.money.get(user.id, 'money') %>
-      <% let stone = djsclient.money.get(user.id, 'stone') %>
+      <% let money = djsclient.money.cache.get(user.id, 'money') %>
+      <% let stone = djsclient.money.cache.get(user.id, 'stone') %>
       
       <p>You have<wbr> $<%= money %><br>
       and <%= stone %><wbr> stone!</p>
@@ -39,8 +39,8 @@
         Items
       </h2>
       
-      <% for (let i = 0;i < Object.keys(djsclient.items.get(user.id)).length; i++) { %>
-        <p><%= i + 1 %>. <%= Object.keys(djsclient.items.get(user.id))[i] %></p>
+      <% for (let i = 0;i < Object.keys(djsclient.items.cache.get(user.id)).length; i++) { %>
+        <p><%= i + 1 %>. <%= Object.keys(djsclient.items.cache.get(user.id))[i] %></p>
       <% } %>
     </center>
   </div>

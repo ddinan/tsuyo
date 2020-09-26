@@ -2,7 +2,7 @@ const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
     .setTitle('💰 Donating')
     .setColor(colors.default)
     .setThumbnail('https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')

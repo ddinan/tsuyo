@@ -6,7 +6,7 @@ exports.run = (client, message, args, level) => {
 
   try {
     if (!args[0]) {
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
 				.setTitle('Help')
 				.setColor(colors.default)
 				.setThumbnail(client.user.avatarURL)
@@ -22,7 +22,7 @@ exports.run = (client, message, args, level) => {
       if (client.commands.has(command) || client.aliases.has(command)) {
         command = client.commands.get(command) || client.aliases.get(command)
 
-        const embedTiny = new Discord.RichEmbed()
+        const embedTiny = new Discord.MessageEmbed()
 	      	.setTitle(`Help - ${prefix}${command.help.name}`)
 	      	.setColor(colors.default)
           .setThumbnail(client.user.avatarURL)

@@ -45,7 +45,7 @@ exports.run = async (client, message, args, level) => {
       const isDefault = !overrides[args[1]] ? '\nThis is the default global value.' : ''
       message.channel.send(`The value of ${args[1]} is currently ${settings[args[1]]}${isDefault}.`)
     } else {
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setTitle('⚙️ Server Settings')
         .setColor(colors.default)
       Object.keys(client.getSettings(message.guild.id)).forEach((setting) => embed = embed.addField(setting, settings[setting], true))

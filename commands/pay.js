@@ -5,12 +5,12 @@ exports.run = async (client, message, args) => {
   if (!args[1]) return message.channel.send('You need to specify a number to give.')
   if (message.mentions.users.first() === message.author) return message.channel.send('You cannot give yourself money.')
   if (isNaN(args[1])) return message.channel.send('Invalid amount.')
-  
+
   client.money.ensure(`${message.author.id}`, {
     user: message.author.id,
     money: 0
   })
-  
+
   const yourMoney = client.money.get(`${message.author.id}`, 'money')
   if (yourMoney < args[1]) return message.channel.send('You do not have enough money.')
 

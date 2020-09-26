@@ -7,16 +7,16 @@ exports.run = async (client, message, args) => {
     dailbonusy: 0,
     rep: 0
   })
-  
+
   const cooldown = client.cooldown.get(message.author.id, 'dailybonus')
-  
+
   var today = new Date();
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  
+
   if (cooldown === date) return message.channel.send(`You have already collected your daily bonus today!`)
-  
+
   client.cooldown.set(`${message.author.id}`, date, 'dailybonus') // Activate 24 hour cooldown
-  
+
   client.money.ensure(`${message.author.id}`, {
     member: message.author.id,
     money: 0

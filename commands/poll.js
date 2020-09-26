@@ -3,11 +3,11 @@ const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
   const yesEmoji = '✅'
-  const noEmoji = message.client.emojis.get('637573919204966410')
+  const noEmoji = message.client.emojis.cache.get('637573919204966410')
   const settings = client.getSettings(message.guild.id)
   const input = message.content.split(`${settings.prefix}poll `)
 
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
     .setTitle('🗳 Poll')
     .setColor(colors.default)
     .addField(`React with either ✅ or ${noEmoji} to vote.`, input, true)

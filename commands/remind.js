@@ -5,7 +5,7 @@ const ms = require('ms')
 exports.run = async (client, message, args) => {
   const reminderTime = args[0]
   if (!reminderTime) {
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setColor(colors.red)
       .setTitle('Invalid Syntax')
       .setDescription("`/remind [time] [message]`\n\nUse 's' for seconds, 'm' for minutes, 'h' for hours and 'd' for days. If a measurement of time is not specified, the time will be in seconds.")
@@ -16,13 +16,13 @@ exports.run = async (client, message, args) => {
   const reminder = args.slice(1).join(' ')
 
   if (reminder) {
-    const success = new Discord.RichEmbed()
+    const success = new Discord.MessageEmbed()
       .setColor(colors.green)
       .setTitle('**SUCCESS:**')
       .setDescription(`I will send you a DM in **${reminderTime}**!`)
       .setTimestamp()
 
-    const fail = new Discord.RichEmbed()
+    const fail = new Discord.MessageEmbed()
       .setColor(colors.red)
       .setTitle('**FAIL:**')
       .setDescription('I couldn\'t send you a DM. Please check to see if you have direct messaging enabled.')
@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
     message.channel.send(success)
 
     setTimeout(function () {
-      const remindEmbed = new Discord.RichEmbed()
+      const remindEmbed = new Discord.MessageEmbed()
         .setColor(colors.default)
         .addField('Reminder:', `${reminder}`)
         .setTimestamp()

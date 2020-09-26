@@ -11,14 +11,14 @@ exports.run = async (client, message, args) => {
     commands: null,
   })
     
-  const commands = client.blacklist.get(`${message.guild.id}`, 'commands')
+  const commands = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
     
   if (args[0] === 'add') {
     if (!args[1]) return message.channel.send('You need to specify a command to blacklist.')
-    const cmds = client.blacklist.get(`${message.guild.id}`, 'commands')
+    const cmds = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
 			
       client.blacklist.set(`${message.guild.id}`, `${cmds.replace("null", "")} + , + ${args[1].toLowerCase()} `, "commands")
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor('Blacklist')
 			.setColor(colors.green)
 			.setDescription(`Blacklisted \`;;${args[1].toLowerCase()}\` in this server.`)
@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
       if (commands === null) return message.channel.send('This command is not blacklisted.')
       var newList = commands
       client.pingwords.set(`${message.author.id}`, newList, 'pingOne')
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setAuthor('Ping Words')
 				.setColor(colors.green)
 				.setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
   }
   
   if (args[0] === 'list') {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor('Ping Words')
 			.setColor(colors.default)
 			.addField('Slot 1:', pingOne, true)

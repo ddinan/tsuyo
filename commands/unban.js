@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => {
 
         const modLogChannel = settings.modLogChannel
         if (modLogChannel && message.guild.channels.find(c => c.name === settings.modLogChannel)) {
-          const embed = new Discord.RichEmbed()
+          const embed = new Discord.MessageEmbed()
             .setTitle('User Unban')
             .setColor(colors.green)
             .setDescription(`Reason: ${args.slice(1).join(' ')}\nModerator: ${message.author.username}`)

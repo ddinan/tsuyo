@@ -5,7 +5,7 @@ module.exports = (client, member) => {
  	const settings = client.getSettings(member.guild.id)
  	if (settings.welcomeEnabled !== 'true') return
 
-  const welcomeChannel = member.guild.channels.find(c => c.name == settings.welcomeChannel)
+  const welcomeChannel = member.guild.channels.cache.find(c => c.name == settings.welcomeChannel)
 
  	if (settings.welcomeMessage && welcomeChannel) {
     if (!welcomeChannel.permissionsFor(member.guild.me).has('VIEW_CHANNEL')) return
@@ -46,12 +46,12 @@ module.exports = (client, member) => {
   }
 
   if (settings.logMessageUpdates === 'true') {
-    const modLogChannel = member.guild.channels.find(c => c.name === settings.modLogChannel)
+    const modLogChannel = member.guild.channels.cache.find(c => c.name === settings.modLogChannel)
     if (settings.modLogChannel && modLogChannel) {
       if (!modLogChannel.permissionsFor(member.guild.me).has('VIEW_CHANNEL')) return
       if (!modLogChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES')) return
 
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setAuthor('📥 Member joined')
         .setColor(colors.green)
         .setDescription(`**Total member count:** \`${member.guild.memberCount}\`\n<@${member.user.id}> joined the Discord.`)

@@ -4,15 +4,15 @@ const Discord = require('discord.js')
 exports.run = async (client, message, args) => {
   const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
   const key = `${message.author.id}`
-  
+
   client.inventory.ensure(key, {
     member: key,
     rings: 0,
     petfood: 0,
     seeds: 0,
   })
-  
-  const embed = new Discord.RichEmbed()
+
+  const embed = new Discord.MessageEmbed()
     .setTitle('🎒 Your Inventory')
     .setColor(colors.default)
     .addField(`💍 Wedding Rings:`, client.inventory.get(key, 'rings'))
@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
     .addField(`🥫 Pet Food`, client.inventory.get(key, 'petfood') + ' cans')
     .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL)
     .setTimestamp()
-  
+
   message.channel.send(embed)
 }
 

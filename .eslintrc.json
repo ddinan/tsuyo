@@ -1,0 +1,28 @@
+{
+  "extends": "eslint:recommended",
+	"env": {
+        "node": true,
+		"es6": true,
+        "browser": false
+	},
+	"parserOptions": {
+		"ecmaVersion": 2017
+	},
+	"rules": {
+        "comma-spacing": "error",
+        "no-unused-vars": "error",
+        "comma-style": "error",
+        "no-console": "off",
+		"max-nested-callbacks": ["error", {"max": 4}],
+		"max-statements-per-line": ["error", {"max": 1}],
+		"no-empty-function": "error",
+        "quotes": ["error", "double"],
+        "no-invalid-regexp": "error",
+        "no-unexpected-multiline": "warn",
+        "no-new-func": "warn",
+        "no-new-wrappers": "warn",
+        "no-unused-expressions": "error",
+        "no-unreachable": "error",
+        "semi": "warn"
+	}
+}

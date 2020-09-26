@@ -5,7 +5,7 @@ exports.run = async (client, message, args, level) => {
     const hex = Math.random().toString(16).slice(2, 8).toUpperCase().slice(-6);
 
     const color = !args[0] ? hex : args[0];
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setColor(hex)
       .setDescription("Random HEX Code: #" + hex)
       .setTitle("#" + hex)

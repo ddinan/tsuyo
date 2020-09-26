@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
   <%- include('../partials/navbar.ejs') %>
-  <% const members = djsclient.guilds.get(guild).members %>
+  <% const members = djsclient.guilds.cache.get(guild).members %>
   
   <div class="page-content">
     <a style="text-decoration: none;" href="/guild/config?id=<%= guild %>">Guild Config</a>

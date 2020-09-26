@@ -5,9 +5,9 @@ exports.run = async (client, message, args, level) => {
     const user = message.mentions.users.first()
     const settings = client.getSettings(message.guild.id)
     if (user) {
-      if (message.guild.members.get(message.author.id).highestRole.name == '@everyone') message.reply('The role you are trying to add is above your roles position!')
+      if (message.guild.members.cache.get(message.author.id).highestRole.name == '@everyone') message.reply('The role you are trying to add is above your roles position!')
       else {
-        if (message.guild.members.get(message.author.id).highestRole.position >= message.guild.roles.find(r => r.name == args.slice(1).join(' ')).position) {
+        if (message.guild.members.cache.get(message.author.id).highestRole.position >= message.guild.roles.find(r => r.name == args.slice(1).join(' ')).position) {
           if (message.member.hasPermission('SEND_MESSAGES')) {
             const member = message.guild.member(user)
             if (member) {

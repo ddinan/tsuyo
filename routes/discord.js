@@ -17,7 +17,7 @@ router.get('/callback', async (req, res) => {
     const accessCode = req.query.code;
 
     if (req.query.error === 'access_denied') {
-        return res.end('You have canceled your login via Discord');
+        return res.end('You have cancelled your login via Discord.');
     }
 
     if (!accessCode) {
@@ -41,7 +41,7 @@ router.get('/callback', async (req, res) => {
         });
 
         if (!authTokenRes.ok) {
-            console.log('Fail to fetch access token from Discord auth server');
+            console.log('Failed to fetch access token from Discord auth server.');
             throw new Error(
                 await authTokenRes.text()
             );
@@ -67,8 +67,8 @@ router.get('/callback', async (req, res) => {
         );
 
         if (!userResponse.ok) {
-            console.log('Fail to fetch user info from Discord server');
-            res.end('Fail to login, unable to fetch your basic user info from Discord');
+            console.log('Failed to fetch user info from Discord server.');
+            res.end('Failed to login, unable to fetch your basic user info from Discord.');
             throw new Error(
                 await userResponse.text()
             );
@@ -77,8 +77,8 @@ router.get('/callback', async (req, res) => {
         userResponse = await userResponse.json();
 
         if (!guildResponse.ok) {
-            console.log('Fail to fetch user guild info from Discord');
-            res.end('Fial to login, unable to fetch your guild info from Discord');
+            console.log('Failed to fetch user guild info from Discord');
+            res.end('Failed to login, unable to fetch your guild info from Discord.');
             throw new Error(
                 await guildResponse.text()
             );
@@ -96,8 +96,8 @@ router.get('/callback', async (req, res) => {
         res.redirect('/');
 
     } catch (err) {
-        console.log('Fail to login a user in wtih Discord credential');
-        res.end('Fail to login, something terrible has happened')
+        console.log('Failed to login a user in with Discord credentials.');
+        res.end('Fail to login, something terrible has happened.')
         throw new Error(err);
     }
 

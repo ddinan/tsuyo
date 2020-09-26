@@ -11,12 +11,12 @@ exports.run = async (client, message, args, level) => {
       if (user) {
         const member = message.guild.member(user)
         if (member) {
-          member.addRole(message.guild.roles.find(r => r.name == settings.muteRole)).then(async () => {
+          member.roles.add(message.guild.roles.find(r => r.name == settings.muteRole)).then(async () => {
             message.reply(`Successfully muted ${user.tag}`)
 
             const modLogChannel = settings.modLogChannel
             if (modLogChannel && message.guild.channels.find(c => c.name === settings.modLogChannel)) {
-              const embed = new Discord.RichEmbed()
+              const embed = new Discord.MessageEmbed()
                 .setTitle('User Tempmute')
                 .setColor(colors.red)
                 .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: ${message.author.username}`)
@@ -28,7 +28,7 @@ exports.run = async (client, message, args, level) => {
               await member.removeRole(message.guild.roles.find(r => r.name == settings.muteRole)).then(() => {
                 const modLogChannel = settings.modLogChannel
                 if (modLogChannel && message.guild.channels.find(c => c.name === settings.modLogChannel)) {
-                  const embed = new Discord.RichEmbed()
+                  const embed = new Discord.MessageEmbed()
                     .setTitle('User Unmute')
                     .setColor('#eeeeee')
                     .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: AutoMod`)

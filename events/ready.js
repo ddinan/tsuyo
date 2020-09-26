@@ -1,4 +1,4 @@
-﻿const request = require("request");
+const request = require("request");
 const colors = require("colors");
 
 module.exports = async (client) => {
@@ -35,14 +35,29 @@ module.exports = async (client) => {
       });
     }, 28000); */
 
-  client.user.setStatus("online");
+    client.user.setStatus("online");
 
-  // Starts the web server/API
-  // If dashboard is disabled, skip starting web server
-  if (!client.config.dashboardEnabled) {
-    console.log(colors.green("Finished setting up the bot.")); return;
-  } else {
-    require("../modules/web")(client);
-  }
+    let users = client.users.cache.size;
+    let servers = client.guilds.cache.size;
+    let channels = client.channels.cache.size;
 
+    // logs the status
+    client.logger.log(`RAM usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, "ready");
+    client.logger.log(`Users: ${users}`, "ready");
+    client.logger.log(`Servers: ${servers}`, "ready");
+    client.logger.log(`Channels: ${channels}`, "ready");
+    client.logger.log(`Running on Node ${process.version.replace(" ", "")}`, "ready");
+    client.logger.log(`Running Discord.js v${require("discord.js").version.replace(" ", "")}`, "ready");
+
+    client.logger.log("Running Tsuyo v1.1 | https://github.com/VenkSociety/Tsuyo");
+    client.startuptime = new Date().getTime() - client.starttime;
+    client.logger.log("It took " + client.startuptime + "ms to start Tsuyo.");
+
+    // Starts the web server/API
+    // If dashboard is disabled, skip starting web server
+    if (!client.config.dashboardEnabled) {
+      console.log(colors.green("Finished setting up the bot.")); return;
+    } else {
+      require("../modules/web")(client);
+    }
 };

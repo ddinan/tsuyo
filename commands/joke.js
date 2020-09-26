@@ -5,7 +5,7 @@ const colors = require('../lib/colors.json')
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   try {
     message.channel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(colors.default)
         .setDescription(joke({ exclude_tags: ['dirty', 'racist', 'marriage', 'sex', 'death'] }).body)
         .setFooter('😂',
@@ -13,7 +13,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     )
   } catch (err) {
     message.channel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(colors.red)
         .addField('There was an error!', `${err}`)
     ).catch()

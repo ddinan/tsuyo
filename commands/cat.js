@@ -5,7 +5,7 @@ const colors = require('../lib/colors.json')
 exports.run = async (client, message, args, level) => {
   request('http://aws.random.cat/meow', function (error, body) {
     var result = JSON.parse(body.body)
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setColor(colors.default)
       .setImage(result.file)
       .setFooter('🐱',

@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   if (!args[0]) return message.channel.send('You need to input the word to rhyme!')
 
   const msg = await message.channel.send(
-    new Discord.RichEmbed()
+    new Discord.MessageEmbed()
       .setColor(colors.default)
       .setDescription('Finding rhymes...')
       .setFooter('RHYME',
@@ -18,12 +18,12 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       	const words = rl.rhyme(args.join(' '))
 
       	words.forEach(word => {
-        	rhymes += word.toPropperCase() + ', '
+        	rhymes += word.toProperCase() + ', '
       	})
 
       	rhymes = rhymes.slice(0, -2)
 
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(`${args[0]}`)
       .setColor(colors.default)
       .setDescription(`${rhymes || 'None Found.'}`)

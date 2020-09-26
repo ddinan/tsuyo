@@ -8,7 +8,7 @@ exports.run = async (client, message, args, level) => {
 	if (message.channel.nsfw === false) return message.channel.send('You need to be in an NSFW channel to use this command.')
  
 	random('fiftyfifty').then(url => {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 		.setAuthor('Reddit 50/50', 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url)
 		.setColor('#FF4300')
 		.setImage(`${url}`)

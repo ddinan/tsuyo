@@ -21,7 +21,7 @@ module.exports = (client) => {
 
   dbl.webhook.on("vote", (vote) => {
     const settings = client.getSettings(channel.guild.id);
-    const logs = client.channels.get(settings.modLogChannel);
+    const logs = client.channels.cache.get(settings.modLogChannel);
     if (!logs) return;
     logs.send(`User with ID ${vote.user} just voted!`);
   });

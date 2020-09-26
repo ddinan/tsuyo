@@ -23,7 +23,7 @@ exports.run = async (client, message, args, level) => {
   if (message.guild.region === 'us-south') region = ':flag_us: US South'
   if (message.guild.region === 'us-west') region = ':flag_us: US West'
 
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
     .setColor(colors.default)
     .setThumbnail(Icon)
     .setFooter(`${message.guild.id}`,

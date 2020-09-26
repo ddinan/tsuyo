@@ -4,7 +4,7 @@ const Discord = require('discord.js')
 exports.run = async (client, message, args) => {
   const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
   
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
     .setTitle('🛒 Shop')
     .setDescription(`To purchase an item, type \`${prefix}buy <item>\``)
     .setColor(colors.default)

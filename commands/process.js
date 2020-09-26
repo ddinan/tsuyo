@@ -10,7 +10,7 @@ exports.run = (client, message, args, level) => {
     .duration(client.uptime)
     .format(" D [days], H [hrs], m [mins], s [secs]");
   const port = process.env.port || 3000;
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
     .setAuthor("Process Information")
     .setColor(colors.default)
     .setThumbnail(client.user.avatarURL)

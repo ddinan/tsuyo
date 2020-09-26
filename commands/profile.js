@@ -20,7 +20,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   // Profile picture
-  const pic = member.user.displayAvatarURL === null ? 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png' : member.user.displayAvatarURL
+  const pic = member.user.displayAvatarURL() === null ? 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png' : member.user.displayAvatarURL()
 
   const avatar = await Canvas.loadImage(pic)
   ctx.drawImage(avatar, 0, 0, 256, 256)

@@ -2,7 +2,7 @@
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
-  const user = message.mentions.users.first() || client.users.get(args[0])
+  const user = message.mentions.users.first() || client.users.cache.cache.get(args[0])
   if (!user) return message.channel.send('You must mention someone or give their ID!')
   if (user.bot === true) return message.channel.send('Don\'t marry bots. They have no feelings... trust me...')
   if (user === message.author || message.author.id === user.id) return message.channel.send('It really do be like that sometimes...')
@@ -29,18 +29,18 @@ exports.run = async (client, message, args) => {
     seeds: 0,
   })
   
-  const rings = client.inventory.get(message.author.id, 'rings')
-  const spouse = client.life.get(message.author.id, 'spouse')
-  const uSpouse = client.life.get(user.id, 'spouse')
+  const rings = client.inventory.cache.cache.get(message.author.id, 'rings')
+  const spouse = client.life.cache.cache.get(message.author.id, 'spouse')
+  const uSpouse = client.life.cache.cache.get(user.id, 'spouse')
   
   if (rings === 0) return message.channel.send('You do not have a wedding ring. Buy one in the shop.')
   if (spouse !== 0) return message.channel.send('You cannot have more than one spouse.')
   if (uSpouse !== 0) return message.channel.send(`${user.tag} already has a spouse.`)
 
-  let embed = new Discord.RichEmbed()
+  let embed = new Discord.MessageEmbed()
     .setDescription(`**${user.tag}**, **${message.author.tag}** is asking for your hand in marriage, would you like to accept?`)
   
-  const noEmoji = message.client.emojis.get('637573919204966410')
+  const noEmoji = message.client.emojis.cache.cache.get('637573919204966410')
   message.channel.send(embed).then(message => {
     message.react('✅').then(() => message.react(noEmoji));
 
@@ -48,7 +48,7 @@ exports.run = async (client, message, args) => {
       return ['✅', noEmoji].includes(reaction.emoji.name) && sent.id === user.id;
     };
 
-	const proposer = message.guild.members.get("id", proposerID)
+	const proposer = message.guild.members.cache.cache.get("id", proposerID)
 	
     message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
       .then(collected => {

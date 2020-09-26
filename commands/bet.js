@@ -37,9 +37,6 @@ exports.run = async (client, message, args) => {
       message.channel.send("Rhino rolled: " + String(sides2))
       client.money.set(`${message.author.id}`, (money + parseInt(args[0])), 'money')
       message.channel.send(`You now have $` + (money + parseInt(args[0])))
-      console.log(parseInt(money))
-      console.log(parseInt(args[0]))
-      console.log(parseInt(money) + parseInt(args[0]))
       return;
 
     } else if (sides1 < sides2) {

@@ -70,7 +70,7 @@ function repopulateGalleryCollection() {
 
 function sendFoxImageToChat(imageURL, message) {
     if (imageURL && message) {
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setColor(colors.default)
             .setImage(imageURL)
             .setFooter('🦊',
@@ -96,7 +96,7 @@ exports.run = async (client, message, args, level) => {
         return sendFoxImageToChat(randomGallery.src, message);
     }
 
-    const imageCollection = redisImageCollections.get(COLLECTION, async (err, collection) => {
+    const imageCollection = redisImageCollections.cache.cache.get(COLLECTION, async (err, collection) => {
         if (err) return console.error(err);
 
         if (collection === null) {
@@ -111,7 +111,7 @@ exports.run = async (client, message, args, level) => {
 
         // Using the existing cached collection
 
-        redisImageCollections.get(COLLECTION, (err, galleryBlock) => {
+        redisImageCollections.cache.cache.get(COLLECTION, (err, galleryBlock) => {
             if (err) return console.error(err);
             galleryBlock = JSON.parse(galleryBlock);
             const [randomGallery, randomIndex] = pickRandomGallery(galleryBlock);

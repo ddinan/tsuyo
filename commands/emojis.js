@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
     let notAnimated = []
     let animated = []
 
-    message.guild.emojis.forEach(async emoji => {
+    message.guild.emojis.cache.forEach(async emoji => {
       if (emoji.animated) animated.push(emoji.toString())
       else notAnimated.push(emoji.toString())
     })

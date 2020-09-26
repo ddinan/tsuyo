@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => {
   if (message.channel.nsfw === false) return message.channel.send('You need to be in an NSFW channel to use this command.')
   if (!args[0]) {
     return message.channel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(colors.red)
         .setDescription('You need to specify a term to define.')
     )
@@ -16,13 +16,13 @@ exports.run = async (client, message, args, level) => {
     var result = JSON.parse(body.body).list[0]
     if (!result) {
       return message.channel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(colors.red)
           .setDescription(`Urban Dictionary does not contain a definition for \`${args[0]}\`.`)
       )
     }
 
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setColor('#1D2439')
       .setThumbnail('https://i.imgur.com/D19IeLX.png')
       .setTitle(result.word)

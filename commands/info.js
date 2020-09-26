@@ -8,26 +8,26 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     if (member) user = message.mentions.members.first().user
     if (user.bot === true) return message.channel.send('Now why would you want to do that?')
     if (!member) user = message.author
-    
+
     client.life.ensure(user.id, {
       member: user.id,
       spouse: 0,
       job: 0
     })
-    
+
     client.money.ensure(user.id, {
       member: user.id,
       money: 0
     })
-    
+
     client.reputation.ensure(user.id, {
       member: user.id,
       reputation: 0
     })
-    
+
     const married = client.life.get(user.id, 'spouse') === 0 ? 'nobody' : `<@${client.life.get(user.id, 'spouse')}>`
 
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(`${user.tag}`)
       .addField(`ID`, user.id, true)
       .addField(`Account created:`, user.createdAt, true)

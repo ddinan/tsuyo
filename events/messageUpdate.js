@@ -16,7 +16,7 @@ module.exports = (client, message, messageNew) => {
 				if (!modLogChannel.permissionsFor(message.guild.me).has('VIEW_CHANNEL')) return
 				if (!modLogChannel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 				
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setAuthor('📝 Message updated')
 				.setColor(colors.default)
 				.setDescription(`Message edited by <@${messageNew.author.id}> in ${message.channel}`)
