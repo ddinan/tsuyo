@@ -46,4 +46,4 @@ We have a public instance of the bot which you can add to your Discord [here](ht
 Why not join the [official Tsuyo Bot Support Discord](https://discord.gg/3hbeQgY)? With lots of things to do and loads of members to chat with, it's one of the most friendly places on the internet... sorta.
 
 ### Disclaimer:
-Tsuyo is a fork of [Cytrus-RE](https://github.com/Cytrus-RE/cytrus-re) which was in-turn made by [Terrific Tea Studios](https://terrific-tea.github.io/).
+Tsuyo is a fork of [Cytrus-RE](https://github.com/Cytrus-RE/cytrus-re), which was in-turn made by [Terrific Tea Studios](https://terrific-tea.github.io/).
