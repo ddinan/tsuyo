@@ -41,7 +41,7 @@
     "humanize-duration": "^3.23.1",
     "js-beautify": "^1.10.0",
     "mathjs": "^6.0.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.0",
     "moment-duration-format": "^2.2.2",
     "ms": "^2.1.2",
     "node-fetch": "^2.6.0",
