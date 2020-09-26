@@ -37,7 +37,7 @@
     "enmap": "^5.0.0",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
-    "form-data": "^2.4.0",
+    "form-data": "^3.0.0",
     "humanize-duration": "^3.23.1",
     "js-beautify": "^1.10.0",
     "mathjs": "^6.0.2",
