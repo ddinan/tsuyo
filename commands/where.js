@@ -15,7 +15,7 @@ exports.run = async (client, message, args, level) => {
       .setTimestamp();
 
     message.author.send(embed)
-  } catch(err) {
+  } catch (err) {
     message.channel.send(client.errors.genericError + err.stack).catch();
   }
 };
