@@ -15,7 +15,7 @@ exports.run = (client, message, args, level) => {
     .addField('ID', `${message.client.user.id}`, true)
     .addField('Hosted in', ':flag_au: Australia', true)
     .addField('Uptime', `${duration}`, true)
-    .addField('Created by', '<@191517443519152129>', true)
+    .addField('Created by', '<@191517443519152129> and [Terrific Tea Studios](https://terrific-tea.github.io/)', true)
     .addField('Support server', '[Click here](https://discord.gg/3hbeQgY)')
     .setTimestamp()
   message.channel.send(embed)
