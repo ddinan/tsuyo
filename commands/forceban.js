@@ -24,7 +24,7 @@ exports.run = async (client, message, args, level) => {
       })
     } else message.channel.send("You didn't provide a valid UserID!")
   } catch (err) {
-    message.channel.send('There was an error!\n' + err + '').catch()
+    message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }
 

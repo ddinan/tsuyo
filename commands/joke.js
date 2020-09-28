@@ -12,11 +12,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
           'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
     )
   } catch (err) {
-    message.channel.send(
-      new Discord.MessageEmbed()
-        .setColor(colors.red)
-        .addField('There was an error!', `${err}`)
-    ).catch()
+    message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }
 

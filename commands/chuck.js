@@ -2,11 +2,15 @@ const Discord = require('discord.js')
 const request = require('request')
 
 exports.run = async (client, message, args, level) => {
-  request('https://api.chucknorris.io/jokes/random', function (error, body) {
-    var result = JSON.parse(body.body)
+  try {
+    request('https://api.chucknorris.io/jokes/random', function (error, body) {
+      var result = JSON.parse(body.body)
 
-    message.channel.send(result.value)
-  })
+      message.channel.send(result.value)
+    })
+  } catch(err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
+  }
 }
 
 exports.conf = {

@@ -1,1 +1,1 @@
-worker: node cybase.js
+worker: node bot.js

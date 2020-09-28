@@ -3,15 +3,19 @@ const randomPuppy = require('random-puppy')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
-  const subReddits = ['dankmeme', 'meme', 'memes', 'spicy_memes', 'me_irl']
-  const random = subReddits[Math.floor(Math.random() * subReddits.length)]
+  try {
+    const subReddits = ['dankmeme', 'meme', 'memes', 'spicy_memes', 'me_irl']
+    const random = subReddits[Math.floor(Math.random() * subReddits.length)]
 
-  const img = await randomPuppy(random)
-  const embed = new Discord.MessageEmbed()
-    .setColor(colors.default)
-    .setImage(img)
+    const img = await randomPuppy(random)
+    const embed = new Discord.MessageEmbed()
+      .setColor(colors.default)
+      .setImage(img)
 
-  message.channel.send(embed)
+    message.channel.send(embed)
+  } catch (err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
+  }
 }
 
 exports.conf = {

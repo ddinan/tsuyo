@@ -63,7 +63,7 @@ exports.run = (client, message, args, level) => {
       }
     }
   } catch (err) {
-    message.channel.send('There was an error!\n' + err.stack).catch()
+    message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }
 

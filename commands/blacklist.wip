@@ -2,52 +2,56 @@
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
-  if (message.author.bot === true) return
-  if (!args[0]) return message.channel.send('You need to specify either add/del/list.')
+  try {
+    if (message.author.bot === true) return
+    if (!args[0]) return message.channel.send('You need to specify either add/del/list.')
 
-  // Ensure this guild has a blacklist
-  client.blacklist.ensure(`${message.guild.id}`, {
-    guild: message.guild.id,
-    commands: null,
-  })
+    // Ensure this guild has a blacklist
+    client.blacklist.ensure(`${message.guild.id}`, {
+      guild: message.guild.id,
+      commands: null,
+    })
+      
+    const commands = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
+      
+    if (args[0] === 'add') {
+      if (!args[1]) return message.channel.send('You need to specify a command to blacklist.')
+      const cmds = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
+        
+        client.blacklist.set(`${message.guild.id}`, `${cmds.replace("null", "")} + , + ${args[1].toLowerCase()} `, "commands")
+      const embed = new Discord.MessageEmbed()
+        .setAuthor('Blacklist')
+        .setColor(colors.green)
+        .setDescription(`Blacklisted \`;;${args[1].toLowerCase()}\` in this server.`)
+          return message.channel.send(embed)
+    }
     
-  const commands = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
+    if (args[0] === 'del') {
+      if (!args[1]) return message.channel.send('You need to specify a command to unblacklist.')
+        if (commands === null) return message.channel.send('This command is not blacklisted.')
+        var newList = commands
+        client.pingwords.set(`${message.author.id}`, newList, 'pingOne')
+        const embed = new Discord.MessageEmbed()
+          .setAuthor('Ping Words')
+          .setColor(colors.green)
+          .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
+        return message.channel.send(embed)
+    }
     
-  if (args[0] === 'add') {
-    if (!args[1]) return message.channel.send('You need to specify a command to blacklist.')
-    const cmds = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
-			
-      client.blacklist.set(`${message.guild.id}`, `${cmds.replace("null", "")} + , + ${args[1].toLowerCase()} `, "commands")
-		const embed = new Discord.MessageEmbed()
-			.setAuthor('Blacklist')
-			.setColor(colors.green)
-			.setDescription(`Blacklisted \`;;${args[1].toLowerCase()}\` in this server.`)
-      	return message.channel.send(embed)
-  }
-  
-  if (args[0] === 'del') {
-    if (!args[1]) return message.channel.send('You need to specify a command to unblacklist.')
-      if (commands === null) return message.channel.send('This command is not blacklisted.')
-      var newList = commands
-      client.pingwords.set(`${message.author.id}`, newList, 'pingOne')
-			const embed = new Discord.MessageEmbed()
-				.setAuthor('Ping Words')
-				.setColor(colors.green)
-				.setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
+    if (args[0] === 'list') {
+      const embed = new Discord.MessageEmbed()
+        .setAuthor('Ping Words')
+        .setColor(colors.default)
+        .addField('Slot 1:', pingOne, true)
+        .addField('Slot 2:', pingTwo, true)
+        .addField('Slot 3:', pingThree, true)
       return message.channel.send(embed)
+    }
+    
+    message.channel.send('Invalid argument. Argument can either be add, del or list.')
+  } catch (err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
   }
-  
-  if (args[0] === 'list') {
-		const embed = new Discord.MessageEmbed()
-			.setAuthor('Ping Words')
-			.setColor(colors.default)
-			.addField('Slot 1:', pingOne, true)
-			.addField('Slot 2:', pingTwo, true)
-			.addField('Slot 3:', pingThree, true)
-    return message.channel.send(embed)
-  }
-  
-  message.channel.send('Invalid argument. Argument can either be add, del or list.')
 }
 
 exports.conf = {

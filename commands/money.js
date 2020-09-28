@@ -1,17 +1,21 @@
 exports.run = async (client, message, args) => {
- const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
+  try {}
+    const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
 
-  client.money.ensure(`${member.id}`, {
-    member: member.id,
-    money: 0
-  })
+      client.money.ensure(`${member.id}`, {
+        member: member.id,
+        money: 0
+      })
 
-  const money = client.money.get(member.id, 'money')
+      const money = client.money.get(member.id, 'money')
 
-  if (member.id === message.author.id) {
-  	message.channel.send(`You currently have $${money}.`)
-  } else {
-  	message.channel.send(`${member.user.tag} currently has $${money}.`)
+      if (member.id === message.author.id) {
+        message.channel.send(`You currently have $${money}.`)
+      } else {
+        message.channel.send(`${member.user.tag} currently has $${money}.`)
+      }
+  } catch (err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }
 

@@ -31,7 +31,7 @@ exports.run = async (client, message, args, level) => {
       message.reply('You didn\'t mention the user to kick!')
     }
   } catch (err) {
-    message.channel.send('There was an error!\n' + err).catch()
+    message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }
 
