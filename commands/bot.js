@@ -20,7 +20,7 @@ exports.run = (client, message, args, level) => {
       .addField('Support server', '[Click here](https://discord.gg/3hbeQgY)')
       .setTimestamp()
     message.channel.send(embed)
-  } catch(err) {
+  } catch (err) {
     message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }

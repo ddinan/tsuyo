@@ -20,7 +20,7 @@ exports.run = async (client, message, args, level) => {
       .addField(`${user.username}'s avatar:`, `${user.displayAvatarURL()}`, true)
 
     message.channel.send(embed2)
-  } catch(err) {
+  } catch (err) {
     message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }

@@ -54,7 +54,7 @@ exports.run = async (client, message, args) => {
       message.channel.send("Your roll has to be at least 1 greater than rhinos")
       return;
     }
-  } catch(err) {
+  } catch (err) {
     message.channel.send(client.errors.genericError + err.stack).catch();
   }
 };

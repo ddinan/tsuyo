@@ -63,7 +63,7 @@ exports.run = async (client, message, args, level) => {
       const seeds = args[0] > 1 ? 'seeds' : 'seed'
       buyItem(money, 5, args[1], seeds)
     }
-  } catch(err) {
+  } catch (err) {
     message.channel.send(client.errors.genericError + err.stack).catch();
   }
 

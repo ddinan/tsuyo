@@ -28,7 +28,7 @@ exports.run = async (client, message, args, level) => {
       }
     }
   }
-} catch(err) {
+} catch (err) {
   message.channel.send(client.errors.genericError + err.stack).catch();
 }
 exports.conf = {
