@@ -2,6 +2,7 @@ const random = require('random');
 const cooldowns = new Map();
 const humanizeDuration = require('humanize-duration');
 exports.run = async (client, message, args) => {
+  try {
     if (!args[0]) return message.channel.send('You need to specify an amount to bet.')
     if (isNaN(args[0])) return message.channel.send('Invalid amount.')
     const cooldown = cooldowns.get(message.author.id);
@@ -53,6 +54,9 @@ exports.run = async (client, message, args) => {
       message.channel.send("Your roll has to be at least 1 greater than rhinos")
       return;
     }
+  } catch (err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
+  }
 };
 
 exports.conf = {

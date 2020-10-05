@@ -1,7 +1,11 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const download = require('download-github-repo')
-  download("venksociety/tsuyo")
-  message.channel.send('Successfully updated to latest commit.')
+  try {
+    const download = require('download-github-repo')
+    download("venksociety/tsuyo")
+    message.channel.send('Successfully updated to latest commit.')
+  } catch (err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
+  }
 }
 
 exports.conf = {

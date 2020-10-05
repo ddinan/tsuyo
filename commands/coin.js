@@ -1,7 +1,11 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const sides = ['heads', 'tails']
-  const side = sides[Math.floor(Math.random() * sides.length)]
-  message.channel.send('The coin landed on ' + side + '.')
+  try {
+    const sides = ['heads', 'tails']
+    const side = sides[Math.floor(Math.random() * sides.length)]
+    message.channel.send('The coin landed on ' + side + '.')
+  } catch (err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
+  }
 }
 
 exports.conf = {

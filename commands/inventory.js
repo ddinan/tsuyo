@@ -2,26 +2,30 @@ const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
 
 exports.run = async (client, message, args) => {
-  const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
-  const key = `${message.author.id}`
+  try {
+    const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
+    const key = `${message.author.id}`
 
-  client.inventory.ensure(key, {
-    member: key,
-    rings: 0,
-    petfood: 0,
-    seeds: 0,
-  })
+    client.inventory.ensure(key, {
+      member: key,
+      rings: 0,
+      petfood: 0,
+      seeds: 0,
+    })
 
-  const embed = new Discord.MessageEmbed()
-    .setTitle('🎒 Your Inventory')
-    .setColor(colors.default)
-    .addField(`💍 Wedding Rings:`, client.inventory.get(key, 'rings'))
-    .addField(`🌰 Seeds:`, client.inventory.get(key, 'seeds'))
-    .addField(`🥫 Pet Food`, client.inventory.get(key, 'petfood') + ' cans')
-    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL)
-    .setTimestamp()
+    const embed = new Discord.MessageEmbed()
+      .setTitle('🎒 Your Inventory')
+      .setColor(colors.default)
+      .addField(`💍 Wedding Rings:`, client.inventory.get(key, 'rings'))
+      .addField(`🌰 Seeds:`, client.inventory.get(key, 'seeds'))
+      .addField(`🥫 Pet Food`, client.inventory.get(key, 'petfood') + ' cans')
+      .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL)
+      .setTimestamp()
 
-  message.channel.send(embed)
+    message.channel.send(embed)
+  } catch (err) {
+    message.channel.send(client.errors.genericError + err.stack).catch();
+  }
 }
 
 exports.conf = {

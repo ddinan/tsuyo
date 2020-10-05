@@ -20,7 +20,7 @@ exports.run = async (client, message, args, level) => {
 
     message.channel.send('You now have $' + client.money.get(message.author.id, 'money') + '!')
   } catch (err) {
-    message.channel.send('There was an error!\n' + err).catch()
+    message.channel.send(client.errors.genericError + err.stack).catch();  
   }
 }
 

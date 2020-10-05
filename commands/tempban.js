@@ -34,7 +34,7 @@ exports.run = async (client, message, args, level) => {
       } else message.reply('You didn\'t mention the user to ban!')
     } else message.reply('You didin\'t specify the time to ban them for!')
   } catch (err) {
-    message.channel.send('There was an error!\n' + err + '').catch()
+    message.channel.send(client.errors.genericError + err.stack).catch();  
   }
 }
 

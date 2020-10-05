@@ -13,7 +13,7 @@ exports.run = async (client, message, args, level) => {
       message.reply('You must enter a number between 2 and 100 for me to clear!')
     }
   } catch (err) {
-    message.channel.send('There was an error!\n' + err).catch()
+    message.channel.send(client.errors.genericError + err.stack).catch();
   }
 }
 
