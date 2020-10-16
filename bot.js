@@ -54,7 +54,7 @@ client.music = {};
 client.levelCache = {};
 
 // Import files
-client.logger = require("./modules/Logger");
+client.logger = require("./modules/logger");
 client.config = require("./config");
 client.errors = require("./modules/errors");
 require("./modules/commands")(client); // Import command module
