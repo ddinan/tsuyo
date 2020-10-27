@@ -3,7 +3,7 @@
 
 "use strict";
 
-// Check if the Node version is 14+
+// Check if the Node version is 12+
 if (Number(process.version.slice(1).split(".")[0]) < 12) throw new Error("Tsuyo requires Node 12 or higher. Re-run the bot with Node 12 or higher.");
 if (process.env.PREBOOT) eval(process.env.PREBOOT); // Execute anything in the preboot variable
 
