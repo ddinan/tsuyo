@@ -40,7 +40,7 @@
     "form-data": "^3.0.0",
     "humanize-duration": "^3.24.0",
     "js-beautify": "^1.10.0",
-    "mathjs": "^7.6.0",
+    "mathjs": "^8.0.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.2.2",
     "ms": "^2.1.2",
