@@ -35,17 +35,18 @@ exports.run = async (client, message, args) => {
   } catch (err) {
     message.channel.send(client.errors.genericError + err.stack).catch();
   }
-  exports.conf = {
-    enabled: true,
-    aliases: [],
-    guildOnly: false,
-    permLevel: "User",
-  };
+}
 
-  exports.help = {
-    name: "8ball",
-    category: "Utility",
-    description: "Ask the mighty 8ball a question.",
-    usage: "8ball <question>",
-  };
+exports.conf = {
+  enabled: true,
+  aliases: [],
+  guildOnly: false,
+  permLevel: "User",
+};
+
+exports.help = {
+  name: "8ball",
+  category: "Utility",
+  description: "Ask the mighty 8ball a question.",
+  usage: "8ball <question>",
 };

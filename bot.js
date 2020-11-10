@@ -5,6 +5,7 @@
 
 // Check if the Node version is 12+
 if (Number(process.version.slice(1).split(".")[0]) < 12) throw new Error("Tsuyo requires Node 12 or higher. Re-run the bot with Node 12 or higher.");
+require("dotenv").config({ path: ".env" })
 if (process.env.PREBOOT) eval(process.env.PREBOOT); // Execute anything in the preboot variable
 
 // Define NPM modules
@@ -74,10 +75,6 @@ for (let i = 0; i <= 1500; i++) {
 }
 
 client.login(process.env.BOT_TOKEN);
-
 console.log("Logged into Discord API!");
-// Set status to Loading
-//client.user.setStatus("idle");
-//client.user.setActivity("Loading...");
 
 module.exports = client;

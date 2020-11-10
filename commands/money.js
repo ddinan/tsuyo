@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => {
-  try {}
+  try {
     const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
 
       client.money.ensure(`${member.id}`, {

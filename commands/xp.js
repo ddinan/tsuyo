@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => { // eslint-disable-line no-unused-vars
-  try {}
+  try {
     if (args[0] === 'give') {
       // Limited to guild owner
       if (message.author.id !== message.guild.ownerID) { return message.reply("You're not the boss of me, you can't do that!") }
