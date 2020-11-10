@@ -16,13 +16,13 @@ exports.run = async (client, message, args, level) => {
         message.reply(`Successfully warned ${user.tag}`)
 
         const modLogChannel = settings.modLogChannel
-        if (modLogChannel && message.guild.channels.find(c => c.name === settings.modLogChannel)) {
+        if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
           const embed = new Discord.MessageEmbed()
             .setTitle('User Warn')
             .setColor(colors.red)
             .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: ${message.author.username}`)
 
-          message.guild.channels.find(c => c.name === settings.modLogChannel).send(embed)
+          message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed)
         }
 
         if (client.warns.cache.get(message.guild.id)[member.id] == 3) {

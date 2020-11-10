@@ -7,8 +7,8 @@ module.exports = (client, message) => {
 
   	const settings = client.getSettings(message.guild.id)
   	if (settings.logMessageUpdates == 'true') {
-			if (settings.modLogChannel && message.guild.channels.find(c => c.name == settings.modLogChannel)) {
-				const modLogChannel = message.guild.channels.find(c => c.name == settings.modLogChannel)
+			if (settings.modLogChannel && message.guild.channels.cache.find(c => c.name == settings.modLogChannel)) {
+				const modLogChannel = message.guild.channels.cache.find(c => c.name == settings.modLogChannel)
 				if (!modLogChannel.permissionsFor(message.guild.me).has('VIEW_CHANNEL')) return
 				if (!modLogChannel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 

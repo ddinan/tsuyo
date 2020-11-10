@@ -15,25 +15,25 @@ exports.run = async (client, message, args, level) => {
             message.reply(`Successfully muted ${user.tag}`)
 
             const modLogChannel = settings.modLogChannel
-            if (modLogChannel && message.guild.channels.find(c => c.name === settings.modLogChannel)) {
+            if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
               const embed = new Discord.MessageEmbed()
                 .setTitle('User Tempmute')
                 .setColor(colors.red)
                 .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: ${message.author.username}`)
 
-              message.guild.channels.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
+              message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
             }
 
             await setTimeout(async () => {
               await member.removeRole(message.guild.roles.find(r => r.name == settings.muteRole)).then(() => {
                 const modLogChannel = settings.modLogChannel
-                if (modLogChannel && message.guild.channels.find(c => c.name === settings.modLogChannel)) {
+                if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
                   const embed = new Discord.MessageEmbed()
                     .setTitle('User Unmute')
                     .setColor('#eeeeee')
                     .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: AutoMod`)
 
-                  message.guild.channels.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
+                  message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
                 }
               }).catch(err => {
                 message.author.send('I was unable to ' + user.username + 'and the time to mute them!')

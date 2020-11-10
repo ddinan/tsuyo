@@ -47,8 +47,8 @@ exports.run = async (client, message, args, level) => {
 			if (message.member.roles.cache.some(r => r.name === settings.adminRole)) {
 				if (args.length === 1) return message.channel.send('You need to specify a suggestion to deny.')
 
-				if (settings.deniedChannel && message.channel.guild.channels.find(c => c.name == settings.deniedChannel)) {
-					const deniedChannel = message.channel.guild.channels.find(c => c.name == settings.deniedChannel)
+				if (settings.deniedChannel && message.channel.guild.channels.cache.find(c => c.name == settings.deniedChannel)) {
+					const deniedChannel = message.channel.guild.channels.cache.find(c => c.name == settings.deniedChannel)
 
 					message.channel.fetchMessage(args[1])
 						.then(suggestion => {
@@ -73,8 +73,8 @@ exports.run = async (client, message, args, level) => {
 			if (message.member.roles.cache.some(r => r.name === settings.adminRole)) {
 				if (args.length === 1) return message.channel.send('You need to specify a suggestion to accept.')
 
-				if (settings.acceptedChannel && message.channel.guild.channels.find(c => c.name == settings.acceptedChannel)) {
-					const acceptedChannel = message.channel.guild.channels.find(c => c.name == settings.acceptedChannel)
+				if (settings.acceptedChannel && message.channel.guild.channels.cache.find(c => c.name == settings.acceptedChannel)) {
+					const acceptedChannel = message.channel.guild.channels.cache.find(c => c.name == settings.acceptedChannel)
 
 					message.channel.fetchMessage(args[1])
 						.then(suggestion => {

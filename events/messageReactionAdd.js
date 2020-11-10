@@ -7,7 +7,7 @@ const Star = class {
     const message = reaction.message;
     const settings = this.client.getSettings(message.guild.id);
     if (reaction.emoji.name !== "⭐") return;
-    if (message.guild.channels.find(c => c.name == settings.starboardChannel) == null) return;
+    if (message.guild.channels.cache.find(c => c.name == settings.starboardChannel) == null) return;
     if (message.author.bot) return message.channel.send("You can't star bot messages!");
     if (user.id == message.author.id) return message.channel.send("You can't star your own messages!");
     
@@ -31,7 +31,7 @@ const Star = class {
       ]
     });
     
-    message.guild.channels.find(c => c.name == settings.starboardChannel).send({embed: embed}).catch();
+    message.guild.channels.cache.find(c => c.name == settings.starboardChannel).send({embed: embed}).catch();
   }
 };
 
