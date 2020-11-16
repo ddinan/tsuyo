@@ -45,7 +45,7 @@
     "moment-duration-format": "^2.2.2",
     "ms": "^2.1.2",
     "node-fetch": "^2.6.0",
-    "node-html-parser": "^1.4.9",
+    "node-html-parser": "^2.0.0",
     "numeral": "^2.0.6",
     "one-liner-joke": "^1.2.0",
     "random": "^2.2.0",
