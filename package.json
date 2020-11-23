@@ -59,7 +59,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "eslint": "^7.13.0",
+    "eslint": "^7.14.0",
     "forever": "^3.0.2",
     "nodemon": "^2.0.6"
   },
