@@ -32,6 +32,7 @@ client.starboard = new Enmap({name: "starboardmid"});
 client.warns = new Enmap({name: "warns"});
 client.tags = new Enmap({name: "tags"});
 client.points = new Enmap({ name: "points" });
+client.pings = new Enmap({ name: "pings" });
 client.pingwords = new Enmap({ name: "pingwords" });
 client.inventory = new Enmap({ name: "inventory" });
 client.garden = new Enmap({ name: "garden" });

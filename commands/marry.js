@@ -3,7 +3,7 @@ const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
   try {
-    const user = message.mentions.users.first() || client.users.cache.get(args[0])
+    const user = message.mentions.users.first() || client.users.get(args[0])
     if (!user) return message.channel.send('You must mention someone or give their ID!')
     if (user.bot === true) return message.channel.send('Don\'t marry bots. They have no feelings... trust me...')
     if (user === message.author || message.author.id === user.id) return message.channel.send('It really do be like that sometimes...')
@@ -48,8 +48,8 @@ exports.run = async (client, message, args) => {
       const filter = (reaction, sent) => {
         return ['✅', noEmoji].includes(reaction.emoji.name) && sent.id === user.id;
       };
-
-    const proposer = message.guild.members.cache.get("id", proposerID)
+client.channels.cache.find(ch => ch.id === args[0])
+    const proposer = message.guild.members.cache.find(p => p.id === proposerID)
 
       message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
         .then(collected => {
@@ -65,7 +65,7 @@ exports.run = async (client, message, args) => {
               .setColor(colors.pink)
             message.channel.send(embed)
           }
-          if (reaction.emoji.id === '637573919204966410') { // No emoji
+          if (reaction.emoji.id === '637573919204966410') { // Decline emoji
             embed.setTitle(`Sorry **${proposer.user.tag}**, **${user.tag}** declined your proposal.`)
             message.edit(embed)
           }

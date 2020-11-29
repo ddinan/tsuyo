@@ -121,21 +121,7 @@ const config = {
       check: (message) => config.devs.includes(message.author.id)
     },
 
-    {
-      level: 9,
-      name: "Bot Admin",
-
-      check: (message) => config.admins.includes(message.author.id)
-    },
-
-    {
-      level: 10,
-      name: "Bot Manager",
-
-      check: (message) => config.managers.includes(message.author.id)
-    },
-
-    { level: 11,
+    { level: 9,
       name: "Bot Owner",
 
       check: (message) => config.owners.includes(message.author.id)

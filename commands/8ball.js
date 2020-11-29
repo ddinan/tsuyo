@@ -26,8 +26,13 @@ exports.run = async (client, message, args) => {
           const result = member[Math.floor(Math.random() * member.length)];
           message.channel.send(`${result}`);
         }
-        var member = message.guild.members.random().displayName;
-        message.channel.send(`${member}.`);
+        var member = message.guild.members.cache.random();
+        const embed = new Discord.MessageEmbed()
+          .setColor(colors.default)
+          .setThumbnail(member.avatarURL)
+          .addField(member.displayName, `<@${member.id}>`)
+          .setTimestamp()
+        message.channel.send(embed);
       } else {
         message.channel.send(result);
       }
