@@ -20,8 +20,8 @@ const config = {
   // Dashboard settings
   "dashboardEnabled": false, // Off by default
   "port": port,
-  "clientId": process.env.clientId,
-  "clientSecret": process.env.clientId,
+  "clientId": process.env.CLIENT_ID,
+  "clientSecret": process.env.CLIENT_SECRET,
   "scopes": ["identify", "guilds"],
   "redirectUri": "http://" + ip.address() + ":" + port + "/authorize/callback",
 

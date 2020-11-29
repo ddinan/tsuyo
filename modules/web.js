@@ -59,6 +59,7 @@ const initWeb = (client) => {
   app.use("/me", require("../routes/me"));
   app.use("/servers", require("../routes/servers"));
   app.use("/status", require("../routes/status"));
+  app.use("/command", require("../routes/command"));
   app.get("/commands", (req, res) => {
     if (!req.session.user || req.session.guild) res.redirect("/");
 

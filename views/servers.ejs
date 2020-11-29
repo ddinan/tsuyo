@@ -7,12 +7,15 @@
    <%- include('partials/navbar.ejs') %>
     <div class="page-content">
       <div class="servers">
-		  <h1 class="title">Servers you can manage:</h1>
-		  <% guilds.forEach((guild) => { %>
-			<% if (!djsclient.guilds.has(guild.id)) { %>
+		  <h1 class="title">Servers you can manage: </h1>
+		  <% djsclient.guilds.cache.forEach((guild) => { %>
+			<% if (!guild.member(user.id)) return %>
+			<% const member = guild.members.cache.find(p => p.id === user.id) %>
+			<% if (!member.hasPermission('ADMINISTRATOR')) return %>
+			<% if (!djsclient.guilds.cache.has(guild.id)) { %>
 			  <a id="invite-btn" target="_blank" href="https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455&guild_id=<%= guild.id %>">Invite to server
 			  </a>
-		  	
+
 			  <% if (guild.icon) { %>
 				<div class="toolelem">
 					<div class="text"><span class="tooltext"><%= guild.name %></span></div>

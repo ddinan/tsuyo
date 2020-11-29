@@ -3,9 +3,9 @@
 <%- include('partials/header.ejs') %>
 <body>
   <%- include('partials/navbar.ejs') %>
-  
+
   <center>
-    <% let cmd = djsclient.commands.cache.get(command); %>
+    <% let cmd = djsclient.commands.get(command); %>
     <h2><%= cmd.help.name %></h2>
     <p>
       <%= cmd.help.description %>
