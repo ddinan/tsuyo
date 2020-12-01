@@ -11,7 +11,7 @@ module.exports = async (client) => {
     { msg: "the haters hate", type: "WATCHING" },
     { msg: "you (turn around)", type: "WATCHING" },
     { msg: "grass grow", type: "WATCHING" },
-    { msg: `over ${client.guilds.size} servers`, type: "WATCHING" },
+    { msg: `over ${client.guilds.cache.size} servers`, type: "WATCHING" },
     { msg: "funny cat videos", type: "WATCHING" },
     {
       msg: "Déjà vu Watching Déjà vu Watching Déjà vu Watching Déjà vu",
