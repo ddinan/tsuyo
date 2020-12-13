@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "eslint": "^7.13.0",
-    "forever": "^3.0.2",
+    "forever": "^3.0.4",
     "nodemon": "^2.0.6"
   },
   "bugs": {
