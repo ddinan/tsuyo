@@ -11,7 +11,7 @@ const config = {
 
   "blacklisted": [""],
   "globalBan": [""],
-  "token": "process.env.BOT_TOKEN",
+  "token": "NzM0MTEzMjExNDYwMDkxOTE0.XxM-NA.YarPAgV-rABDlzeh1K76Z-Uuwk0",
   // LINKS:
   "github": "https://github.com/VenkSociety/Tsuyo",
   "supportServer": "https://discord.gg/3hbeQgY",
@@ -26,7 +26,7 @@ const config = {
   "redirectUri": "http://" + ip.address() + ":" + port + "/authorize/callback",
 
   "defaultSettings" : {
-    "prefix": ";;",
+    "prefix": ".",
     "language": "en-US",
     "modLogChannel": "logs",
     "modRole": "Moderator",
