@@ -1,7 +1,6 @@
 node_modules
 data
-.env
-.env2
-json.sqlite
+*.env
+*.env2
+*.sqlite
 config.js
-.env
