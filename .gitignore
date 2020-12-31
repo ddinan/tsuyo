@@ -4,3 +4,4 @@ data
 .env2
 json.sqlite
 config.js
+.env
