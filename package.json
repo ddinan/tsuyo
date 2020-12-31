@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "better-sqlite-pool": "^0.3.0",
-    "better-sqlite3": "^7.1.1",
+    "better-sqlite3": "^7.1.2",
     "body-parser": "^1.19.0",
     "canvas": "^2.6.1",
     "chalk": "^4.1.0",
