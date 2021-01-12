@@ -39,7 +39,7 @@
     "express-session": "^1.16.1",
     "form-data": "^3.0.0",
     "humanize-duration": "^3.25.0",
-    "js-beautify": "^1.10.0",
+    "js-beautify": "^1.13.2",
     "mathjs": "^8.1.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.2.2",
