@@ -33,7 +33,7 @@
     "discord.js": "^12.5.1",
     "discord.js-minesweeper": "^1.0.4",
     "dotenv": "^8.2.0",
-    "ejs": "^3.1.5",
+    "ejs": "^3.1.6",
     "enmap": "^5.8.2",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
