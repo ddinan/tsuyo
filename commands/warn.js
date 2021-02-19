@@ -9,10 +9,10 @@ exports.run = async (client, message, args, level) => {
     if (user) {
       const member = message.guild.member(user)
       if (member) {
-        if (!client.warns.cache.get(message.guild.id)) client.warns.set(message.guild.id, {})
-        if (!client.warns.cache.get(message.guild.id)[member.id]) client.warns.cache.get(message.guild.id)[member.id] = 0
+        if (!client.warns.get(message.guild.id)) client.warns.set(message.guild.id, {})
+        if (!client.warns.get(message.guild.id)[member.id]) client.warns.get(message.guild.id)[member.id] = 0
 
-        client.warns.cache.get(message.guild.id)[member.id] += 1
+        client.warns.get(message.guild.id)[member.id] += 1
         message.reply(`Successfully warned ${user.tag}`)
 
         const modLogChannel = settings.modLogChannel
@@ -25,11 +25,11 @@ exports.run = async (client, message, args, level) => {
           message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed)
         }
 
-        if (client.warns.cache.get(message.guild.id)[member.id] == 3) {
+        if (client.warns.get(message.guild.id)[member.id] == 3) {
           member.ban(args.slice(1).join(' ')).then(() => {
             message.reply(`Successfully banned ${user.tag}`)
 
-            client.warns.cache.get(message.guild.id)[member.id] = 0
+            client.warns.get(message.guild.id)[member.id] = 0
           }).catch(err => {
             message.reply('I was unable to ban the member for exeding the max amount of warns')
           })
