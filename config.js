@@ -18,7 +18,7 @@ const config = {
     "botInvite": "https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455",
 
     // Dashboard settings
-    "dashboardEnabled": true, // Off by default
+    "dashboardEnabled": false, // Off by default
     "port": port,
     "clientId": process.env.CLIENT_ID,
     "clientSecret": process.env.CLIENT_SECRET,
@@ -33,16 +33,16 @@ const config = {
         "adminRole": "Administrator",
         "muteRole": "Muted",
         "noPermissionNotice": "true",
-        "pointsEnabled": "true",
+        "pointsEnabled": "false",
         "deniedChannel": "denied-suggestions",
         "acceptedChannel": "accepted-suggestions",
         "welcomeChannel": "general",
         "welcomeMessage": "Welcome to the server, {{mention}}!",
-        "welcomeEnabled": "true",
-        "logMessageUpdates": "true",
-        "logEmojiUpdates": "true",
-        "logMemberUpdates": "true",
-        "logModerated": "true",
+        "welcomeEnabled": "false",
+        "logMessageUpdates": "false",
+        "logEmojiUpdates": "false",
+        "logMemberUpdates": "false",
+        "logModerated": "false",
         "starboardChannel": "starboard",
         "censor": "0",
         "maxWarnsBeforeBan": 3
