@@ -1,6 +1,13 @@
 exports.run = async (client, message, args, level) => {
     try {
         const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase());
+
+        // Ensure mod/admin roles actually exist
+
+        if (!adminRole) {
+            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+        }
+
         if (!message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
             return message.channel.send("You can't use this command!")
         }
