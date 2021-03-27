@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
     try {
@@ -24,17 +25,7 @@ exports.run = async (client, message, args, level) => {
             const member = message.guild.member(user)
             if (member) {
                 member.ban(args.slice(1).join(' ')).then(() => {
-                    message.reply('Successfully banned ${user.tag}!')
-
-                    const modLogChannel = settings.modLogChannel
-                    if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-                        const embed = new Discord.MessageEmbed()
-                            .setTitle('User Ban')
-                            .setColor('#eeeeee')
-                            .setDescription(`Name: ${user.username}\nID: ${user.id}\nReason: ${args.slice(1).join(' ')}\nModerator: ${message.author.username}`)
-
-                        message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed)
-                    }
+                    message.reply(`Successfully banned ${user.tag}!`)
                 }).catch(err => {
                     message.reply('I was unable to ban the user!')
                 })
@@ -51,7 +42,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['b'],
+    aliases: ['b', 'forceban'],
     guildOnly: true,
     permLevel: 'User'
 }

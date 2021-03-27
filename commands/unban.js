@@ -1,5 +1,4 @@
 const Discord = require('discord.js')
-const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
     try {
@@ -22,23 +21,14 @@ exports.run = async (client, message, args, level) => {
         }
 
         if (user) {
-            message.guild.unban(args.slice(1).join(' ')).then(() => {
-                message.reply(`Successfully unbanned ${user.tag}`)
-
-                const modLogChannel = settings.modLogChannel
-                if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-                    const embed = new Discord.MessageEmbed()
-                        .setTitle('User Unban')
-                        .setColor(colors.green)
-                        .setDescription(`Reason: ${args.slice(1).join(' ')}\nModerator: ${message.author.username}`)
-
-                    message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed)
-                }
+            message.guild.members.unban(args[0]).then(() => {
+                message.reply(`Successfully unbanned ${user}`)
             }).catch(err => {
-                message.reply('I was unable to unban the member')
+                message.reply('I was unable to unban the member.')
+                message.channel.send(client.errors.genericError + err.stack).catch();
             })
         } else {
-            message.reply('You didn\'t give the UserID to unban!')
+            message.reply('You didn\'t give the User ID to unban!')
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
@@ -47,7 +37,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['b'],
+    aliases: ['ub'],
     guildOnly: true,
     permLevel: 'User'
 }
