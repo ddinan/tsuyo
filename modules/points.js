@@ -43,8 +43,8 @@ module.exports = (client, message) => {
             client.points.inc(key2, `points`);
         }
 
-        const curLevel = Math.floor(0.5 * Math.sqrt(client.points.get(key, 'points')))
-        const curLevel2 = Math.floor(0.5 * Math.sqrt(client.points.get(key, 'points')))
+        const curLevel = Math.floor(0.35 * Math.sqrt(client.points.get(key, 'points')))
+        const curLevel2 = Math.floor(0.2 * Math.sqrt(client.points.get(key, 'points')))
 
         if (client.points.get(key, `level`) < curLevel) {
             const embed = new Discord.MessageEmbed()
