@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
         if (args[0].toLowerCase() === "xp") {
             if (args[1]) {
                 if (args[1].toLowerCase() === "-g" || args[1].toLowerCase() === "g" || args[1].toLowerCase() === "global" || args[1].toLowerCase() === "-global") {
-                    isGlobal = true;
+                    isGlobal = false; // Disabled global XP due to duplication issues
                 } else {
                     isGlobal = false;
                 }
@@ -93,5 +93,5 @@ exports.help = {
     name: 'leaderboard',
     category: 'Economy',
     description: 'Shows the top 10 players with the most XP or money.',
-    usage: 'leaderboard <xp/money>'
+    usage: 'leaderboard <xp/money> [-g]'
 }

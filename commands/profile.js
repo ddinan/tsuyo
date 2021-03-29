@@ -1,82 +1,113 @@
 const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
-const Canvas = require('canvas')
+const canvacord = require('canvacord')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  try {
-    const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
+    try {
+        function delay(delayInms) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(2);
+                }, delayInms);
+            });
+        }
+        //get the rankuser
+        rankuser = message.mentions.users.first() || message.author;
 
-    client.reputation.ensure(`${member.id}`, {
-      member: member.id,
-      reputation: 0
-    })
-
-    const rep = client.reputation.get(`${member.id}`, 'reputation')
-
-    const canvas = Canvas.createCanvas(850, 256)
-    const ctx = canvas.getContext('2d')
-
-    // Fill background
-    ctx.fillStyle = '#202126'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-    // Profile picture
-    const pic = member.user.displayAvatarURL() === null ? 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png' : member.user.displayAvatarURL()
-
-    const avatar = await Canvas.loadImage(pic)
-    ctx.drawImage(avatar, 0, 0, 256, 256)
-
-    // Description box
-    ctx.fillStyle = '#1A191F'
-    ctx.fillRect(277, 22, 550, 145)
-
-    // Name
-    ctx.font = 'bold 60px Arial'
-    ctx.fillStyle = member.displayHexColor
-    ctx.fillText(member.displayName, 300, 80)
-
-    // Description
-    ctx.font = '24px Arial'
-    ctx.fillStyle = '#FFFFFF'
-    ctx.fillText('Insert description here.', 300, 110)
-
-    // Triangle on description box
-    ctx.beginPath()
-    ctx.moveTo(265, 75)
-    ctx.lineTo(277, 100)
-    ctx.lineTo(277, 50)
-    ctx.closePath()
-    ctx.fillStyle = '#1A191F'
-    ctx.fill()
-
-    // Rep banner
-    ctx.rotate(-30 * Math.PI / 180)
-    ctx.fillStyle = '#7289DA'
-    ctx.fillRect(-45, 40, 200, 35)
-
-    // Rep text
-    ctx.font = '25px Arial'
-    ctx.fillStyle = '#ffffff'
-    ctx.fillText(`+${rep}rep`, -27, 65)
-    ctx.rotate(0 * Math.PI / 20)
-
-    const attachment = new Discord.Attachment(canvas.toBuffer(), 'profile.png')
-    message.channel.send(attachment)
-  } catch (err) {
-    message.channel.send(client.errors.genericError + err.stack).catch();
-  }
+        client.points.ensure(`${message.guild.id}-${rankuser.id}`, {
+            user: rankuser.id,
+            guild: rankuser.id,
+            points: 0,
+            level: 1
+        })
+        //do some databasing
+        const filtered = client.points.filter(p => p.guild === message.guild.id).array();
+        const sorted = filtered.sort((a, b) => b.points - a.points);
+        const top10 = sorted.splice(0, message.guild.memberCount);
+        let i = 0;
+        //count server rank sometimes an error comes
+        for (const data of top10) {
+            await delay(15);
+            try {
+                i++;
+                if (client.users.cache.get(data.user).tag === rankuser.tag) break;
+            } catch {
+                i = `Error counting Rank`;
+                break;
+            }
+        }
+        const key = `${message.guild.id}-${rankuser.id}`;
+        //math
+        let curpoints = Number(client.points.get(key, `points`).toFixed(2));
+        //math
+        let curnextlevel = Number(((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)) * ((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)));
+        //if not level == no rank
+        if (client.points.get(key, `level`) === undefined) i = `No Rank`;
+        //define a temporary embed so its not coming delayed
+        let tempmsg = await message.channel.send(new Discord.MessageEmbed().setColor("RED").setAuthor("Calculating...", "https://cdn.discordapp.com/emojis/769935094285860894.gif"))
+        //global local color var.
+        let color;
+        //define status of the rankuser
+        let status = rankuser.presence.status;
+        //do some coloring for user status cause cool
+        if (status === "dnd") {
+            color = "#ff0048";
+        } else if (status === "online") {
+            color = "#00fa81";
+        } else if (status === "idle") {
+            color = "#ffbe00";
+        } else {
+            status = "streaming";
+            color = "#a85fc5";
+        }
+        //define the ranking card
+        const rank = new canvacord.Rank()
+            .setAvatar(rankuser.displayAvatarURL({
+                dynamic: false,
+                format: 'png'
+            }))
+            .setCurrentXP(Number(curpoints.toFixed(2)), color)
+            .setRequiredXP(Number(curnextlevel.toFixed(2)), color)
+            .setStatus(status, false, 7)
+            .renderEmojis(true)
+            .setProgressBar(color, "COLOR")
+            .setRankColor(color, "COLOR")
+            .setLevelColor(color, "COLOR")
+            .setUsername(rankuser.username, color)
+            .setRank(Number(i), "Rank", true)
+            .setLevel(Number(client.points.get(key, `level`)), "Level", true)
+            .setDiscriminator(rankuser.discriminator, color);
+        rank.build()
+            .then(async data => {
+                //add rankcard to attachment
+                const attachment = new Discord.MessageAttachment(data, "RankCard.png");
+                //define embed
+                const embed = new Discord.MessageEmbed()
+                    .setTitle(`Ranking of:  ${rankuser.username}`)
+                    .setColor(color)
+                    .setImage("attachment://RankCard.png")
+                    .attachFiles(attachment)
+                //send that embed
+                await message.channel.send(embed);
+                //delete that temp message
+                await tempmsg.delete();
+                return;
+            });
+    } catch (err) {
+        message.channel.send(client.errors.genericError + err.stack).catch();
+    }
 }
 
 exports.conf = {
-  enabled: true,
-  aliases: ['p'],
-  guildOnly: false,
-  permLevel: 'member'
+    enabled: true,
+    aliases: ['p'],
+    guildOnly: false,
+    permLevel: 'member'
 }
 
 exports.help = {
-  name: 'profile',
-  category: 'Economy',
-  description: 'Shows yours or [member]\'s profile.',
-  usage: 'profile [member]'
+    name: 'profile',
+    category: 'Economy',
+    description: 'Shows yours or [member]\'s profile.',
+    usage: 'profile [member]'
 }
