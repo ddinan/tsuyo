@@ -81,12 +81,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             .then(async data => {
                 //add rankcard to attachment
                 const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-                //define embed
-                const embed = new Discord.MessageEmbed()
-                    .setTitle(`Ranking of:  ${rankuser.username}`)
-                    .setColor(color)
-                    .setImage("attachment://RankCard.png")
-                    .attachFiles(attachment)
+                // Send the attachment in the message channel
+                message.channel.send(attachment);
                 //send that embed
                 await message.channel.send(embed);
                 //delete that temp message
