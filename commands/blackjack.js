@@ -1,0 +1,308 @@
+const Discord = require('discord.js')
+const colors = require('../lib/colors.json')
+
+const random = require('random');
+const cooldowns = new Map();
+const humanizeDuration = require('humanize-duration');
+exports.run = async (client, message, args) => {
+    try {
+        if (!args[0]) return message.channel.send('You need to specify an amount to bet.')
+        if (isNaN(args[0])) return message.channel.send('Invalid amount.')
+        const cooldown = cooldowns.get(message.author.id);
+        if (cooldown) {
+            const remaining = humanizeDuration(cooldown - Date.now());
+
+            return message.channel.send(`You have to wait ${remaining} before you can gamble again`)
+                .catch(console.error);
+        }
+
+        cooldowns.set(message.author.id, Date.now() + 5000);
+        setTimeout(() => cooldowns.delete(message.author.id), 5000);
+
+        const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
+        const key = `${message.author.id}`
+
+        client.money.ensure(key, {
+            member: key,
+            money: 0
+        })
+
+        const money = client.money.get(member.id, 'money');
+
+        if (money < args[0]) return message.channel.send('You do not have enough money to gamble.')
+        if (args[0] < 50) return message.channel.send('You cannot bet less than $50 and cannot bet more than $50000.')
+        if (args[0] > 50000) return message.channel.send('You cannot bet less than $50 and cannot bet more than $50000.')
+
+        // Blackjack code
+
+        let gameStarted = false;
+        let gameOver = false;
+        let playerWon = false;
+        let dealerCards = [];
+        let playerCards = [];
+        let dealerScore = 0;
+        let playerScore = 0;
+        let deck = [];
+        let dealerCardString;
+        let playerCardString;
+        let msgID;
+
+        let embed = new Discord.MessageEmbed()
+            .setAuthor('🃏 Blackjacker')
+            .setColor(colors.default)
+            .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
+            .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+            .setTimestamp()
+
+        function startGame() {
+            // Start game variables
+            gameStarted = true;
+            gameOver = false;
+            playerWon = false;
+
+            // Gives dealer and player 2 cards when starting
+            deck = createDeck();
+            shuffleDeck(deck);
+            dealerCards = [getNextCard(), getNextCard()];
+            playerCards = [getNextCard(), getNextCard()];
+            showStatus();
+
+            embed = new Discord.MessageEmbed()
+                .setAuthor('🃏 Blackjack')
+                .setColor(colors.default)
+                .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
+                .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+                .setTimestamp()
+
+            message.channel.send(embed).then(newMsg => {
+                msgID = newMsg.id
+                newMsg.react('👊').then(() => newMsg.react('🛑'));
+
+                const filter = (reaction, user) => {
+                    return ['👊', '🛑'].includes(reaction.emoji.name) && user.id === message.author.id;
+                };
+
+                newMsg.awaitReactions(filter, {
+                        max: 1,
+                        time: 60000,
+                        errors: ['time']
+                    })
+                    .then(collected => {
+                        const reaction = collected.first();
+
+                        if (reaction.emoji.name === '👊') {
+                            message.reply('you hit');
+                            hit();
+                        } else {
+                            message.reply('you stay');
+                            stay();
+                        }
+                    })
+                    .catch(collected => {
+                        message.reply('Your Blackjack game has been cancelled due to inactivity.');
+                    });
+            });
+        }
+
+        startGame();
+
+        async function hit() {
+            playerCards.push(getNextCard());
+            checkForEndOfGame();
+            showStatus()
+
+            const newEmbed = new Discord.MessageEmbed()
+                .setAuthor('🃏 Blackjack')
+                .setColor(colors.default)
+                .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
+                .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+                .setTimestamp()
+
+            message.channel.fetch(msgID)
+                .then(found => {
+                    console.log("found one")
+                    console.log(found)
+                    found.edit(newEmbed);
+                });
+        }
+
+        async function stay() {
+            gameOver = true;
+            checkForEndOfGame();
+            showStatus();
+
+            const newEmbed = new Discord.MessageEmbed()
+                .setAuthor('🃏 Blackjack')
+                .setColor(colors.default)
+                .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
+                .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+                .setTimestamp()
+
+            const msg = guild.channels.cache.find(c => c.name == settings.modLogChannel)
+
+            message.channel.fetch(msgID)
+                .then(found => {
+                    found.edit(newEmbed);
+                });
+        }
+
+        function createDeck() {
+            // Card variables
+            let suits = ["♥️", "♣️", "♦️", "♠️"];
+            let values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+
+            // For loop creates a deck with suits and values
+            for (let i = 0; i < suits.length; i++) {
+                for (let x = 0; x < values.length; x++) {
+                    let card = {
+                        suit: suits[i],
+                        value: values[x]
+                    };
+                    deck.push(card);
+                }
+            }
+            return deck;
+        }
+
+        // Algorithm Durstenfeld https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        function shuffleDeck(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        function getCardString(card) {
+            return card.suit + ' ' + card.value;
+        }
+
+        function getNextCard() {
+            return deck.shift();
+        }
+
+        function getCardNumericValue(card) {
+            switch (card.value) {
+                case 'Ace':
+                    return 1;
+                case '2':
+                    return 2;
+                case '3':
+                    return 3;
+                case '4':
+                    return 4;
+                case '5':
+                    return 5;
+                case '6':
+                    return 6;
+                case '7':
+                    return 7;
+                case '8':
+                    return 8;
+                case '9':
+                    return 9;
+                default:
+                    return 10;
+            }
+        }
+
+        function getScore(cardArray) {
+            let score = 0;
+            let hasAce = false;
+
+            // Adds the card value to the score
+            for (let i = 0; i < cardArray.length; i++) {
+                let card = cardArray[i];
+                score += getCardNumericValue(card);
+
+                // If the card Ace is there
+                if (card.value === 'Ace') {
+                    hasAce = true;
+                }
+            }
+            // And if the Ace card is below or equal to 21 when adding 10 extra points, do that instead of +1 points
+            if (hasAce && score + 10 <= 21) {
+                return score + 10;
+            }
+            return score;
+        }
+
+        function updateScores() {
+            dealerScore = getScore(dealerCards);
+            playerScore = getScore(playerCards);
+        }
+
+        function checkForEndOfGame() {
+            updateScores();
+
+            if (gameOver) {
+                // let dealer take cards
+                while (dealerScore < playerScore && playerScore <= 21 && dealerScore <= 21) {
+                    dealerCards.push(getNextCard());
+                    updateScores();
+                }
+            }
+            if (playerScore > 21) {
+                playerWon = false;
+                gameOver = true;
+            } else if (playerScore === 21) {
+                playerWon = true;
+                gameOver = true;
+            } else if (dealerScore === 21) {
+                playerWon = false;
+                gameOver = true;
+            } else if (dealerScore > 21) {
+                playerWon = true;
+                gameOver = true;
+            } else if (gameOver) {
+
+                if (playerScore > dealerScore) {
+                    playerWon = true;
+                } else {
+                    playerWon = false;
+                }
+            }
+        }
+
+        function showStatus() {
+            dealerCardString = "";
+            playerCardString = "";
+            for (let i = 0; i < dealerCards.length; i++) {
+                dealerCardString += getCardString(dealerCards[i]) + '\n';
+            }
+
+            for (let i = 0; i < playerCards.length; i++) {
+                playerCardString += getCardString(playerCards[i]) + '\n';
+            }
+
+            updateScores();
+
+            if (gameOver) {
+                if (playerWon) {
+                    message.channel.send("You won!");
+                } else if (dealerScore === playerScore) {
+                    message.channel.send("It's a draw.");
+                } else {
+                    message.channel.send("Dealer won!");
+                }
+            }
+        }
+    } catch (err) {
+        message.channel.send(client.errors.genericError + err.stack).catch();
+    }
+};
+
+exports.conf = {
+    enabled: true,
+    aliases: ["bj"],
+    guildOnly: true,
+    permLevel: 'User'
+}
+
+exports.help = {
+    name: 'blackjack',
+    category: 'Economy',
+    description: 'Try and get as close to 21 as possible, however, if you go over 21, you lose.',
+    usage: 'blackjack <amount>'
+}
