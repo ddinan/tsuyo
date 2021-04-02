@@ -10,6 +10,7 @@ exports.run = async (client, message, args) => {
             rings: 0,
             petfood: 0,
             seeds: 0,
+            worms: 0
         })
 
         const seeds = client.inventory.get(message.author.id, 'seeds')
@@ -25,6 +26,8 @@ exports.run = async (client, message, args) => {
             plant2Stage: "0",
             plant3Stage: "0",
         })
+
+        client.inventory.set(message.author.id, seeds - 1, 'seeds')
 
         const p1 = client.garden.get(`${message.author.id}`, 'plant1')
         const p2 = client.garden.get(`${message.author.id}`, 'plant2')
@@ -66,7 +69,7 @@ exports.run = async (client, message, args) => {
 
                 const random = Math.floor(Math.random() * choices.length);
                 plant = choices[random];
-            } else if (d < 0.95) {
+            } else if (d < 0.98) {
                 const choices = ["palm_tree", "cactus"];
 
                 const random = Math.floor(Math.random() * choices.length);

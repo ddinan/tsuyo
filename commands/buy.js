@@ -1,7 +1,7 @@
 exports.run = async (client, message, args, level) => {
     try {
         if (!args[0]) return message.channel.send(`You need to specify an item to buy. ;;store`)
-        const items = ['weddingring', 'ring', 'rings', 'food', 'petfood', 'seed', 'seeds']
+        const items = ['weddingring', 'ring', 'rings', 'food', 'petfood', 'seed', 'seeds', 'worm', 'worms']
         if (!items.includes(args[0])) return message.channel.send('Invalid item.')
         if (!args[1]) return message.channel.send(`You need to specify how much/many you want to buy.`)
 
@@ -27,6 +27,7 @@ exports.run = async (client, message, args, level) => {
             rings: 0,
             petfood: 0,
             seeds: 0,
+            worms: 0
         })
 
         const money = client.money.get(key, 'money')
@@ -56,6 +57,12 @@ exports.run = async (client, message, args, level) => {
                 var newNumber = parseInt(args[1]) + parseInt(number)
                 client.inventory.set(key, newNumber, 'seeds')
             }
+
+            if (args[0] === 'worm' || args[0] === 'worms') {
+                var number = client.inventory.get(key, 'worms')
+                var newNumber = parseInt(args[1]) + parseInt(number)
+                client.inventory.set(key, newNumber, 'worms')
+            }
         }
 
         if (args[0] === 'wedding' || args[0] === 'ring' || args[0] === 'rings') {
@@ -70,7 +77,12 @@ exports.run = async (client, message, args, level) => {
 
         if (args[0] === 'seed' || args[0] === 'seeds') {
             const seeds = args[0] > 1 ? 'seeds' : 'seed'
-            buyItem(money, 5, args[1], seeds)
+            buyItem(money, 25, args[1], seeds)
+        }
+
+        if (args[0] === 'worm' || args[0] === 'worms') {
+            const worms = args[0] > 1 ? 'worms' : 'worm'
+            buyItem(money, 20, args[1], worms)
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();

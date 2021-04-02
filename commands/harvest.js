@@ -43,7 +43,7 @@ exports.run = async (client, message, args) => {
             if (getPlant === "hibiscus" || getPlant === "ear_of_rice" || getPlant === "blossom" || getPlant === "rose") rarity = "common"
             if (getPlant === "tanabata_tree" || getPlant === "bamboo" || getPlant === "sunflower" || getPlant === "moneybag") rarity = "uncommon"
             if (getPlant === "deciduous_tree" || getPlant === "evergreen_tree" || getPlant === "chest") rarity = "rare"
-            if (getPlant === "palm_tree" || getPlant === "cactus" || getPlant === "chest") rarity = "very rare"
+            if (getPlant === "palm_tree" || getPlant === "cactus") rarity = "very rare"
             if (getPlant === "skull" || getPlant === "bone" || getPlant === "t_rex" || getPlant === "sauropod") rarity = "legendary"
 
             var worth
@@ -65,7 +65,16 @@ exports.run = async (client, message, args) => {
                 .setAuthor('🌼 Garden')
                 .setColor(colors.green)
                 .setDescription(`You harvested a **${rarity}** :${getPlant}: for **${worth}**!`)
-            return message.channel.send(embed)
+
+            if (fish === "chest") {
+                const chest = client.emojis.cache.get("827303211844632686");
+
+                const embed2 = new Discord.MessageEmbed()
+                    .setAuthor('🎣 Fishing')
+                    .setColor(colors.green)
+                    .setDescription(`You found and sold a **${rarity}** ${chest} for **${worth}**!`)
+                return message.channel.send(embed2)
+            } else return message.channel.send(embed)
         } else {
             message.channel.send('You need to specify which slot you want to harvest (1-3)')
         }

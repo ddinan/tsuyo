@@ -28,6 +28,7 @@ exports.run = async (client, message, args) => {
             rings: 0,
             petfood: 0,
             seeds: 0,
+            worms: 0
         })
 
         const rings = client.inventory.get(message.author.id, 'rings')
