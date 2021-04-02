@@ -3,10 +3,10 @@ const request = require('request')
 
 exports.run = async (client, message, args, level) => {
     try {
-        request('https://api.chucknorris.io/jokes/random', function(error, body) {
+        request('https://uselessfacts.jsph.pl//random.json?language=en', function(error, body) {
             var result = JSON.parse(body.body)
 
-            message.channel.send(result.value)
+            message.channel.send(result.text)
         })
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
@@ -15,14 +15,14 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['chucknorris', 'cn', 'norris'],
+    aliases: ['funfact', 'ff', 'rf', 'fact'],
     guildOnly: false,
     permLevel: 'User'
 }
 
 exports.help = {
-    name: 'chuck',
+    name: 'randomfact',
     category: 'Fun',
-    description: 'Chuck Norris does not need a description, the description needs Chuck Norris.',
-    usage: 'chuck'
+    description: 'Shows a random fact.',
+    usage: 'fact'
 }
