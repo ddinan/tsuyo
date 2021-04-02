@@ -77,7 +77,7 @@ exports.run = async (client, message, args) => {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor('🎣 Fishing')
-            .setColor(colors.green)
+            .setColor(colors.default)
             .setDescription(`You found and sold a **${rarity}** :${fish}: for **${worth}**!`)
 
         if (fish === "clownfish") {
@@ -85,7 +85,7 @@ exports.run = async (client, message, args) => {
 
             const embed2 = new Discord.MessageEmbed()
                 .setAuthor('🎣 Fishing')
-                .setColor(colors.green)
+                .setColor(colors.default)
                 .setDescription(`You found and sold a **${rarity}** ${nemo} for **${worth}**!`)
             return message.channel.send(embed2)
         } else if (fish === "chest") {

@@ -63,15 +63,15 @@ exports.run = async (client, message, args) => {
 
             const embed = new Discord.MessageEmbed()
                 .setAuthor('🌼 Garden')
-                .setColor(colors.green)
+                .setColor(colors.default)
                 .setDescription(`You harvested a **${rarity}** :${getPlant}: for **${worth}**!`)
 
             if (fish === "chest") {
                 const chest = client.emojis.cache.get("827303211844632686");
 
                 const embed2 = new Discord.MessageEmbed()
-                    .setAuthor('🎣 Fishing')
-                    .setColor(colors.green)
+                    .setAuthor('🌼 Garden')
+                    .setColor(colors.default)
                     .setDescription(`You found and sold a **${rarity}** ${chest} for **${worth}**!`)
                 return message.channel.send(embed2)
             } else return message.channel.send(embed)
