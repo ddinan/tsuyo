@@ -44,7 +44,9 @@ const config = {
         "logMemberUpdates": "false",
         "logModerated": "false",
         "starboardChannel": "starboard",
-        "censor": "0",
+        "censorSwears": "false",
+        "censorLinks": "false",
+        "censorSpam": "false",
         "maxWarnsBeforeBan": 3
     },
 
