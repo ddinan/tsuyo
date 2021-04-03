@@ -32,7 +32,9 @@ exports.run = async (client, message, args) => {
                 .setTitle(`${globalName} Leaderboard`)
                 .setTimestamp()
                 .setDescription(`Top 10 players with the most XP:`)
-                .setColor(colors.default);
+                .setColor(colors.default)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
             let i = 0;
             for (const data of top10) {
                 await delay(15);
@@ -63,7 +65,9 @@ exports.run = async (client, message, args) => {
                 .setTitle(`${globalName} Leaderboard`)
                 .setTimestamp()
                 .setDescription(`Top 10 players with the most money:`)
-                .setColor(colors.default);
+                .setColor(colors.default)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
             let i = 0;
             for (const data of top10) {
                 await delay(15);

@@ -22,6 +22,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
                 .addField('Deaths', covidData.Deaths, true)
                 .addField('Recovered', covidData.Recovered, true)
                 .addField('Active', covidData.Active, true)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.send(embed)

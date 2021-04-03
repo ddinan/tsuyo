@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
             .addField(`🌰 Seeds`, client.inventory.get(key, 'seeds'))
             .addField(`🥫 Pet Food`, client.inventory.get(key, 'petfood') + ' cans')
             .addField(`🪱 Worms`, client.inventory.get(key, 'worms') + ' worms')
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL)
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed)

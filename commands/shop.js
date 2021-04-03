@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
             .addField('🌰 Seed ($5)', `Random seed to plant in your \`${prefix}garden\`.`, true)
             .addField('🪱 Seed ($10)', `Bait to use for \`${prefix}fish\`.`, true)
             //.addField('🚗 Car ($25,000)', `Go fast.`, true)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL)
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed)

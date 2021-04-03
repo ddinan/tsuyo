@@ -79,6 +79,8 @@ exports.run = async (client, message, args) => {
             .setAuthor('🎣 Fishing')
             .setColor(colors.default)
             .setDescription(`You found and sold a **${rarity}** :${fish}: for **${worth}**!`)
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setTimestamp()
 
         if (fish === "clownfish") {
             const nemo = client.emojis.cache.get("827417100233998357");
@@ -87,6 +89,8 @@ exports.run = async (client, message, args) => {
                 .setAuthor('🎣 Fishing')
                 .setColor(colors.default)
                 .setDescription(`You found and sold a **${rarity}** ${nemo} for **${worth}**!`)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
             return message.channel.send(embed2)
         } else if (fish === "chest") {
             const chest = client.emojis.cache.get("827303211844632686");
@@ -95,12 +99,16 @@ exports.run = async (client, message, args) => {
                 .setAuthor('🎣 Fishing')
                 .setColor(colors.green)
                 .setDescription(`You found and sold a **${rarity}** ${chest} for **${worth}**!`)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
             return message.channel.send(embed2)
         } else if (fish === "nothing") {
             const embed2 = new Discord.MessageEmbed()
                 .setAuthor('🎣 Fishing')
                 .setColor(colors.green)
                 .setDescription(`You did not find anything. Better luck next time!`)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
             return message.channel.send(embed2)
         } else return message.channel.send(embed)
 

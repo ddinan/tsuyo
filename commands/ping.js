@@ -7,6 +7,8 @@ exports.run = async (client, message, args, level) => {
             .setColor(colors.default)
             .setFooter('PING')
             .addField(`${message.author.id}`, 'Hello world!')
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setTimestamp()
 
         const msg = await message.channel.send(pingEmbed)
 
@@ -14,6 +16,8 @@ exports.run = async (client, message, args, level) => {
             .setColor(colors.default)
             .addField('Message Trip',
                 `${msg.createdTimestamp - message.createdTimestamp}ms`)
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setTimestamp()
 
         msg.edit(embed)
     } catch (err) {

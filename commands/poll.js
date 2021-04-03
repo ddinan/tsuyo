@@ -27,6 +27,7 @@ exports.run = async (client, message, args, level) => {
             .setTitle('🗳 Poll')
             .setColor(colors.default)
             .addField(`React with either ✅ or ${noEmoji} to vote.`, input, true)
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         if (args.length === 0) {

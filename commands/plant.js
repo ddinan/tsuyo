@@ -87,6 +87,8 @@ exports.run = async (client, message, args) => {
                 .setAuthor('🌼 Garden')
                 .setColor(colors.green)
                 .setDescription(`You planted a seed in slot \`${args[0]}\`. Be sure to water it every 24 hours with \`` + prefix + 'water`.')
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
             return message.channel.send(embed)
         } else {
             message.channel.send('You need to specify which slot you want to plant the seed in (1-3)')

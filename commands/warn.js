@@ -33,7 +33,7 @@ exports.run = async (client, message, args, level) => {
                 const modLogChannel = settings.modLogChannel
                 if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
                     const embed = new Discord.MessageEmbed()
-                        .setTitle('User Warn')
+                        .setTitle('User Warned')
                         .setColor(colors.red)
                         .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: ${message.author.username}`)
 

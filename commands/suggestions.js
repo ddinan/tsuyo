@@ -37,8 +37,8 @@ exports.run = async (client, message, args, level) => {
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setColor(colors.default)
                     .setDescription(input)
+                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
-                    .setFooter(`Generating ID...`)
 
                 const newMsg = await message.channel.send(embed)
 

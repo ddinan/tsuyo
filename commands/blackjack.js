@@ -52,6 +52,7 @@ exports.run = async (client, message, args) => {
             .setColor(colors.default)
             .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
             .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         function startGame() {
@@ -72,6 +73,7 @@ exports.run = async (client, message, args) => {
                 .setColor(colors.default)
                 .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
                 .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.send(embed).then(newMsg => {
@@ -116,6 +118,7 @@ exports.run = async (client, message, args) => {
                 .setColor(colors.default)
                 .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
                 .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.fetch(msgID)
@@ -136,6 +139,7 @@ exports.run = async (client, message, args) => {
                 .setColor(colors.default)
                 .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
                 .addField('Your cards', playerCardString + '\n(Score: ' + playerScore + ')', false)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             const msg = guild.channels.cache.find(c => c.name == settings.modLogChannel)

@@ -1,8 +1,9 @@
-// WIP until Discord allows spoilers in embeds
 const Discord = require('discord.js');
 const request = require('request');
 const colors = require('../lib/colors.json');
-const { parse } = require('node-html-parser');
+const {
+    parse
+} = require('node-html-parser');
 const redis = require('redis');
 
 let usingRedsi = true;
@@ -73,8 +74,8 @@ function sendFoxImageToChat(imageURL, message) {
         const embed = new Discord.MessageEmbed()
             .setColor(colors.default)
             .setImage(imageURL)
-            .setFooter('🦊',
-                'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setTimestamp()
 
         message.channel.send(embed);
     }
@@ -136,4 +137,4 @@ exports.help = {
     category: 'Fun',
     description: 'Shows a random picture of a fox.',
     usage: 'fox'
-}  
+}

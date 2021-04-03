@@ -44,7 +44,12 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         //if not level == no rank
         if (client.points.get(key, `level`) === undefined) i = `No Rank`;
         //define a temporary embed so its not coming delayed
-        let tempmsg = await message.channel.send(new Discord.MessageEmbed().setColor("RED").setAuthor("Calculating...", "https://cdn.discordapp.com/emojis/769935094285860894.gif"))
+        const embed = new Discord.MessageEmbed()
+            .setColor(colors.red)
+            .setAuthor("Calculating...", "https://cdn.discordapp.com/emojis/769935094285860894.gif")
+            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setTimestamp()
+        let tempmsg = await message.channel.send(embed)
         //global local color var.
         let color;
         //define status of the rankuser

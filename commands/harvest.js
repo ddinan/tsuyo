@@ -65,6 +65,8 @@ exports.run = async (client, message, args) => {
                 .setAuthor('🌼 Garden')
                 .setColor(colors.default)
                 .setDescription(`You harvested a **${rarity}** :${getPlant}: for **${worth}**!`)
+                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
 
             if (fish === "chest") {
                 const chest = client.emojis.cache.get("827303211844632686");
@@ -73,6 +75,8 @@ exports.run = async (client, message, args) => {
                     .setAuthor('🌼 Garden')
                     .setColor(colors.default)
                     .setDescription(`You found and sold a **${rarity}** ${chest} for **${worth}**!`)
+                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setTimestamp()
                 return message.channel.send(embed2)
             } else return message.channel.send(embed)
         } else {
