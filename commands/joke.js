@@ -10,7 +10,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             .setDescription(joke({
                 exclude_tags: ['dirty', 'racist', 'marriage', 'sex', 'death']
             }).body)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
         )
     } catch (err) {

@@ -3,6 +3,9 @@ const colors = require('../lib/colors.json')
 const ms = require('ms')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = message.mentions.users.first()
         const settings = client.getSettings(message.guild.id)
@@ -11,15 +14,15 @@ exports.run = async (client, message, args, level) => {
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
-            return message.channel.send("There is no moderator role. Please set one using `;;config edit modRole [your role name]`.")
+            return message.channel.send(lang.NoModRole)
         }
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
 
         if (args[0] && ms(args[0])) {
@@ -27,39 +30,27 @@ exports.run = async (client, message, args, level) => {
                 const member = message.guild.member(user)
                 if (member) {
                     member.roles.add(message.guild.roles.find(r => r.name == settings.muteRole)).then(async () => {
-                        message.reply(`Successfully muted ${user.tag}`)
+                        message.reply(`${lang.SuccessfullyTempMuted} ${user.tag}`)
 
                         const modLogChannel = settings.modLogChannel
                         if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
                             const embed = new Discord.MessageEmbed()
-                                .setTitle('User Temp-muted')
+                                .setTitle(lang.UserTempMuted)
                                 .setColor(colors.red)
-                                .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: ${message.author.username}`)
+                                .setDescription(`${lang.Name}: ${user.username}\n${lang.ID}: ${user.id}\n${lang.Moderator}: ${message.author.username}`)
 
                             message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
                         }
 
                         await setTimeout(async () => {
-                            await member.removeRole(message.guild.roles.find(r => r.name == settings.muteRole)).then(() => {
-                                const modLogChannel = settings.modLogChannel
-                                if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-                                    const embed = new Discord.MessageEmbed()
-                                        .setTitle('User Unmuted')
-                                        .setColor(colors.default)
-                                        .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: AutoMod`)
-
-                                    message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
-                                }
-                            }).catch(err => {
-                                message.author.send('I was unable to ' + user.username + 'and the time to mute them!')
-                            })
+                            await member.removeRole(message.guild.roles.find(r => r.name == settings.muteRole))
                         }, ms(args[0]))
                     }).catch(err => {
-                        message.reply('I was unable to mute the member')
+                        message.reply(lang.UnableToMute)
                     })
-                } else message.reply('That user isn\'t in this guild!')
-            } else message.reply('You didn\'t mention the user to mute!')
-        } else message.reply('You didn\'t specify the amount of time to mute the member or the time is invalid!')
+                } else message.reply(lang.NotInGuild)
+            } else message.reply(lang.NoUserSpecified)
+        } else message.reply(lang.NoAmountSpecified)
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
     }
@@ -67,7 +58,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['tm'],
+    aliases: ['tm', 'tmute'],
     guildOnly: true,
     permLevel: 'User'
 }

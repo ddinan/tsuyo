@@ -1,16 +1,11 @@
 const Discord = require("discord.js");
 const colors = require("../lib/colors.json");
 exports.run = async (client, message, args) => {
-    try {
-        const prefix =
-            message.guild === null ?
-            ";;" :
-            client.getSettings(message.guild.id).prefix;
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
 
-        const language = client.getSettings(message.guild.id).language
-        console.log(language)
-        const lang = require("../lib/languages/" + language + ".json");
-        console.log(lang.EightBallYes)
+    try {
+        const prefix = message.guild === null ? ";;" : client.getSettings(message.guild.id).prefix;
         const results = [lang.EightBallYes, lang.EightBallNo, lang.EightBallMaybe];
         const result = results[Math.floor(Math.random() * results.length)];
         const input = args.join(" ");
@@ -19,16 +14,16 @@ exports.run = async (client, message, args) => {
             let command = client.commands.get("8ball")
             const embed = new Discord.MessageEmbed()
                 .setColor(colors.red)
-                .setTitle("Invalid Syntax")
+                .setTitle(lang.InvalidSyntax)
                 .setDescription(`\`${prefix}${command.help.usage}\`\n\n${command.help.description}`)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.send(embed);
         } else {
-            if (message.content.includes("who") || message.content.includes("Who")) {
+            if (message.content.toLowerCase().includes("who") || message.content.toLowerCase().includes("whose")) {
                 if (message.channel.type === "dm") {
-                    const member = ["You.", "Me."];
+                    const member = [lang.EightBallYou, lang.EightBallMe];
                     const result = member[Math.floor(Math.random() * member.length)];
                     message.channel.send(`${result}`);
                 }
@@ -37,7 +32,7 @@ exports.run = async (client, message, args) => {
                     .setColor(colors.default)
                     .setThumbnail(member.avatarURL)
                     .addField(member.displayName, `<@${member.id}>`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
                 message.channel.send(embed);
             } else {

@@ -3,14 +3,17 @@ const rhyme = require('rhyme')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
-        if (!args[0]) return message.channel.send('You need to input the word to rhyme!')
+        if (!args[0]) return message.channel.send(lang.NoArgumentSpecified)
 
         const msg = await message.channel.send(
             new Discord.MessageEmbed()
             .setColor(colors.default)
-            .setDescription('Finding rhymes...')
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setDescription(lang.FindingRhymes)
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
         )
 
@@ -27,8 +30,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             const embed = new Discord.MessageEmbed()
                 .setTitle(`${args[0]}`)
                 .setColor(colors.default)
-                .setDescription(`${rhymes || 'None Found.'}`)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setDescription(`${rhymes || lang.NoRhymes}`)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             msg.edit(embed)
@@ -40,7 +43,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
 exports.conf = {
     enabled: true,
-    aliases: [],
+    aliases: ['ryme', 'rhime', 'rime', 'rhymes'], // Since people can't spell...
     guildOnly: false,
     permLevel: 'User'
 }
@@ -48,6 +51,6 @@ exports.conf = {
 exports.help = {
     name: 'rhyme',
     category: 'Fun',
-    description: 'Returns all of the words that rhyme with the specified word.',
+    description: 'Shows all of the words that rhyme with <word>.',
     usage: 'rhyme <word>'
 }

@@ -4,26 +4,29 @@ const request = require('request')
 const Discord = require('discord.js')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const lavender = '#9873AC'
         if (!args[0]) return message.channel.send('You need to specify either info, server or skin.')
 
         if (args[0] === "info" || args[0] === "i" || args[0] === "whois") {
             if (!args[1]) {
-                return message.channel.send(`You need to specify a username to get information about.\nE.g, \`;;info Venk\``)
+                return message.channel.send(lang.NoUserSpecified)
             }
 
             request(`https://www.classicube.net/api/player/${args[1]}`, function(error, body) {
                 var result = JSON.parse(body.body)
-                if (!result || result.username === null) return message.channel.send(`\`${args[1]}\` is not a registered user.`)
+                if (!result || result.username === null) return message.channel.send(lang.InvalidUser)
 
                 const embed = new Discord.MessageEmbed()
                     .setTitle(result.username)
                     .setColor(lavender)
                     .setThumbnail(`https://www.classicube.net/face/${result.username}.png`)
-                    .addField('ID', result.id, true)
-                    .addField('Premium', result.premium, true)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .addField(lang.ID, result.id, true)
+                    .addField(lang.Premium, result.premium, true)
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
                 message.channel.send(embed)
@@ -38,12 +41,12 @@ exports.run = async (client, message, args) => {
             if (args[1].startsWith('+')) {
                 const skin = args[1].replace('+', '')
                 const mEmbed = new Discord.MessageEmbed()
-                    .setAuthor(skin + `'s skin`)
-                    .setTitle('Skin URL')
+                    .setAuthor(skin + lang.UsersSkin)
+                    .setTitle(lang.SkinUrl)
                     .setURL(`https://minotar.net/skin/${skin}.png`)
                     .setColor('#3BCE3B')
                     .setImage(`https://minotar.net/skin/${skin}.png`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
                 message.channel.send(mEmbed)
@@ -55,11 +58,11 @@ exports.run = async (client, message, args) => {
 
                     const embed = new Discord.MessageEmbed()
                         .setAuthor(result.username + `'s skin`)
-                        .setTitle('Skin URL')
+                        .setTitle(lang.SkinUrl)
                         .setURL(`https://www.classicube.net/skins/${result.username}.png`)
                         .setColor(lavender)
                         .setImage(`https://www.classicube.net/skins/${result.username}.png`)
-                        .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                        .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                         .setTimestamp()
 
                     message.channel.send(embed)
@@ -81,6 +84,6 @@ exports.conf = {
 exports.help = {
     name: 'classicube',
     category: 'Utility',
-    description: 'Claim your daily bonus every 24 hours.',
+    description: 'Shows information about ClassiCube.',
     usage: 'classicube <info/server/skin> <name>'
 }

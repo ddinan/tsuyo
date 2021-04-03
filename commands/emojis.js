@@ -1,32 +1,35 @@
 exports.run = async (client, message, args, level) => {
-  try {
-    let notAnimated = []
-    let animated = []
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
 
-    message.guild.emojis.cache.forEach(async emoji => {
-      if (emoji.animated) animated.push(emoji.toString())
-      else notAnimated.push(emoji.toString())
-    })
+    try {
+        let notAnimated = []
+        let animated = []
 
-    if (!animated[0]) animated = ['None']
-    if (!notAnimated[0]) notAnimated = ['None']
+        message.guild.emojis.cache.forEach(async emoji => {
+            if (emoji.animated) animated.push(emoji.toString())
+            else notAnimated.push(emoji.toString())
+        })
 
-    message.channel.send('Animated:\n' + animated.join(' ') + '\n\nNot Animated' + notAnimated.join(' '))
-  } catch (err) {
-    message.channel.send(client.errors.genericError + err.stack).catch();
-  }
+        if (!animated[0]) animated = ['None']
+        if (!notAnimated[0]) notAnimated = ['None']
+
+        message.channel.send(`${lang.Animated}:\n${animated.join(' ')}\n\n${lang.NotAnimated}: ${notAnimated.join(' ')}`)
+    } catch (err) {
+        message.channel.send(client.errors.genericError + err.stack).catch();
+    }
 }
 
 exports.conf = {
-  enabled: true,
-  aliases: ['emoji'],
-  guildOnly: true,
-  permLevel: 'User'
+    enabled: true,
+    aliases: ['emoji', 'emote', 'emotes+'],
+    guildOnly: true,
+    permLevel: 'User'
 }
 
 exports.help = {
-  name: 'emojis',
-  category: 'Utility',
-  description: 'Displays all of the emojis in the server.',
-  usage: 'emojis'
+    name: 'emojis',
+    category: 'Utility',
+    description: 'Displays all of the server\'s emojis.',
+    usage: 'emojis'
 }

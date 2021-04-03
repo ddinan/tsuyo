@@ -1,16 +1,19 @@
 const Discord = require("discord.js");
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const hex = Math.random().toString(16).slice(2, 8).toUpperCase().slice(-6);
 
         const color = !args[0] ? hex : args[0];
         const embed = new Discord.MessageEmbed()
             .setColor(hex)
-            .setDescription("Random HEX Code: #" + hex)
+            .setDescription(`${lang.RandomHex} \`#${hex}\``)
             .setTitle("#" + hex)
-            .setImage(`https://tsuyobot.github.io/hex-to-img/?hex=${color}`)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setImage(`https://derekdinan.github.io/ClassiCube-Stuff/hex-to-img/?hex=${color}`)
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed);
@@ -29,6 +32,6 @@ exports.conf = {
 exports.help = {
     name: "color",
     category: "Utility",
-    description: "Returns a random color code.",
+    description: "Returns a random hex color code.",
     usage: "color",
 };

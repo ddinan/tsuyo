@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[2]}\` to \`${args[1].toLowerCase()}\`.`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
                 return message.channel.send(embed)
             }
@@ -50,7 +50,7 @@ exports.run = async (client, message, args) => {
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
                 return message.channel.send(embed)
             }
@@ -62,7 +62,7 @@ exports.run = async (client, message, args) => {
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
                 return message.channel.send(embed)
             }
@@ -74,7 +74,7 @@ exports.run = async (client, message, args) => {
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
                 return message.channel.send(embed)
             }
@@ -90,7 +90,7 @@ exports.run = async (client, message, args) => {
                 .addField('Slot 1:', pingOne, true)
                 .addField('Slot 2:', pingTwo, true)
                 .addField('Slot 3:', pingThree, true)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
             return message.channel.send(embed)
         }

@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = message.mentions.users.first()
         const settings = client.getSettings(message.guild.id)
@@ -10,15 +13,15 @@ exports.run = async (client, message, args, level) => {
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
-            return message.channel.send("There is no moderator role. Please set one using `;;config edit modRole [your role name]`.")
+            return message.channel.send(lang.NoModRole)
         }
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
 
         if (user) {
@@ -28,32 +31,32 @@ exports.run = async (client, message, args, level) => {
                 if (!client.warns.cache.get(message.guild.id)[member.id]) client.warns.cache.get(message.guild.id)[member.id] = 0
 
                 client.warns.cache.get(message.guild.id)[member.id] += 1
-                message.reply(`Successfully warned ${user.tag}`)
+                message.reply(`${lang.SuccessfullyWarned} ${user.tag}`)
 
                 const modLogChannel = settings.modLogChannel
                 if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
                     const embed = new Discord.MessageEmbed()
-                        .setTitle('User Warned')
+                        .setTitle(lang.UserWarned)
                         .setColor(colors.red)
-                        .setDescription(`Name: ${user.username}\nID: ${user.id}\nModerator: ${message.author.username}`)
+                        .setDescription(`${lang.Name}: ${user.username}\n${lang.ID}: ${user.id}\n${lang.Moderator}: ${message.author.username}`)
 
                     message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed)
                 }
 
                 if (client.warns.cache.get(message.guild.id)[member.id] == 3) {
                     member.ban(args.slice(1).join(' ')).then(() => {
-                        message.reply(`Successfully banned ${user.tag}`)
+                        message.reply(`${lang.SuccessfullyWarned} ${user.tag}`)
 
                         client.warns.cache.get(message.guild.id)[member.id] = 0
                     }).catch(err => {
-                        message.reply('I was unable to ban the member for exeding the max amount of warns')
+                        message.reply(lang.UnableToWarn)
                     })
                 }
             } else {
-                message.reply('That user isn\'t in this guild!')
+                message.reply(lang.NotInGuild)
             }
         } else {
-            message.reply('You didn\'t mention the user to warn!')
+            message.reply(lang.NoUserSpecified)
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
@@ -62,7 +65,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: [],
+    aliases: ['w'],
     guildOnly: true,
     permLevel: 'User'
 }
@@ -71,5 +74,5 @@ exports.help = {
     name: 'warn',
     category: 'Moderation',
     description: 'Warns a member for an optional reason.',
-    usage: 'warn <user>'
+    usage: 'warn <user> [reason]'
 }

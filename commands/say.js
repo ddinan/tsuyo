@@ -1,20 +1,25 @@
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).modRole.toLowerCase());
         const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase());
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
-            return message.channel.send("There is no moderator role. Please set one using `;;config edit modRole [your role name]`.")
+            return message.channel.send(lang.NoModRole)
         }
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
+
+        if (args.length === 0) return message.channel.send(lang.NoArgumentSpecified)
 
         message.delete().catch()
         const msg = args.join(' ')
@@ -26,7 +31,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['rep'],
+    aliases: ['s', 'msg'],
     guildOnly: true,
     permLevel: 'User'
 }
@@ -34,6 +39,6 @@ exports.conf = {
 exports.help = {
     name: 'say',
     category: 'Moderation',
-    description: 'Returns the text you provide.',
+    description: 'Says <text> as the bot.',
     usage: 'say <text>'
 }

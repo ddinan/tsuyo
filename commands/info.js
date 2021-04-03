@@ -2,11 +2,13 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const member = message.mentions.members.first()
         let user = ''
         if (member) user = message.mentions.members.first().user
-        if (user.bot === true) return message.channel.send('Now why would you want to do that?')
         if (!member) user = message.author
 
         client.life.ensure(user.id, {
@@ -25,20 +27,20 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             reputation: 0
         })
 
-        const married = client.life.get(user.id, 'spouse') === 0 ? 'nobody' : `<@${client.life.get(user.id, 'spouse')}>`
+        const married = client.life.get(user.id, 'spouse') === 0 ? lang.Nobody : `<@${client.life.get(user.id, 'spouse')}>`
 
         const embed = new Discord.MessageEmbed()
             .setTitle(`${user.tag}`)
-            .addField(`ID`, user.id, true)
-            .addField(`Account created:`, user.createdAt, true)
-            .addField(`Status`, user.presence.status, true)
-            .addField(`Married to`, married, true)
-            .addField(`Reputation`, `+${client.reputation.get(user.id, 'reputation')}`, true)
+            .addField(lang.ID, user.id, true)
+            .addField(lang.AccountCreated, user.createdAt, true)
+            .addField(lang.Status, user.presence.status, true)
+            .addField(lang.MarriedTo, married, true)
+            .addField(lang.Reputation, `+${client.reputation.get(user.id, 'reputation')}`, true)
             //.addField(`Job`, user.user, true)
             //.addField(`Achievements`, user.user, true)
             .setThumbnail(user.avatarURL)
             .setColor(colors.default)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed)

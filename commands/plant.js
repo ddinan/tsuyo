@@ -1,7 +1,11 @@
 const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 const ms = require('ms')
+
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
 
@@ -15,7 +19,7 @@ exports.run = async (client, message, args) => {
 
         const seeds = client.inventory.get(message.author.id, 'seeds')
 
-        if (seeds === 0) return message.channel.send('You do not have any seeds. Buy some in the shop.')
+        if (seeds === 0) return message.channel.send(lang.NoSeeds)
 
         client.garden.ensure(message.author.id, {
             member: message.author.id,
@@ -33,7 +37,7 @@ exports.run = async (client, message, args) => {
         const p2 = client.garden.get(`${message.author.id}`, 'plant2')
         const p3 = client.garden.get(`${message.author.id}`, 'plant3')
 
-        if (!args[0]) return message.channel.send('You need to specify which slot you want to plant the seed in (1-3)')
+        if (!args[0]) return message.channel.send(lang.SpecifyPlantSlot)
 
         if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
             let slot = ''
@@ -50,7 +54,7 @@ exports.run = async (client, message, args) => {
                 slot = 'plant3'
                 stage = 'plant3Stage'
             }
-            if (args[0] > 3) return message.channel.send('You can only have 3 plants in your garden at a time.')
+            if (args[0] > 3) return message.channel.send(lang.MoreSeeds)
 
             var d = Math.random()
             let plant;
@@ -84,14 +88,14 @@ exports.run = async (client, message, args) => {
             client.garden.set(`${message.author.id}`, plant, slot)
             client.garden.set(`${message.author.id}`, "1", stage)
             const embed = new Discord.MessageEmbed()
-                .setAuthor('🌼 Garden')
+                .setAuthor(`🌼 ${lang.Garden}`)
                 .setColor(colors.green)
-                .setDescription(`You planted a seed in slot \`${args[0]}\`. Be sure to water it every 24 hours with \`` + prefix + 'water`.')
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setDescription(`${lang.PlantedSeed}\`${args[0]}\`. ${lang.WaterSeed} \`` + prefix + 'water`.')
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
             return message.channel.send(embed)
         } else {
-            message.channel.send('You need to specify which slot you want to plant the seed in (1-3)')
+            message.channel.send(lang.SpecifyPlantSlot)
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
@@ -108,6 +112,6 @@ exports.conf = {
 exports.help = {
     name: 'plant',
     category: 'Fun',
-    description: 'Plant seeds in your ;;garden.',
+    description: 'Plant seeds in your garden.',
     usage: 'plant <slot>'
 }

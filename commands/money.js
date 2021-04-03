@@ -1,34 +1,37 @@
 exports.run = async (client, message, args) => {
-  try {
-    const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
 
-      client.money.ensure(`${member.id}`, {
-        member: member.id,
-        money: 0
-      })
+    try {
+        const member = message.mentions.members.first() ? message.mentions.members.first() : message.member
 
-      const money = client.money.get(member.id, 'money')
+        client.money.ensure(`${member.id}`, {
+            member: member.id,
+            money: 0
+        })
 
-      if (member.id === message.author.id) {
-        message.channel.send(`You currently have $${money}.`)
-      } else {
-        message.channel.send(`${member.user.tag} currently has $${money}.`)
-      }
-  } catch (err) {
-    message.channel.send(client.errors.genericError + err.stack).catch();
-  }
+        const money = client.money.get(member.id, 'money')
+
+        if (member.id === message.author.id) {
+            message.channel.send(`${lang.YouCurrentlyHave} $${money}.`)
+        } else {
+            message.channel.send(`${member.user.tag} ${lang.CurrentlyHas} $${money}.`)
+        }
+    } catch (err) {
+        message.channel.send(client.errors.genericError + err.stack).catch();
+    }
 }
 
 exports.conf = {
-  enabled: true,
-  aliases: ['bal', 'balance', '$', 'wallet'],
-  guildOnly: false,
-  permLevel: 'User'
+    enabled: true,
+    aliases: ['bal', 'balance', '$', 'wallet'],
+    guildOnly: false,
+    permLevel: 'User'
 }
 
 exports.help = {
-  name: 'money',
-  category: 'Economy',
-  description: 'Shows either yours or a mentioned user\'s money.',
-  usage: 'money [@name]'
+    name: 'money',
+    category: 'Economy',
+    description: 'Shows either yours or a mentioned user\'s money.',
+    usage: 'money [@name]'
 }

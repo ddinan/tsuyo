@@ -3,6 +3,9 @@ const colors = require('../lib/colors.json')
 const ms = require('ms')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = message.mentions.users.first()
         const settings = client.getSettings(message.guild.id)
@@ -11,15 +14,15 @@ exports.run = async (client, message, args, level) => {
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
-            return message.channel.send("There is no moderator role. Please set one using `;;config edit modRole [your role name]`.")
+            return message.channel.send(lang.NoModRole)
         }
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
 
         if (args) {
@@ -27,14 +30,14 @@ exports.run = async (client, message, args, level) => {
                 const member = message.guild.member(user)
                 if (member) {
                     member.ban().then(() => {
-                        message.reply(`Successfully banned ${user.tag}`)
+                        message.reply(`${lang.SuccessfullyTempBanned} ${user.tag}`)
 
                         const modLogChannel = settings.modLogChannel
                         if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
                             const embed = new Discord.MessageEmbed()
-                                .setTitle('User TempBan')
+                                .setTitle(lang.UserTempBanned)
                                 .setColor(colors.red)
-                                .setDescription(`Name: ${user.username}\nID: ${user.id}\nTime: ${args.slice(1).join(' ')}\nModerator: ${message.author.username}`)
+                                .setDescription(`${lang.Name}: ${user.username}\n${lang.ID}: ${user.id}\n${lang.Time}: ${args.slice(1).join(' ')}\n${lang.Moderator}: ${message.author.username}`)
 
                             message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed)
                         }
@@ -43,11 +46,11 @@ exports.run = async (client, message, args, level) => {
                             message.guild.unban(user.id)
                         }, ms(args.join(' ')))
                     }).catch(err => {
-                        message.reply('I was unable to ban the member')
+                        message.reply(lang.UnableToBan)
                     })
-                } else message.reply('That user isn\'t in this guild!')
-            } else message.reply('You didn\'t mention the user to ban!')
-        } else message.reply('You didin\'t specify the time to ban them for!')
+                } else message.reply(lang.NotInGuild)
+            } else message.reply(lang.NoUserSpecified)
+        } else message.reply(lang.InvalidAmount)
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
     }

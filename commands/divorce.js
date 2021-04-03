@@ -1,38 +1,39 @@
 exports.run = async (client, message, args) => {
-  try {
-    client.life.ensure(message.author.id, {
-      member: message.author.id,
-      spouse: 0,
-      job: 0
-    })
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
 
-    const spouse = client.life.get(message.author.id, 'spouse')
-    if (spouse === 0) return message.channel.send('You need to have a spouse before you can divorce them.')
+    try {
+        client.life.ensure(message.author.id, {
+            member: message.author.id,
+            spouse: 0,
+            job: 0
+        })
 
-    if (args[0] === 'confirm') {
-      message.channel.send('You divorced your partner.')
-      client.life.set(message.author.id, 0, 'spouse')
-      client.life.set(spouse, 0, 'spouse')
+        const spouse = client.life.get(message.author.id, 'spouse')
+        if (spouse === 0) return message.channel.send(lang.NeedSpouse)
+
+        if (args[0] === 'confirm') {
+            message.channel.send(lang.DivorcedPartner)
+            client.life.set(message.author.id, 0, 'spouse')
+            client.life.set(spouse, 0, 'spouse')
+        } else {
+            message.channel.send(lang.ConfirmDivorce)
+        }
+    } catch (err) {
+        message.channel.send(client.errors.genericError + err.stack).catch();
     }
-
-    else {
-      message.channel.send('You are about to divorce your partner. Type ;;divorce confirm to confirm this action.')
-    }
-  } catch (err) {
-    message.channel.send(client.errors.genericError + err.stack).catch();
-  }
 }
 
 exports.conf = {
-  enabled: true,
-  aliases: ['div', 'fixyourlife'],
-  guildOnly: true,
-  permLevel: 'User'
+    enabled: true,
+    aliases: ['div', 'fixyourlife'],
+    guildOnly: true,
+    permLevel: 'User'
 }
 
 exports.help = {
-  name: 'divorce',
-  category: 'Fun',
-  description: 'Divorces your spouse.',
-  usage: 'divorce'
+    name: 'divorce',
+    category: 'Fun',
+    description: 'Divorces your spouse.',
+    usage: 'divorce'
 }

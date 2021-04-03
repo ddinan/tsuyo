@@ -2,12 +2,15 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const embed = new Discord.MessageEmbed()
             .setColor(colors.default)
             .setImage(`${message.author.displayAvatarURL()}`)
-            .addField('Your avatar:', `[Image URL](${message.author.avatarURL()})`, true)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .addField(lang.YourAvatar, `[${lang.ImageURL}](${message.author.avatarURL()})`, true)
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         if (!message.mentions.users.size) {
@@ -19,8 +22,8 @@ exports.run = async (client, message, args, level) => {
             .setColor(colors.default)
             .setImage(`${user.avatarURL}`)
             .setThumbnail(`${user.avatarURL}`)
-            .addField(`${user.username}'s avatar:`, `${user.avatarURL()}`, true)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .addField(`${user.username}${lang.UsersAvatar}`, `${user.avatarURL()}`, true)
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed2)

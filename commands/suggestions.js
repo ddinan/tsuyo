@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const yesEmoji = '✅'
         const noEmoji = message.client.emojis.cache.get('637573919204966410')
@@ -12,24 +15,24 @@ exports.run = async (client, message, args, level) => {
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
-            return message.channel.send("There is no moderator role. Please set one using `;;config edit modRole [your role name]`.")
+            return message.channel.send(lang.NoModRole)
         }
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
 
         if (args.length === 0) {
-            return message.channel.send(`You need to specify either add, accept or deny.`)
+            return message.channel.send(lang.NoOptionSpecified)
         }
 
         if (args[0] === "add") {
             if (message.member.roles.cache.some(r => r.name === settings.modRole) || message.member.roles.cache.some(r => r.name === settings.adminRole)) {
-                if (args.length === 1) return message.channel.send(`You need to specify the contents of the suggestion.\nE.g, \`${settings.prefix}suggestions add Better syntax descriptions.\``)
+                if (args.length === 1) return message.channel.send(lang.NoArgumentSpecified)
 
                 const input = message.content.startsWith(`${settings.prefix}sg add`) ? message.content.split(`${settings.prefix}sg add `) : message.content.split(`${settings.prefix}suggestions add`)
 
@@ -37,7 +40,7 @@ exports.run = async (client, message, args, level) => {
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setColor(colors.default)
                     .setDescription(input)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
                 const newMsg = await message.channel.send(embed)
@@ -47,7 +50,7 @@ exports.run = async (client, message, args, level) => {
                     .setColor(colors.default)
                     .setDescription(input)
                     .setTimestamp()
-                    .setFooter(`ID: ${newMsg.id}`)
+                    .setFooter(`${lang.ID}: ${newMsg.id}`)
 
                 newMsg.edit(newEmbed).then(() => {
                     message.delete()
@@ -57,13 +60,13 @@ exports.run = async (client, message, args, level) => {
                     })
                 })
             } else {
-                return message.channel.send("You do not have permission to use this command.")
+                return message.channel.send(lang.NoPermission)
             }
         }
 
-        if (args[0] === "delete" || args[0] === "del" || args[0] === "deny" || args[0] === "decline") {
+        if (args[0] === "delete" || args[0] === "del" || args[0] === "deny" || args[0] === "decline" || args[0] === "reject") {
             if (message.member.roles.cache.some(r => r.name === settings.adminRole)) {
-                if (args.length === 1) return message.channel.send('You need to specify a suggestion to deny.')
+                if (args.length === 1) return message.channel.send(lang.NoArgumentSpecified)
 
                 if (settings.deniedChannel && message.channel.guild.channels.cache.find(c => c.name == settings.deniedChannel)) {
                     const deniedChannel = message.channel.guild.channels.cache.find(c => c.name == settings.deniedChannel)
@@ -74,7 +77,7 @@ exports.run = async (client, message, args, level) => {
                             const newEmbed = new Discord.MessageEmbed(embed)
                                 .setColor(colors.red)
                                 .setTimestamp()
-                                .setFooter(`ID: ${args[1]}`)
+                                .setFooter(`${lang.ID}: ${args[1]}`)
 
                             deniedChannel.send(newEmbed)
                             suggestion.delete()
@@ -83,13 +86,13 @@ exports.run = async (client, message, args, level) => {
                         }).catch()
                 }
             } else {
-                return message.channel.send("You do not have permission to use this command.")
+                return message.channel.send(lang.NoPermission)
             }
         }
 
         if (args[0] === "accept") {
             if (message.member.roles.cache.some(r => r.name === settings.adminRole)) {
-                if (args.length === 1) return message.channel.send('You need to specify a suggestion to accept.')
+                if (args.length === 1) return message.channel.send(lang.NoArgumentSpecified)
 
                 if (settings.acceptedChannel && message.channel.guild.channels.cache.find(c => c.name == settings.acceptedChannel)) {
                     const acceptedChannel = message.channel.guild.channels.cache.find(c => c.name == settings.acceptedChannel)
@@ -100,7 +103,7 @@ exports.run = async (client, message, args, level) => {
                             const newEmbed = new Discord.MessageEmbed(embed)
                                 .setColor(colors.green)
                                 .setTimestamp()
-                                .setFooter(`ID: ${args[1]}`)
+                                .setFooter(`${lang.ID}: ${args[1]}`)
 
                             acceptedChannel.send(newEmbed)
                             suggestion.delete()
@@ -109,7 +112,7 @@ exports.run = async (client, message, args, level) => {
                         }).catch()
                 }
             } else {
-                return message.channel.send("You do not have permission to use this command.")
+                return message.channel.send(lang.NoPermission)
             }
         }
     } catch (err) {
@@ -119,7 +122,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['sg'],
+    aliases: ['sg', 'suggestion'],
     guildOnly: true,
     permLevel: 'User'
 }

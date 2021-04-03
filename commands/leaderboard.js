@@ -2,6 +2,9 @@ const Discord = require("discord.js");
 const colors = require("../lib/colors.json");
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         function delay(delayInms) {
             return new Promise(resolve => {
@@ -11,8 +14,8 @@ exports.run = async (client, message, args) => {
             });
         }
 
-        if (!args[0]) return message.channel.send(`You need to specify a type. Try either \`xp\` or \`money\`.`)
-        if (args[0].toLowerCase() !== "xp" && args[0].toLowerCase() !== "money") return message.channel.send(`You need to specify a type. Try either \`xp\` or \`money\`.`)
+        if (!args[0]) return message.channel.send(lang.NoOptionSpecified)
+        if (args[0].toLowerCase() !== "xp" && args[0].toLowerCase() !== "money") return message.channel.send(lang.InvalidOption)
         let isGlobal;
         if (args[0].toLowerCase() === "xp") {
             if (args[1]) {
@@ -29,21 +32,20 @@ exports.run = async (client, message, args) => {
             const sorted = filtered.sort((a, b) => b.points - a.points)
             const top10 = sorted.splice(0, 10);
             const embed = new Discord.MessageEmbed()
-                .setTitle(`${globalName} Leaderboard`)
-                .setTimestamp()
-                .setDescription(`Top 10 players with the most XP:`)
+                .setTitle(`${globalName} ${lang.Leaderboard}`)
+                .setDescription(lang.TopTenXP)
                 .setColor(colors.default)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
             let i = 0;
             for (const data of top10) {
                 await delay(15);
                 try {
                     i++;
-                    embed.addField(`**${i}**. ${client.users.cache.get(data.user).tag}`, `Points: \`${Math.floor(data.points * 100) / 100}\` | Level: \`${data.level}\``);
+                    embed.addField(`**${i}**. ${client.users.cache.get(data.user).tag}`, `${lang.PointsUpper}: \`${Math.floor(data.points * 100) / 100}\` | ${lang.Level}: \`${data.level}\``);
                 } catch {
                     i++;
-                    embed.addField(`**${i}**. ${client.users.cache.get(data.user)}`, `Points: \`${Math.floor(data.points * 100) / 100}\` | Level: \`${data.level}\``);
+                    embed.addField(`**${i}**. ${client.users.cache.get(data.user)}`, `${lang.PointsUpper}: \`${Math.floor(data.points * 100) / 100}\` | ${lang.Level}: \`${data.level}\``);
                 }
             }
             message.channel.send(embed);
@@ -62,21 +64,21 @@ exports.run = async (client, message, args) => {
             const sorted = filtered.sort((a, b) => b.money - a.money)
             const top10 = sorted.splice(0, 10);
             const embed = new Discord.MessageEmbed()
-                .setTitle(`${globalName} Leaderboard`)
+                .setTitle(`${globalName} ${lang.Leaderboard}`)
                 .setTimestamp()
-                .setDescription(`Top 10 players with the most money:`)
+                .setDescription(lang.TopTenMoney)
                 .setColor(colors.default)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
             let i = 0;
             for (const data of top10) {
                 await delay(15);
                 try {
                     i++;
-                    embed.addField(`**${i}**. ${client.users.cache.get(data.user).tag}`, `Money: \`${Math.floor(data.money * 100) / 100}\``);
+                    embed.addField(`**${i}**. ${client.users.cache.get(data.user).tag}`, `${lang.Money}: \`${Math.floor(data.money * 100) / 100}\``);
                 } catch {
                     i++;
-                    embed.addField(`**${i}**. ${client.users.cache.get(data.user)}`, `Money: \`${Math.floor(data.money * 100) / 100}\``);
+                    embed.addField(`**${i}**. ${client.users.cache.get(data.user)}`, `${lang.Money}: \`${Math.floor(data.money * 100) / 100}\``);
                 }
             }
             message.channel.send(embed);

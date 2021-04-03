@@ -3,14 +3,17 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
-        if (message.channel.nsfw === false) return message.channel.send('You need to be in an NSFW channel to use this command.')
+        if (message.channel.nsfw === false) return message.channel.send(lang.NeedNSFW)
         if (!args[0]) {
             return message.channel.send(
                 new Discord.MessageEmbed()
                 .setColor(colors.red)
-                .setDescription('You need to specify a term to define.')
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setDescription(lang.NoArgumentSpecified)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
             )
         }
@@ -21,8 +24,8 @@ exports.run = async (client, message, args, level) => {
                 return message.channel.send(
                     new Discord.MessageEmbed()
                     .setColor(colors.red)
-                    .setDescription(`Urban Dictionary does not contain a definition for \`${args[0]}\`.`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setDescription(`${lang.UrbanNotFound} \`${args[0]}\`.`)
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
                 )
             }
@@ -32,9 +35,8 @@ exports.run = async (client, message, args, level) => {
                 .setThumbnail('https://i.imgur.com/D19IeLX.png')
                 .setTitle(result.word)
                 .setDescription(result.definition)
-                .setFooter('URBAN DICTIONARY', 'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
-                .addField('Example', result.example)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .addField(lang.Example, result.example)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.send(embed)
@@ -55,5 +57,5 @@ exports.help = {
     name: 'urban',
     category: 'Fun',
     description: 'Searches the Urban Dictionary for [term].',
-    usage: 'urbandictionary [term]'
+    usage: 'urbandictionary <term>'
 }

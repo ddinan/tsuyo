@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
         const embed = new Discord.MessageEmbed()
             .setColor(colors.default)
             .setImage(img)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed)

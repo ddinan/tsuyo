@@ -1,10 +1,13 @@
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = message.mentions.users.first() || client.users.cache.get(args[0])
-        if (!user) return message.channel.send('You must mention someone or give their ID!')
-        if (user.bot === true) return message.channel.send('Bots cannot receive rep!')
+        if (!user) return message.channel.send(lang.NoUserSpecified)
+        if (user.bot === true) return message.channel.send(lang.BotsRep)
 
-        if (user === message.author || message.author.id === user.id) return message.channel.send('You cannot give yourself +rep.')
+        if (user === message.author || message.author.id === user.id) return message.channel.send(lang.GiveSelfRep)
 
         client.cooldown.ensure(`${message.author.id}`, {
             member: message.author.id,
@@ -18,7 +21,7 @@ exports.run = async (client, message, args) => {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-        if (cooldown === date) return message.channel.send(`You can only give +rep every 24 hours.`)
+        if (cooldown === date) return message.channel.send(lang.RepCooldown)
 
         // Ensure this user has gotten rep before
         client.reputation.ensure(`${user.id}`, {
@@ -29,7 +32,7 @@ exports.run = async (client, message, args) => {
         const rep = client.reputation.get(`${user.id}`, 'reputation')
 
         client.reputation.set(`${user.id}`, rep + 1, 'reputation')
-        message.channel.send(`You gave ${user.tag} +1rep.`)
+        message.channel.send(`${lang.YouGave} ${user.tag} +1 ${lang.Reputation}.`)
         client.cooldown.set(`${message.author.id}`, date, 'rep') // Activate 24 hour cooldown
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
@@ -38,14 +41,14 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['+rep', 'giverep', 'repgive'],
+    aliases: ['+rep', 'giverep', 'repgive', 'rep'],
     guildOnly: false,
     permLevel: 'User'
 }
 
 exports.help = {
-    name: 'rep',
+    name: 'reputation',
     category: 'Economy',
-    description: 'Gives +1 rep to <member>.',
-    usage: 'rep <member>'
+    description: 'Gives +1 reputation to <member>.',
+    usage: 'reputation <member>'
 }

@@ -2,11 +2,14 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = message.mentions.users.first() || client.users.cache.get(args[0])
-        if (!user) return message.channel.send('You must mention someone or give their ID!')
-        if (user.bot === true) return message.channel.send('Don\'t marry bots. They have no feelings... trust me...')
-        if (user === message.author || message.author.id === user.id) return message.channel.send('It really do be like that sometimes...')
+        if (!user) return message.channel.send()
+        if (user.bot === true) return message.channel.send(lang.CannotMarryBots)
+        if (user === message.author || message.author.id === user.id) return message.channel.send(lang.CannotMarrySelf)
 
         let proposerID = message.author.id
         let proposerName = message.author.username
@@ -35,12 +38,12 @@ exports.run = async (client, message, args) => {
         const spouse = client.life.get(message.author.id, 'spouse')
         const uSpouse = client.life.get(user.id, 'spouse')
 
-        if (rings === 0) return message.channel.send('You do not have a wedding ring. Buy one in the shop.')
-        if (spouse !== 0) return message.channel.send('You cannot have more than one spouse.')
-        if (uSpouse !== 0) return message.channel.send(`${user.tag} already has a spouse.`)
+        if (rings === 0) return message.channel.send(lang.NoWeddingRing)
+        if (spouse !== 0) return message.channel.send(lang.MoreSpouses)
+        if (uSpouse !== 0) return message.channel.send(`${user.tag} ${lang.AlreadyHasSpouse}`)
 
         let embed = new Discord.MessageEmbed()
-            .setDescription(`**${user.tag}**, **${message.author.tag}** is asking for your hand in marriage, would you like to accept?`)
+            .setDescription(`**${user.tag}**, **${message.author.tag}** ${lang.AskingMarriage}`)
 
         const noEmoji = message.client.emojis.cache.get('637573919204966410')
         message.channel.send(embed).then(message => {
@@ -65,18 +68,18 @@ exports.run = async (client, message, args) => {
                         client.life.set(user.id, proposerID, 'spouse')
                         client.inventory.set(proposerID, rings - 1, 'rings')
 
-                        embed.setDescription(`${user.tag} and ${proposer.user.tag} are now married`)
+                        embed.setDescription(`${user.tag} ${lang.And} ${proposer.user.tag} ${lang.AreNowMarried}`)
                             .setImage('https://media.giphy.com/media/vTfFCC3rSfKco/giphy.gif')
                             .setColor(colors.pink)
                         message.channel.send(embed)
                     }
                     if (reaction.emoji.id === '637573919204966410') { // Decline emoji
-                        embed.setTitle(`Sorry **${proposer.user.tag}**, **${user.tag}** declined your proposal.`)
+                        embed.setTitle(`${lang.Sorry} **${proposer.user.tag}**, **${user.tag}** ${lang.DeclinedProposal}`)
                         message.edit(embed)
                     }
                 })
                 .catch(collected => {
-                    message.channel.send(`Sorry ${proposer.user.tag}, the person you proposed to didn't respond, try again later.`)
+                    message.channel.send(`${lang.Sorry} ${proposer.user.tag}, ${lang.DidNotRespond}`)
                 });
         })
     } catch (err) {

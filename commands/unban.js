@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = args[0]
         const settings = client.getSettings(message.guild.id)
@@ -9,26 +12,26 @@ exports.run = async (client, message, args, level) => {
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
-            return message.channel.send("There is no moderator role. Please set one using `;;config edit modRole [your role name]`.")
+            return message.channel.send(lang.NoModRole)
         }
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
 
         if (user) {
             message.guild.members.unban(args[0]).then(() => {
-                message.reply(`Successfully unbanned ${user}`)
+                message.reply(`${lang.SuccessfullyUnbanned} ${user}`)
             }).catch(err => {
-                message.reply('I was unable to unban the member.')
+                message.reply(lang.UnableToUnban)
                 message.channel.send(client.errors.genericError + err.stack).catch();
             })
         } else {
-            message.reply('You didn\'t give the User ID to unban!')
+            message.reply(lang.NoUserSpecified)
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
@@ -37,7 +40,7 @@ exports.run = async (client, message, args, level) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['ub'],
+    aliases: ['ub', 'uban'],
     guildOnly: true,
     permLevel: 'User'
 }

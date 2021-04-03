@@ -1,5 +1,8 @@
 const ms = require('ms')
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
 
@@ -15,7 +18,7 @@ exports.run = async (client, message, args) => {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-        if (cooldown === date) return message.channel.send(`You have already collected your daily bonus today!`)
+        if (cooldown === date) return message.channel.send(lang.AlreadyClaimedBonus)
 
         client.cooldown.set(`${message.author.id}`, date, 'dailybonus') // Activate 24 hour cooldown
 
@@ -26,7 +29,7 @@ exports.run = async (client, message, args) => {
 
         const money = client.money.get(message.author.id, 'money')
         client.money.set(`${message.author.id}`, money + 100, 'money')
-        message.channel.send(`You claimed your daily bonus of \`$${100}\`.`)
+        message.channel.send(`${lang.ClaimedBonus} \`$${100}\`.`)
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
     }

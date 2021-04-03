@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const Icon = message.guild.iconURL === null ?
             'https://discordapp.com/assets/6debd47ed13483642cf09e832ed0bc1b.png' : message.guild.iconURL
@@ -9,20 +12,20 @@ exports.run = async (client, message, args, level) => {
         const afk_channel = message.guild.afkChannel === null ? '**No channel**' : message.guild.afkChannel
 
         let region = ''
-        if (message.guild.region === 'brazil') region = ':flag_br: Brazil'
-        if (message.guild.region === 'central-europe') region = ':flag_eu: Central Europe'
-        if (message.guild.region === 'western-europe') region = ':flag_eu: Western Europe'
-        if (message.guild.region === 'hong-kong') region = ':flag_hk: Hong Kong'
-        if (message.guild.region === 'india') region = ':flag_in: India'
-        if (message.guild.region === 'japan') region = ':flag_jp: Japan'
-        if (message.guild.region === 'russia') region = ':flag_ru: Russia'
-        if (message.guild.region === 'singapore') region = ':flag_sg: Singapore'
-        if (message.guild.region === 'south-africa') region = ':flag_za: South Africa'
-        if (message.guild.region === 'sydney') region = ':flag_au: Australia'
-        if (message.guild.region === 'us-central') region = ':flag_us: US Central'
-        if (message.guild.region === 'us-east') region = ':flag_us: US East'
-        if (message.guild.region === 'us-south') region = ':flag_us: US South'
-        if (message.guild.region === 'us-west') region = ':flag_us: US West'
+        if (message.guild.region === 'brazil') region = `:flag_br: ${lang.Brazil}`
+        if (message.guild.region === 'central-europe') region = `:flag_eu: ${lang.CentralEurope}`
+        if (message.guild.region === 'western-europe') region = `:flag_eu: ${lang.WesternEurope}`
+        if (message.guild.region === 'hong-kong') region = `:flag_hk: ${lang.HongKong}`
+        if (message.guild.region === 'india') region = `:flag_in: ${lang.India}`
+        if (message.guild.region === 'japan') region = `:flag_jp: ${lang.Japan}`
+        if (message.guild.region === 'russia') region = `:flag_ru: ${lang.Russia}`
+        if (message.guild.region === 'singapore') region = `:flag_sg: ${lang.Singapore}`
+        if (message.guild.region === 'south-africa') region = `:flag_za: ${lang.SouthAfrica}`
+        if (message.guild.region === 'sydney') region = `:flag_au: ${lang.Australia}`
+        if (message.guild.region === 'us-central') region = `:flag_us: ${lang.USCentral}`
+        if (message.guild.region === 'us-east') region = `:flag_us: ${lang.USEast}`
+        if (message.guild.region === 'us-south') region = `:flag_us: ${lang.USSouth}`
+        if (message.guild.region === 'us-west') region = `:flag_us: ${lang.USWest}`
 
         const embed = new Discord.MessageEmbed()
             .setColor(colors.default)
@@ -31,13 +34,13 @@ exports.run = async (client, message, args, level) => {
                 'https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
             .setTitle(`${message.guild.name}`)
 
-            .addField('Owner', `${message.guild.owner}`, true)
-            .addField('Members', `${message.guild.memberCount}`, true)
-            .addField('Verified?', `${verified}`)
-            .addField('Created on', `${message.guild.createdAt}`, true)
-            .addField('AFK', `${afk_channel}\n **Timeout:** ${message.guild.afkTimeout} seconds.`, true)
-            //.addField('Region', `${region}`, true)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .addField(lang.Owner, `${message.guild.owner}`, true)
+            .addField(lang.Members, `${message.guild.memberCount}`, true)
+            .addField(lang.Verified, `${verified}`)
+            .addField(lang.CreatedOn, `${message.guild.createdAt}`, true)
+            .addField(lang.AFK, `${afk_channel}\n **${lang.Timeout}:** ${message.guild.afkTimeout} ${lang.Seconds}`, true)
+            .addField(lang.Region, `${region}`, true)
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed)

@@ -1,23 +1,24 @@
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase());
 
-        // Ensure mod/admin roles actually exist
+        // Ensure admin role actually exists
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
-        if (!args[1]) return message.reply('You need to specify the channel type!')
-        if (!args[0]) return message.reply('You need to specify the channel name!')
+        if (!args[1]) return message.reply(lang.NoArgumentSpecified)
+        if (!args[0]) return message.reply(lang.NoArgumentSpecified)
 
-        message.channel.send('I\'ve created the channel!').then(() => {
-            message.guild.createChannel(args[1], args[0], []).catch((err) => {
-                message.channel.send('There was an error!')
-            })
+        message.channel.send(lang.ChannnelCreated).then(() => {
+            message.guild.createChannel(args[1], args[0], [])
         })
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();

@@ -1,25 +1,28 @@
 const math = require('mathjs')
 
 exports.run = async (client, message, args, level) => {
-  try {
-    if (!args[0]) return message.reply('You need to give the equation!')
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
 
-    message.channel.send('`Output:`' + math.eval(args.join(' ')))
-  } catch (err) {
-    message.channel.send(client.errors.genericError + err.stack).catch();
-  }
+    try {
+        if (!args[0]) return message.reply(lang.NoArgumentSpecified)
+
+        message.channel.send(`**${lang.Answer}:** ${math.eval(args.join(' '))}`)
+    } catch (err) {
+        message.channel.send(client.errors.genericError + err.stack).catch();
+    }
 }
 
 exports.conf = {
-  enabled: true,
-  aliases: ['calc', 'maths', 'solve'],
-  guildOnly: false,
-  permLevel: 'User'
+    enabled: true,
+    aliases: ['calc', 'maths', 'solve'],
+    guildOnly: false,
+    permLevel: 'User'
 }
 
 exports.help = {
-  name: 'math',
-  category: 'Utility',
-  description: 'Solves <equation> for you',
-  usage: 'math <equation>'
+    name: 'math',
+    category: 'Utility',
+    description: 'Solves <equation> for you',
+    usage: 'math <equation>'
 }

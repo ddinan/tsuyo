@@ -1,9 +1,13 @@
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
-        if (!args[0]) return message.channel.send(`You need to specify an item to buy. ;;store`)
+
+        if (!args[0]) return message.channel.send(lang.NoItemSpecified)
         const items = ['weddingring', 'ring', 'rings', 'food', 'petfood', 'seed', 'seeds', 'worm', 'worms']
         if (!items.includes(args[0])) return message.channel.send('Invalid item.')
-        if (!args[1]) return message.channel.send(`You need to specify how much/many you want to buy.`)
+        if (!args[1]) return message.channel.send(lang.HowManyToBuy)
 
         function isInt(value) {
             if (isNaN(value)) {
@@ -13,7 +17,7 @@ exports.run = async (client, message, args, level) => {
             return (x | 0) === x;
         }
 
-        if (isNaN(args[1]) || !isInt(args[1]) || Math.sign(args[1]) === -1) return message.channel.send(`${args[1]} is not a valid number.`)
+        if (isNaN(args[1]) || !isInt(args[1]) || Math.sign(args[1]) === -1) return message.channel.send(lang.InvalidAmount)
 
         const key = `${message.author.id}`
 
@@ -34,11 +38,11 @@ exports.run = async (client, message, args, level) => {
 
         function buyItem(money, price, quantity, item) {
             const total = price * quantity
-            if (money < price * quantity) return message.channel.send('You do not have enough money to complete this transaction.')
+            if (money < price * quantity) return message.channel.send(lang.NotEnoughMoney)
 
             client.money.set(key, money - total, 'money')
             const items = item > 1 ? item : item + 's'
-            message.channel.send(`You bought \`${args[1]} ${items}\` for \`$${price * quantity}\`.\n**New balance:** ${money - total}`)
+            message.channel.send(`${lang.YouBought} \`${args[1]} ${items}\` ${lang.For} \`$${price * quantity}\`.\n**${lang.NewBalance}** ${money - total}`)
 
             if (args[0] === 'weddingring' || args[0] === 'ring' || args[0] === 'rings') {
                 var number = client.inventory.get(key, 'rings')

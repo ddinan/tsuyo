@@ -2,19 +2,22 @@ const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
 
     try {
         if (!args[0]) {
             const embed = new Discord.MessageEmbed()
-                .setTitle('Help')
+                .setTitle(lang.Help)
                 .setColor(colors.default)
                 .setThumbnail(client.user.avatarURL)
-                .addField('Commands', `Commands can be found by typing \`${prefix}commands\`.`)
-                .addField('Want to invite me to your Discord?', '[Click here to invite me to your server.](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)')
-                .addField('Need more assistance?', '[Click here to join the official Tsuyo support server](https://discord.gg/3hbeQgY)')
+                .addField(lang.Commands, `${lang.CommandsFound} \`${prefix}commands\`.`)
+                .addField(lang.InviteMe, `[${lang.ClickToInvite}](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)`)
+                .addField(lang.NeedAssistance, `[${lang.ClickToJoinSupport}](https://discord.gg/3hbeQgY)`)
                 .setImage("https://i.imgur.com/QlKiesl.png")
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.send(embed)
@@ -25,14 +28,14 @@ exports.run = (client, message, args, level) => {
                 command = client.commands.get(command) || client.aliases.get(command)
 
                 const embedTiny = new Discord.MessageEmbed()
-                    .setTitle(`Help - ${prefix}${command.help.name}`)
+                    .setTitle(`${lang.Help} - ${prefix}${command.help.name}`)
                     .setColor(colors.default)
                     .setThumbnail(client.user.avatarURL)
-                    .setDescription(`${command.help.description}\n\n**Usage:** ${command.help.usage}\n**Aliases:** ${command.conf.aliases.join(' | ') || 'none'}`)
-                    .addField('Permission level', `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
-                    .addField('Category', command.help.category, true)
-                    .addField('Guild only', command.conf.guildOnly ? 'Yes' : 'No', true)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setDescription(`${command.help.description}\n\n**${lang.Usage}:** ${command.help.usage}\n**${lang.Aliases}:** ${command.conf.aliases.join(' | ') || lang.None}`)
+                    .addField(lang.PermissionLevel, `${client.levelCache[command.conf.permLevel]} - ${command.conf.permLevel}`, true)
+                    .addField(lang.Category, command.help.category, true)
+                    .addField(lang.GuildOnly, command.conf.guildOnly ? lang.Yes : lang.No, true)
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
                 message.channel.send(embedTiny)
@@ -50,7 +53,7 @@ exports.run = (client, message, args, level) => {
                     }
                 })
 
-                if (!output) return message.reply('That\'s not a valid command.')
+                if (!output) return message.reply(lang.InvalidCommand)
             }
         }
     } catch (err) {

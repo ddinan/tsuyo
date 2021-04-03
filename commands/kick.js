@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = message.mentions.users.first()
         const settings = client.getSettings(message.guild.id)
@@ -10,40 +13,40 @@ exports.run = async (client, message, args, level) => {
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
-            return message.channel.send("There is no moderator role. Please set one using `;;config edit modRole [your role name]`.")
+            return message.channel.send(lang.NoModRole)
         }
 
         if (!adminRole) {
-            return message.channel.send("There is no administrator role. Please set one using `;;config edit adminRole [your role name]`.")
+            return message.channel.send(lang.NoAdminRole)
         }
 
         if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
-            return message.channel.send("You can't use this command!")
+            return message.channel.send(lang.NoPermission)
         }
 
         if (user) {
             const member = message.guild.member(user)
             if (member) {
                 member.kick(args.slice(1).join(' ')).then(() => {
-                    message.reply(`Successfully kicked ${user.tag}`)
+                    message.reply(`${lang.SuccessfullyKicked} ${user.tag}`)
 
                     const modLogChannel = settings.modLogChannel
                     if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
                         const embed = new Discord.MessageEmbed()
-                            .setTitle('User Kicked')
+                            .setTitle(lang.UserKicked)
                             .setColor(colors.red)
-                            .setDescription(`Name: ${user.username}\nID: ${user.id}\nReason: ${args.slice(1).join(' ')}\nModerator: ${message.author.username}`)
+                            .setDescription(`${lang.Name}: ${user.username}\n${lang.ID}: ${user.id}\n${lang.Reason}: ${args.slice(1).join(' ')}\n${lang.Moderator}: ${message.author.username}`)
 
                         message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
                     }
                 }).catch(err => {
-                    message.reply('I wasn\'t able to kick the member')
+                    message.reply(lang.UnableToKick)
                 })
             } else {
-                message.reply('That user isn\'t in this guild!')
+                message.reply(lang.NotInGuild)
             }
         } else {
-            message.reply('You didn\'t mention the user to kick!')
+            message.reply(lang.NoUserSpecified)
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();

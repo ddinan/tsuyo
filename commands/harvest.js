@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         if (message.author.bot === true) return
 
@@ -34,7 +37,7 @@ exports.run = async (client, message, args) => {
             var getPlant = client.garden.get(`${message.author.id}`, slot)
             var getStage = client.garden.get(`${message.author.id}`, stage)
 
-            if (getStage !== "4") return message.channel.send("This plant is not ripe enough to be harvested yet.")
+            if (getStage !== "4") return message.channel.send(lang.NotRipe)
 
             client.garden.set(`${message.author.id}`, null, slot)
             client.garden.set(`${message.author.id}`, "0", stage)
@@ -62,25 +65,25 @@ exports.run = async (client, message, args) => {
             client.money.set(`${message.author.id}`, money + worth, 'money')
 
             const embed = new Discord.MessageEmbed()
-                .setAuthor('🌼 Garden')
+                .setAuthor(`🌼 ${lang.Garden}`)
                 .setColor(colors.default)
-                .setDescription(`You harvested a **${rarity}** :${getPlant}: for **${worth}**!`)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setDescription(`${lang.HarvestedAndSold} **${rarity}** :${getPlant}: ${lang.For} **${worth}**!`)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            if (fish === "chest") {
+            if (getPlant === "chest") {
                 const chest = client.emojis.cache.get("827303211844632686");
 
                 const embed2 = new Discord.MessageEmbed()
-                    .setAuthor('🌼 Garden')
+                    .setAuthor(`🌼 ${lang.Garden}`)
                     .setColor(colors.default)
-                    .setDescription(`You found and sold a **${rarity}** ${chest} for **${worth}**!`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .setDescription(`${lang.HarvestedAndSold} **${rarity}** ${chest} ${lang.For} **${worth}**!`)
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
                 return message.channel.send(embed2)
             } else return message.channel.send(embed)
         } else {
-            message.channel.send('You need to specify which slot you want to harvest (1-3)')
+            message.channel.send(lang.SpecifyHarvestSlot)
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
@@ -95,8 +98,8 @@ exports.conf = {
 }
 
 exports.help = {
-    name: 'garden',
+    name: 'harvest',
     category: 'Fun',
-    description: 'Shows your garden.',
-    usage: 'garden'
+    description: 'Harvests a plant from your garden.',
+    usage: 'harvest <slot>'
 }

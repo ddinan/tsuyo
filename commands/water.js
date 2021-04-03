@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         if (message.author.bot === true) return
 
@@ -17,7 +20,7 @@ exports.run = async (client, message, args) => {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-        if (cooldown === date) return message.channel.send(`You have already watered your plants today!`)
+        if (cooldown === date) return message.channel.send(lang.AlreadyWatered)
 
         client.cooldown.set(`${message.author.id}`, date, 'plants') // Activate 24 hour cooldown
 
@@ -35,7 +38,7 @@ exports.run = async (client, message, args) => {
         const p2 = client.garden.get(`${message.author.id}`, 'plant2')
         const p3 = client.garden.get(`${message.author.id}`, 'plant3')
 
-        if (p1 === null && p3 === null && p3 === null) return message.channel.send('You do not have any plants to water. Plant some with ;;plant.')
+        if (p1 === null && p3 === null && p3 === null) return message.channel.send(lang.NoPlants)
 
         var s1 = client.garden.get(`${message.author.id}`, 'plant1Stage')
         var s2 = client.garden.get(`${message.author.id}`, 'plant2Stage')
@@ -56,7 +59,7 @@ exports.run = async (client, message, args) => {
         else if (s3 === "3") s3 = "4"
         client.garden.set(`${message.author.id}`, s3, 'plant3Stage')
 
-        message.channel.send('You watered your plants. Come back tomorrow to water them again!')
+        message.channel.send(lang.WateredPlants)
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
     }
@@ -64,7 +67,7 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
     enabled: true,
-    aliases: [],
+    aliases: ['wp', 'waterplants'],
     guildOnly: true,
     permLevel: 'User'
 }

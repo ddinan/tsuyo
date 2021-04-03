@@ -1,20 +1,23 @@
-const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
+const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
 
         const embed = new Discord.MessageEmbed()
-            .setTitle('🛒 Shop')
-            .setDescription(`To purchase an item, type \`${prefix}buy <item>\``)
+            .setTitle(`🛒 ${lang.Shop}`)
+            .setDescription(`${lang.PurchaseItem} \`${prefix}buy <${lang.item}>\``)
             .setColor(colors.default)
-            .addField('💍 Wedding Ring ($1,300)', `Used to propose to your partner via \`${prefix}marry\`.`, true)
-            .addField('🥫 Pet Food ($50)', `Used to feed your \`${prefix}pet\`.`, true)
-            .addField('🌰 Seed ($5)', `Random seed to plant in your \`${prefix}garden\`.`, true)
-            .addField('🪱 Seed ($10)', `Bait to use for \`${prefix}fish\`.`, true)
+            .addField(`💍 ${lang.WeddingRing} ($1,300)`, `${lang.WeddingRingDesc} \`${prefix}marry\`.`, true)
+            .addField(`🥫 ${lang.PetFood} ($50)`, `${lang.PetFoodDesc} \`${prefix}pet\`.`, true)
+            .addField(`🌰 ${lang.Seed} ($5)`, `${lang.SeedDesc} \`${prefix}garden\`.`, true)
+            .addField(`🪱 ${lang.Worm}($10)`, `${lang.WormDesc} \`${prefix}fish\`.`, true)
             //.addField('🚗 Car ($25,000)', `Go fast.`, true)
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed)

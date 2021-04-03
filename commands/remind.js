@@ -3,14 +3,17 @@ const colors = require('../lib/colors.json')
 const ms = require('ms')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const reminderTime = args[0]
         if (!reminderTime) {
             const embed = new Discord.MessageEmbed()
                 .setColor(colors.red)
-                .setTitle('Invalid Syntax')
-                .setDescription("`/remind [time] [message]`\n\nUse 's' for seconds, 'm' for minutes, 'h' for hours and 'd' for days. If a measurement of time is not specified, the time will be in seconds.")
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTitle(lang.InvalidSyntax)
+                .setDescription(`\/remind <${lang.Time}> <${lang.Message}>\`\n\n${lang.RemindFormats}`)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.send(embed)
@@ -21,16 +24,16 @@ exports.run = async (client, message, args) => {
         if (reminder) {
             const success = new Discord.MessageEmbed()
                 .setColor(colors.green)
-                .setTitle('**SUCCESS:**')
-                .setDescription(`I will send you a DM in **${reminderTime}**!`)
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTitle(`**${lang.Success}**`)
+                .setDescription(`${lang.SuccessMessage} **${reminderTime}**!`)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             const fail = new Discord.MessageEmbed()
                 .setColor(colors.red)
-                .setTitle('**FAIL:**')
-                .setDescription('I couldn\'t send you a DM. Please check to see if you have direct messaging enabled.')
-                .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                .setTitle(`**${lang.Fail}:**`)
+                .setDescription(lang.FailMessage)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
             message.channel.send(success)
@@ -38,12 +41,12 @@ exports.run = async (client, message, args) => {
             setTimeout(function() {
                 const remindEmbed = new Discord.MessageEmbed()
                     .setColor(colors.default)
-                    .addField('Reminder:', `${reminder}`)
-                    .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+                    .addField(lang.Reminder, `${reminder}`)
+                    .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
                 message.author.send(remindEmbed)
-                    .catch(() => message.channel.send(fail))
+                    .catch(() => message.reply(fail))
             }, ms(reminderTime))
         } else {
             message.channel.send(embed)
@@ -64,5 +67,5 @@ exports.help = {
     name: 'remind',
     category: 'Utility',
     description: 'Reminds you at the specified time of the specified thing.',
-    usage: 'remind <time> <text>'
+    usage: 'remind <time> <message'
 }

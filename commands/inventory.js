@@ -2,6 +2,9 @@ const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
         const key = `${message.author.id}`
@@ -15,13 +18,13 @@ exports.run = async (client, message, args) => {
         })
 
         const embed = new Discord.MessageEmbed()
-            .setTitle('🎒 Your Inventory')
+            .setTitle(`🎒`)
             .setColor(colors.default)
-            .addField(`💍 Wedding Rings`, client.inventory.get(key, 'rings'))
-            .addField(`🌰 Seeds`, client.inventory.get(key, 'seeds'))
-            .addField(`🥫 Pet Food`, client.inventory.get(key, 'petfood') + ' cans')
-            .addField(`🪱 Worms`, client.inventory.get(key, 'worms') + ' worms')
-            .setFooter(`Responding to ${message.author.tag}`, message.author.avatarURL())
+            .addField(`💍 ${lang.WeddingRings}`, client.inventory.get(key, 'rings'))
+            .addField(`🌰 ${lang.Seeds}`, client.inventory.get(key, 'seeds'))
+            .addField(`🥫 ${lang.PetFood}`, client.inventory.get(key, 'petfood') + ' cans')
+            .addField(`🪱 ${lang.Worms}`, client.inventory.get(key, 'worms') + ' worms')
+            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
         message.channel.send(embed)

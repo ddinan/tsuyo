@@ -1,10 +1,13 @@
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const user = message.mentions.users.first() || client.users.cache.get(args[0])
-        if (!user) return message.channel.send('You must mention someone or give their ID!')
-        if (user.bot === true) return message.channel.send('Bots cannot receive money!')
-        if (!args[1]) return message.channel.send('You need to specify a number to give.')
-        if (isNaN(args[1])) return message.channel.send('Invalid amount.')
+        if (!user) return message.channel.send(lang.NoUserSpecified)
+        if (user.bot === true) return message.channel.send(lang.BotsMoney)
+        if (!args[1]) return message.channel.send(lang.NoAmountSpecified)
+        if (isNaN(args[1])) return message.channel.send(lang.InvalidAmount)
 
         client.money.ensure(`${user.id}`, {
             user: user.id,
@@ -13,7 +16,7 @@ exports.run = async (client, message, args) => {
 
         const money = client.money.get(`${user.id}`, 'money')
         client.money.set(`${user.id}`, parseInt(args[1]), 'money')
-        message.channel.send(`You gave **${user.tag}** \`${args[1]}\`\n**${user.tag}'s balance:** $${parseInt(args[1])}`)
+        message.channel.send(`${lang.YouGave} **${user.tag}** \`${args[1]}\`\n**${user.tag}${lang.UsersBalance}** $${parseInt(args[1])}`)
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
     }

@@ -1,63 +1,72 @@
-const colors = require('../lib/colors.json')
 const Discord = require('discord.js')
+const colors = require('../lib/colors.json')
 
 exports.run = (client, message, args, level) => {
-  try {
-    const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
-    const input = args[0]
-    if (input == 'rock' || input == 'paper' || input == 'scissors') {
-      const result = [
-        'rock',
-        'paper',
-        'scissors'
-      ]
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
 
-      const picker = Math.floor(Math.random() * result.length)
-      if (input == 'rock' && result[picker] == 'rock') {
-        message.channel.send('I chose :punch: too!\n**It was a tie**!')
-      } else if (input == 'paper' && result[picker] == 'paper') {
-        message.channel.send('I chose :raised_hand: too!\n**It was a tie**!')
-      } else if (input == 'scissors' && result[picker] == 'scissors') {
-        message.channel.send('I chose :v: too!\n**It was a tie**!')
-      }
+    try {
+        const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
+        const input = args[0]
+        if (input == lang.Rock || input == lang.Paper || input == lang.Scissors) {
+            const result = [
+                lang.Rock,
+                lang.Paper,
+                lang.Scissors
+            ]
 
-      // If bot wins
+            const picker = Math.floor(Math.random() * result.length)
+            if (input == lang.Rock && result[picker] == lang.Rock) {
+                message.channel.send(`${lang.IChose} :punch: ${lang.Too}\n**${lang.ItWasATie}**!`)
+            } else if (input == lang.Paper && result[picker] == lang.Paper) {
+                message.channel.send(`${lang.IChose} :raised_hand: ${lang.Too}\n**${lang.ItWasATie}**!`)
+            } else if (input == lang.Scissors && result[picker] == lang.Scissors) {
+                message.channel.send(`${lang.IChose} :v: ${lang.Too}\n**${lang.ItWasATie}**!`)
+            }
 
-      else if (input == 'scissors' && result[picker] == 'rock') {
-        message.channel.send('I chose :punch:\n**I win**!')
-      } else if (input == 'rock' && result[picker] == 'paper') {
-        message.channel.send('I chose :raised_hand:\n**I win**!')
-      } else if (input == 'paper' && result[picker] == 'scissors') {
-        message.channel.send('I chose :v:\n**I win**!')
-      }
+            // If bot wins
+            else if (input == lang.Scissors && result[picker] == lang.Rock) {
+                message.channel.send(`${lang.IChose} :punch:\n**${lang.YouLose}**!`)
+            } else if (input == lang.Rock && result[picker] == lang.Paper) {
+                message.channel.send(`${lang.IChose} :raised_hand:\n**${lang.YouLose}**!`)
+            } else if (input == lang.Paper && result[picker] == lang.Scissors) {
+                message.channel.send(`${lang.IChose} :v:\n**${lang.YouLose}**!`)
+            }
 
-      // If bot loses
+            // If bot loses
+            else if (input == lang.Rock && result[picker] == lang.Scissors) {
+                message.channel.send(`${lang.IChose} :v:\n**${lang.YouWin}**!`)
+            } else if (input == lang.Paper && result[picker] == lang.Rock) {
+                message.channel.send(`${lang.IChose} :punch:\n**${lang.YouWin}**!`)
+            } else if (input == lang.Scissors && result[picker] == lang.Paper) {
+                message.channel.send(`${lang.IChose} :raised_hand:\n**${lang.YouWin}**!`)
+            }
+        } else {
+            let command = client.commands.get("rps")
+            const embed = new Discord.MessageEmbed()
+                .setColor(colors.red)
+                .setTitle(lang.InvalidSyntax)
+                .setDescription(`\`${prefix}${command.help.usage}\`\n\n${command.help.description}`)
+                .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
+                .setTimestamp()
 
-      else if (input == 'rock' && result[picker] == 'scissors') {
-        message.channel.send('I chose :v:\n**You win**!')
-      } else if (input == 'paper' && result[picker] == 'rock') {
-        message.channel.send('I chose :punch:\n**You win**!')
-      } else if (input == 'scissors' && result[picker] == 'paper') {
-        message.channel.send('I chose :raised_hand:\n**You win**!')
-      }
-    } else {
-      message.channel.send(`**INVALID SYNTAX:** ${prefix}rps [rock/paper/scissors]`)
+            message.channel.send(embed)
+        }
+    } catch (err) {
+        message.channel.send(client.errors.genericError + err.stack).catch();
     }
-  } catch (err) {
-    message.channel.send(client.errors.genericError + err.stack).catch();
-  }
 }
 
 exports.conf = {
-  enabled: true,
-  aliases: ['psr', 'spr'],
-  guildOnly: false,
-  permLevel: 'User'
+    enabled: true,
+    aliases: ['psr', 'spr'],
+    guildOnly: false,
+    permLevel: 'User'
 }
 
 exports.help = {
-  name: 'rps',
-  category: 'Utility',
-  description: 'Simple game of Rock Paper Scissors.',
-  usage: 'rps <option>'
+    name: 'rps',
+    category: 'Utility',
+    description: 'A simple game of Rock Paper Scissors.',
+    usage: 'rps <option>'
 }
