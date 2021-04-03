@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
             const embed = new Discord.MessageEmbed()
                 .setTitle(lang.Commands)
                 .setColor(colors.default)
-                .addField(output, `${lang.ValidCategories}:\n\`admin\`, \`economy\`, \`fun\`, \`moderation\`, \`utility\``)
+                .addField(output, `\n${lang.ValidCategories}:\n\`admin\`, \`economy\`, \`fun\`, \`moderation\`, \`utility\``)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 

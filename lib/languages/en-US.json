@@ -297,5 +297,56 @@
     "HasLost": "has lost",
     "AndAreLevel": "and are level",
     "YouNeed": "You need",
-    "LevelUpTo": "to level up to"
+    "LevelUpTo": "to level up to",
+
+
+
+
+
+    "ChannelCreated": "Channel created",
+    "CreatedChannel": "Created channel",
+    "ChannelDeleted": "Channel deleted",
+    "DeletedChannel": "Deleted channel",
+
+    "EmojiURL": "Emoji URL",
+    "EmojiCreated": "Emoji Created",
+    "EmojiDeleted": "Emoji Deleted",
+    "EmojiUpdated": "Emoji Updated",
+    "NewName": "New Name",
+    "OldName": "Old Name",
+    "NewURL": "New URL",
+    "OldURL": "Old URL",
+
+    "UserBanned": "User Banned",
+    "TotalMemberCount": "Total member count",
+    "BannedFromDiscord": "was banned from the Discord",
+    "UserUnbanned": "User Unbanned",
+
+    "MemberJoined": "Member Joined",
+    "JoinedTheDiscord": "joined the Discord.",
+    "MemberLeft": "Member Left",
+    "LeftTheDiscord": "left the Discord.",
+    "NickChanged": "Nickname Changed",
+    "ChangedNick": "changed their nickname",
+    "OldNick": "Old nickname",
+    "NewNick": "New nickname",
+    "UsernameChanged": "Username Changed",
+    "ChangedUsername": "changed their username",
+    "OldUsername": "Old username",
+    "NewUsername": "New username",
+    "RolesUpdated": "Member Roles Updated",
+    "RolesUpdatedFor": "Roles updated for",
+    "OldRoles": "Old roles",
+    "NewRoles": "New roles",
+
+    "NeedGuild": "You need to be in a guild to use this command.",
+
+    "MessageDeleted": "Message Deleted",
+    "MessageDeletedBy": "Message deleted by",
+    "MessageUpper": "Message",
+    "In": "in",
+    "MessageEdited": "Message Edited",
+    "MessageEditedBy": "Message edited by",
+    "OldMessage": "Old message",
+    "NewMessage": "New message"
 }

@@ -1,21 +1,24 @@
-const Discord = require("discord.js"); 
+const Discord = require("discord.js");
+const colors = require('../lib/colors.json')
 
 module.exports = (client, oldemoji, newemoji) => {
-  let settings = client.getSettings(newemoji.guild.id); // Get settings
-  if (settings.logEmojiUpdates == "true") { // If the "log emoji update" setting is set to true, then we should do this.
-    let modLogChannel = settings.modLogChannel; // Set the logging channel
+    let settings = client.getSettings(newemoji.guild.id);
+    const language = settings.language
+    const lang = require("../lib/languages/" + language + ".json")
 
-    if (modLogChannel && newemoji.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-      let embed = new Discord.MessageEmbed() // Create embed
-      .setTitle("Emoji Update") // Set embed title
-      .setColor("#eeeeee") // Set color in HEX
-      .setDescription(`New Name: ${newemoji.name}\nOld Name: ${oldemoji.name}\nID: ${newemoji.id}`) // Description of the embed
-      .addField("New Emoji URL", newemoji.url) // URL link to the New™ Emoji® 
-      .addField("Old Emoji URL", oldemoji.url); // Url link to the old Emoji® 
+    if (settings.logEmojiUpdates == "true") {
+        let modLogChannel = settings.modLogChannel;
 
-      newemoji.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed); // And then we send all that to the logging channel.
+        if (modLogChannel && newemoji.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
+            let embed = new Discord.MessageEmbed()
+                .setTitle(`🙂 ${lang.EmojiUpdated}`)
+                .setColor(colors.default)
+                .setDescription(`${lang.NewName}: ${newemoji.name}\n${lang.OldName}: ${oldemoji.name}\n${lang.ID}: ${newemoji.id}`)
+                .addField(lang.NewURL, newemoji.url)
+                .addField(lang.OldURL, oldemoji.url)
+                .setTimestamp()
+
+            newemoji.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed);
+        }
     }
-  }
 };
-
-// comments by odysssssssssssssssssssssssssssssssssssssssssssssssssssey346

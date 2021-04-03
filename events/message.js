@@ -11,17 +11,19 @@ module.exports = async (client, message) => {
 
     if (message.guild) settings = client.getSettings(message.guild.id);
     else settings = client.config.defaultSettings;
+    const language = settings.language
+    const lang = require("../lib/languages/" + language + ".json")
 
     // checks if message mentions the bot, if so responds with prefix
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
         const embed = new Discord.MessageEmbed()
-            .setTitle('Help')
+            .setTitle(lang.Help)
             .setColor(colors.default)
             .setThumbnail('https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')
-            .addField('Commands', `Commands can be found by typing \`${settings.prefix}commands\`.`)
-            .addField('Want to invite me to your Discord?', '[Click here to invite me to your server.](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)')
-            .addField('Need more assistance?', '[Click here to join the official Tsuyo support server](https://discord.gg/3hbeQgY)')
+            .addField(lang.Commands, `${lang.CommandsFound} \`${settings.prefix}commands\`.`)
+            .addField(lang.InviteMe, `[${lang.ClickToInvite}](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)`)
+            .addField(lang.NeedAssistance, `[${lang.ClickToJoinSupport}](https://discord.gg/3hbeQgY)`)
 
         if (message.guild !== null) {
             if (!message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) return
@@ -73,12 +75,11 @@ module.exports = async (client, message) => {
         }, 3000); // three seconds
     }
 
-    if (!message.guild && cmd.conf.guildOnly) return message.channel.send("You need to be in a guild to use this command.");
+    if (!message.guild && cmd.conf.guildOnly) return message.channel.send(lang.NeedGuild);
     if (message.guild && !message.channel.nsfw && cmd.conf.nsfwOnly) return message.channel.send(client.errors.nsfwOnly);
 
     if (level < client.levelCache[cmd.conf.permLevel]) {
-        if (settings.noPermissionNotice) return message.channel.send(`You can't use this command!
-Your permission level is ${level} (${client.config.permLevels.find(l => l.level === level).name}), but this command requires level ${client.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})!`);
+        if (settings.noPermissionNotice) return message.channel.send(lang.NoPermission);
         else return;
     }
 
@@ -89,7 +90,7 @@ Your permission level is ${level} (${client.config.permLevels.find(l => l.level 
         message.flags.push(args.shift().slice(1));
     }
 
-    if (!cmd.conf.enabled && level < 8) return message.channel.send("This command is disabled for non-devs."); //this command is disabled for non-devs
+    if (!cmd.conf.enabled && level < 8) return message.channel.send(lang.NoPermission); //this command is disabled for non-devs
 
     try {
         cmd.run(client, message, args, level);

@@ -1,18 +1,23 @@
 const Discord = require("discord.js");
+const colors = require('../lib/colors.json')
 
 module.exports = (client, emoji) => {
-  let settings = client.getSettings(emoji.guild.id);
-  if (settings.logEmojiUpdates == "true") {
-    let modLogChannel = settings.modLogChannel;
+    let settings = client.getSettings(emoji.guild.id);
+    const language = settings.language
+    const lang = require("../lib/languages/" + language + ".json")
 
-    if (modLogChannel && emoji.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-      let embed = new Discord.MessageEmbed()
-      .setTitle("Emoji Create")
-      .setColor("#eeeeee")
-      .setDescription(`Name: ${emoji.name}\nID: ${emoji.id}`)
-      .addField("Emoji URL", emoji.url);
+    if (settings.logEmojiUpdates == "true") {
+        let modLogChannel = settings.modLogChannel;
 
-      emoji.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed);
+        if (modLogChannel && emoji.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
+            let embed = new Discord.MessageEmbed()
+                .setTitle(`🙂 ${lang.EmojiCreated}`)
+                .setColor(colors.green)
+                .setDescription(`${lang.Name}: ${emoji.name}\n${lang.ID}: ${emoji.id}`)
+                .addField(lang.EmojiURL, emoji.url)
+                .setTimestamp()
+
+            emoji.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed);
+        }
     }
-  }
 };
