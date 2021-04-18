@@ -116,6 +116,7 @@ client.errors = require("./modules/errors");
 require("./modules/commands")(client); // Import command module
 require("./modules/events")(client); // Import events module
 require("./modules/_functions")(client); // Import functions
+require("./modules/webhooks")(client); // Import functions
 
 // Cache the permissions
 for (let i = 0; i < client.config.permLevels.length; i++) {

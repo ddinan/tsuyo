@@ -1,4 +1,8 @@
 exports.run = async (client, message, args, level) => {
+    const settings = client.getSettings(message.guild.id)
+    const language = settings.language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).modRole.toLowerCase());
         const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase());
