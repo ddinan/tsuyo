@@ -27,7 +27,7 @@ exports.run = async (client, message, args, level) => {
 
             if (num <= 100 && num >= 1) {
                 message.delete()
-                message.channel.bulkDelete(num)
+                message.channel.bulkDelete(num, true)
             } else message.reply(lang.OneAndHundred)
         } else {
             message.reply(lang.InvalidAmount)
