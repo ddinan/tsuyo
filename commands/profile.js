@@ -44,12 +44,6 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         let curnextlevel = Number(((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)) * ((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)));
         if (client.points.get(key, `level`) === undefined) i = lang.NoRank;
 
-        const embed = new Discord.MessageEmbed()
-            .setColor(colors.red)
-            .setAuthor(lang.Calculating, "https://cdn.discordapp.com/emojis/769935094285860894.gif")
-            .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
-            .setTimestamp()
-        let tempmsg = await message.channel.send(embed)
         let status = rankuser.presence.status;
 
         const rank = new canvacord.Rank()
@@ -58,7 +52,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
                 format: 'png'
             }))
             .setCurrentXP(Number(curpoints.toFixed(2)), colors.default)
-            .setRequiredXP(Number(curnextlevel.toFixed(2)), color.default)
+            .setRequiredXP(Number(curnextlevel.toFixed(2)), colors.default)
             .setStatus(status, false, 7)
             .renderEmojis(true)
             .setProgressBar(colors.default, "COLOR")
@@ -72,8 +66,6 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             .then(async data => {
                 const attachment = new Discord.MessageAttachment(data, "RankCard.png");
                 message.channel.send(attachment);
-                await message.channel.send(embed);
-                await tempmsg.delete();
                 return;
             });
     } catch (err) {
