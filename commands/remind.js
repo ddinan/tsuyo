@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
             const embed = new Discord.MessageEmbed()
                 .setColor(colors.red)
                 .setTitle(lang.InvalidSyntax)
-                .setDescription(`\/remind <${lang.Time}> <${lang.Message}>\`\n\n${lang.RemindFormats}`)
+                .setDescription(`\`${client.getSettings(message.guild.id).prefix}remind <${lang.Time}> <${lang.Message}>\`\n\n${lang.RemindFormats}`)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
@@ -48,8 +48,6 @@ exports.run = async (client, message, args) => {
                 message.author.send(remindEmbed)
                     .catch(() => message.reply(fail))
             }, ms(reminderTime))
-        } else {
-            message.channel.send(embed)
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();
