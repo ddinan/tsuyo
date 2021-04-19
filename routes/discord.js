@@ -1,13 +1,18 @@
 const router = require('express').Router();
 
-const { clientId, clientSecret, scopes, redirectUri } = require('../config.js');
+const {
+    clientId,
+    clientSecret,
+    scopes,
+    redirectUri
+} = require('../config.js');
 const fetch = require('node-fetch');
 const FormData = require('form-data');
 
 router.get('/', (req, res) => {
     if (req.session.user) return res.redirect('/');
 
-    const authorizeUrl = `https://discordapp.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scopes.join('%20')}`;
+    const authorizeUrl = `https://discord.com/api/oauth2/authorize?client_id=492871769485475840&redirect_uri=http%3A%2F%2Ftsuyo.xyz%2Fauthorize%2Fcallback&response_type=code&scope=identify%20guilds`;
     res.redirect(authorizeUrl);
 });
 
@@ -35,7 +40,7 @@ router.get('/callback', async (req, res) => {
 
     try {
 
-        let authTokenRes = await fetch('https://discordapp.com/api/oauth2/token', {
+        let authTokenRes = await fetch('https://discord.com/api/oauth2/token', {
             method: 'POST',
             body: data
         });
@@ -51,13 +56,13 @@ router.get('/callback', async (req, res) => {
 
         let [userResponse, guildResponse] = await Promise.all(
             [
-                fetch('https://discordapp.com/api/users/@me', {
+                fetch('https://discord.com/api/users/@me', {
                     method: 'GET',
                     headers: {
                         authorization: `${response.token_type} ${response.access_token}`
                     },
                 }),
-                fetch('https://discordapp.com/api/users/@me/guilds', {
+                fetch('https://discord.com/api/users/@me/guilds', {
                     method: 'GET',
                     headers: {
                         authorization: `${response.token_type} ${response.access_token}`

@@ -1,6 +1,6 @@
-![](https://i.imgur.com/TA9sw0C.png)
-
 <p align="center">
+    <a href="http://tsuyo.xyz"><img width='100%' src="https://i.imgur.com/sCNV086.png.png"></a>
+    <br>
     <a href="https://standardjs.com/"><img width='108px' src="https://i.imgur.com/7nT5ptA.png"></a>
     <img src="https://img.shields.io/discord/492875641713328143?color=%237086D2&label=Discord&logo=Discord&style=for-the-badge">
     <img src="https://img.shields.io/github/license/TsuyoBot/main?logo=Apache&style=for-the-badge">
@@ -19,7 +19,7 @@
 
 ### Installation:
 A couple of dependencies you will need:
-[NodeJS](https://nodejs.org/en/download/) - A JavaScript runtime, it also has NPM built-in. 
+[NodeJS](https://nodejs.org/en/download/) - A JavaScript runtime, it also has NPM built-in.
 
 Once NodeJS is installed, install the npm dependencies in the windows command prompt.
 - ```cd [folder where the package.json is]```

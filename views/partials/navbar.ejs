@@ -4,23 +4,23 @@
   <!-- General stylesheet -->
   <link rel="stylesheet" href="navbar.css" type="text/css">
     <div class="left"><a href="/" style="color:#995BBD; font-weight:450;">Tsuyo</a>
-        <a href="/about">About</a>
-        <a href="https://github.com/VenkSociety/Tsuyo">GitHub</a>
+        <a href="http://tsuyo.xyz/about">About</a>
+        <a href="https://github.com/derekdinan/Tsuyo">GitHub</a>
         <a href="https://discord.gg/3hbeQgY">Support Server</a>
     </div>
-  
+
     <div class="right">
         <% if (user) { %>
-            <a href="/me"><%- user.username %></a>
+            <a href="http://tsuyo.xyz/me"><%- user.username %></a>
 
-            <a href="/servers">Manage Servers</a>
-            <a class="logout" href="/authorize/logout">Logout</a>
+            <a href="http://tsuyo.xyz/servers">Manage Servers</a>
+            <a class="logout" href="http://tsuyo.xyz/authorize/logout">Logout</a>
         <% } else { %>
-            <a class="login" href="/authorize">Login</a>
+            <a class="login" href="https://discord.com/api/oauth2/authorize?client_id=492871769485475840&redirect_uri=http%3A%2F%2Ftsuyo.xyz%2Fauthorize%2Fcallback&response_type=code&scope=identify%20guilds">Login</a>
         <% } %>
     </div>
-  
+
   <% if (user) { %>
-      <a href="/me"><img class="pfp" src="<%- user.avatarURL %>"></a>
+      <a href="http://tsuyo.xyz/me"><img class="pfp" src="<%- user.avatarURL %>"></a>
     <% } else { %> <% } %>
 </div>

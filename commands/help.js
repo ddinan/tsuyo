@@ -16,7 +16,7 @@ exports.run = (client, message, args, level) => {
                 .addField(lang.Commands, `${lang.CommandsFound} \`${prefix}commands\`.`)
                 .addField(lang.InviteMe, `[${lang.ClickToInvite}](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455)`)
                 .addField(lang.NeedAssistance, `[${lang.ClickToJoinSupport}](https://discord.gg/3hbeQgY)`)
-                .setImage("https://i.imgur.com/QlKiesl.png")
+                .setImage("https://i.imgur.com/sCNV086.png")
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 

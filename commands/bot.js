@@ -21,6 +21,7 @@ exports.run = (client, message, args, level) => {
             .addField(lang.Uptime, `${duration}`, true)
             .addField(lang.CreatedBy, '<@191517443519152129>', true)
             .addField(lang.SupportServer, '[Click here](https://discord.gg/3hbeQgY)')
+            .setImage("https://i.imgur.com/sCNV086.png")
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
         message.channel.send(embed)
