@@ -12,7 +12,8 @@ exports.run = async (client, message, args, level) => {
 
         message.channel.send(`${lang.RGBCode} rgb(${r}, ${g}, ${b})`)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

@@ -60,7 +60,8 @@ exports.run = async (client, message, args) => {
             return;
         }
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 };
 

@@ -21,7 +21,8 @@ exports.run = async (client, message, args, level) => {
             message.guild.createChannel(args[1], args[0], [])
         })
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

@@ -7,7 +7,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         const side = sides[Math.floor(Math.random() * sides.length)]
         message.channel.send(`${lang.CoinLandedOn} ${side}.`)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

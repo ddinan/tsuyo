@@ -3,7 +3,8 @@ exports.run = async (client, message, args, level) => {
         const friendly = client.config.permLevels.find(l => l.level === level).name
         message.channel.send(`${lang.YourPermissionLevel} ${level} (${friendly}).`)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

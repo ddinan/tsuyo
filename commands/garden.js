@@ -34,7 +34,8 @@ exports.run = async (client, message, args) => {
         const grass = client.emojis.cache.get("827308950428712960");
         message.channel.send(`${f1}${f2}${f3}\n${grass}${grass}${grass}`)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

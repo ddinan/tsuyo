@@ -32,7 +32,8 @@ exports.run = async (client, message, args, level) => {
             })
         } else message.channel.send(lang.InvalidUser)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

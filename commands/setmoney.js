@@ -18,7 +18,8 @@ exports.run = async (client, message, args) => {
         client.money.set(`${user.id}`, parseInt(args[1]), 'money')
         message.channel.send(`${lang.YouGave} **${user.tag}** \`${args[1]}\`\n**${user.tag}${lang.UsersBalance}** $${parseInt(args[1])}`)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

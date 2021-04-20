@@ -52,7 +52,8 @@ exports.run = async (client, message, args, level) => {
             } else message.reply(lang.NoUserSpecified)
         } else message.reply(lang.InvalidAmount)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

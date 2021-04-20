@@ -35,7 +35,8 @@ exports.run = async (client, message, args) => {
         message.channel.send(`${lang.YouGave} ${user.tag} +1 ${lang.Reputation}.`)
         client.cooldown.set(`${message.author.id}`, date, 'rep') // Activate 24 hour cooldown
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

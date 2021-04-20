@@ -23,6 +23,8 @@
     "NotInGuild": "That user is not in this guild.",
     "And": "and",
 
+    "ErrorOccurred": "An error has occured",
+
     "EightBallYes": "Yes.",
     "EightBallNo": "No.",
     "EightBallMaybe": "Maybe.",

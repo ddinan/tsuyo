@@ -31,7 +31,8 @@ exports.run = async (client, message, args) => {
         client.money.set(`${message.author.id}`, money + 100, 'money')
         message.channel.send(`${lang.ClaimedBonus} \`$${100}\`.`)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 }
 

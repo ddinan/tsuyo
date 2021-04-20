@@ -28,7 +28,8 @@ exports.run = (client, message, args, level) => {
             .setTimestamp();
         message.channel.send(embed)
     } catch (err) {
-        message.channel.send(client.errors.genericError + err.stack).catch();
+        const errors = require('../modules/errors.js')
+    errors.embedError(err, lang, message)
     }
 };
 
