@@ -3,6 +3,9 @@ const request = require('request')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         request('http://aws.random.cat/meow', function(error, body) {
             var result = JSON.parse(body.body)
@@ -16,7 +19,7 @@ exports.run = async (client, message, args, level) => {
         })
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 
