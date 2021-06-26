@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         if (message.author.bot === true) return
         if (!args[0]) return message.channel.send('You need to specify either add/del/list.')
@@ -98,7 +101,7 @@ exports.run = async (client, message, args) => {
         message.channel.send('Invalid argument. Argument can either be add, del or list.')
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

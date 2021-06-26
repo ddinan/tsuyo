@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
         message.channel.send(`${lang.YoUGave} **${user.tag}** \`${parseInt(args[1])}\`\n**${user.tag}${lang.UsersBalance}:** $${parseInt(args[1])}\n**${lang.YourBalance}:** $${parseInt(yourMoney) - parseInt(args[1])}`)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

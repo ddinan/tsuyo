@@ -13,7 +13,7 @@ exports.run = async (client, message, args, level) => {
         message.channel.send(`${lang.RGBCode} rgb(${r}, ${g}, ${b})`)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

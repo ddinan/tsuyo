@@ -1,6 +1,7 @@
 const random = require('random');
 const cooldowns = new Map();
-const humanizeDuration = require('humanize-duration');
+const humanizeDuration = require('humanize-duration')
+
 exports.run = async (client, message, args) => {
     const language = client.getSettings(message.guild.id).language
     const lang = require("../lib/languages/" + language + ".json")
@@ -61,7 +62,7 @@ exports.run = async (client, message, args) => {
         }
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 };
 

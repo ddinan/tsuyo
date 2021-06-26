@@ -36,7 +36,7 @@ exports.run = async (client, message, args) => {
         client.cooldown.set(`${message.author.id}`, date, 'rep') // Activate 24 hour cooldown
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

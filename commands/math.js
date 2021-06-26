@@ -10,7 +10,7 @@ exports.run = async (client, message, args, level) => {
         message.channel.send(`**${lang.Answer}:** ${math.eval(args.join(' '))}`)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

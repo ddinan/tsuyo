@@ -84,7 +84,7 @@ exports.run = async (client, message, args) => {
         })
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

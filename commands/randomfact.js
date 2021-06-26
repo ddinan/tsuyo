@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const request = require('request')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         request('https://uselessfacts.jsph.pl//random.json?language=en', function(error, body) {
             var result = JSON.parse(body.body)
@@ -10,7 +13,7 @@ exports.run = async (client, message, args, level) => {
         })
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

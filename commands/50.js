@@ -4,6 +4,9 @@ const request = require('request');
 const colors = require('../lib/colors.json');
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const random = require('random-puppy');
         if (message.channel.nsfw === false) return message.channel.send('You need to be in an NSFW channel to use this command.')

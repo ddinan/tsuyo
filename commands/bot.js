@@ -27,7 +27,7 @@ exports.run = (client, message, args, level) => {
         message.channel.send(embed)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

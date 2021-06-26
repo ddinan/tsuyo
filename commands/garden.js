@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         if (message.author.bot === true) return
 
@@ -35,7 +38,7 @@ exports.run = async (client, message, args) => {
         message.channel.send(`${f1}${f2}${f3}\n${grass}${grass}${grass}`)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

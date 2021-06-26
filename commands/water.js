@@ -62,7 +62,7 @@ exports.run = async (client, message, args) => {
         message.channel.send(lang.WateredPlants)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

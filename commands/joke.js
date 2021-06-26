@@ -3,6 +3,8 @@ const joke = require('one-liner-joke').getRandomJoke
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
     try {
         message.channel.send(
             new Discord.MessageEmbed()
@@ -15,7 +17,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         )
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

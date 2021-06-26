@@ -74,7 +74,7 @@ exports.run = async (client, message, args) => { // eslint-disable-line no-unuse
         message.channel.send(`${lang.YouNeed} ${number}XP ${lang.LevelUpTo} ${level + 1}`)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

@@ -29,14 +29,14 @@ exports.run = async (client, message, args, level) => {
             }).catch(err => {
                 message.reply(lang.UnableToUnban)
                 const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+                errors.embedError(err, lang, message)
             })
         } else {
             message.reply(lang.NoUserSpecified)
         }
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

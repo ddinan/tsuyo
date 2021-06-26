@@ -53,7 +53,7 @@ exports.run = async (client, message, args, level) => {
         } else message.reply(lang.NoAmountSpecified)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 

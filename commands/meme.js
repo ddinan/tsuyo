@@ -3,6 +3,9 @@ const randomPuppy = require('random-puppy')
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
+    const language = client.getSettings(message.guild.id).language
+    const lang = require("../lib/languages/" + language + ".json")
+
     try {
         const subReddits = ['dankmeme', 'meme', 'memes', 'spicy_memes', 'me_irl']
         const random = subReddits[Math.floor(Math.random() * subReddits.length)]
@@ -17,7 +20,7 @@ exports.run = async (client, message, args, level) => {
         message.channel.send(embed)
     } catch (err) {
         const errors = require('../modules/errors.js')
-    errors.embedError(err, lang, message)
+        errors.embedError(err, lang, message)
     }
 }
 
