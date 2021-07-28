@@ -9,10 +9,10 @@ const Star = class {
     if (reaction.emoji.name !== "⭐") return;
     if (!this.client.starboard.has(message.id)) return;
     if (!message.guild.channels.cache.find(c => c.name == settings.starboardChannel)) return;
-    
+
     if (!this.client.starboard.has(message.id)) this.client.starboard.set(message.id, 0);
     else this.client.starboard.dec(message.id);
-    
+
     let embed = this.client.Embed("normal", {
       title: "UnStar",
       thumbnail: message.author.avatarURL,

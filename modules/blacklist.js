@@ -10,7 +10,7 @@ module.exports = (client, message) => {
       if (!client.blacklist.has(guild.id) return // Don't create unnecessary data
 
       const cmds = client.blacklist.cache.get(`${guild.id}`, 'commands')
-      // 
+      //
 
       if (message.content.toLowerCase().startsWith(cmd)) { // For early pingwords participants we need to force ping words to be lowercase
         const guild = client.guilds.cache.get(message.guild.id)

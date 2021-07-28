@@ -1,6 +1,6 @@
-exports.run = async (client, message, args, level) => { 
+exports.run = async (client, message, args, level) => {
   try {
-    // Put code here. 
+    // Put code here.
   } catch (err) {
     // This tells a user if something broke with the command, and prompts them to send the error log to a developer.
     message.channel.send(client.errors.genericError + err).catch();
