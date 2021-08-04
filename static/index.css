@@ -49,7 +49,7 @@ p {
 	transform: translatey(0px);
 	animation: float 6s ease-in-out infinite;
 }
-	
+
 .text .logo img { width: 100%; height: auto; }
 
 /* Buttons */

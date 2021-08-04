@@ -29,11 +29,11 @@ p, a {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
 }
- 
+
 ::-webkit-scrollbar-thumb {
-  background: #8E5DAD; 
+  background: #8E5DAD;
 }
 
 /* footer */

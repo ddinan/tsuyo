@@ -10,10 +10,10 @@ const Star = class {
     if (message.guild.channels.cache.find(c => c.name == settings.starboardChannel) == null) return;
     if (message.author.bot) return message.channel.send("You can't star bot messages!");
     if (user.id == message.author.id) return message.channel.send("You can't star your own messages!");
-    
+
     this.client.starboard.ensure(message.id, 0);
     this.client.starboard.inc(message.id);
-    
+
     let embed = new this.client.Embed("normal", {
       title: "Star",
       thumbnail: message.author.avatarURL,
@@ -30,7 +30,7 @@ const Star = class {
         }
       ]
     });
-    
+
     message.guild.channels.cache.find(c => c.name == settings.starboardChannel).send({embed: embed}).catch();
   }
 };

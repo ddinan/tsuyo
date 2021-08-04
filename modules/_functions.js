@@ -140,7 +140,7 @@ module.exports = (client) => {
       return this.embed;
     }
   };
-  
+
   // This function makes the results from os.platform more readable
   client.friendlyOS = (rawPlat) => {
     switch (rawPlat) {
@@ -163,7 +163,7 @@ module.exports = (client) => {
       return this.replace(/([^\W_]+[^\s-]*) */g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
     }
   });
-  
+
   Object.defineProperty(Array.prototype, "average", {
     value: function() {
       return this.reduce((a, b) => a + b, 0) / this.length;

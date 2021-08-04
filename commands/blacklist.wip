@@ -11,13 +11,13 @@ exports.run = async (client, message, args) => {
       guild: message.guild.id,
       commands: null,
     })
-      
+
     const commands = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
-      
+
     if (args[0] === 'add') {
       if (!args[1]) return message.channel.send('You need to specify a command to blacklist.')
       const cmds = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
-        
+
         client.blacklist.set(`${message.guild.id}`, `${cmds.replace("null", "")} + , + ${args[1].toLowerCase()} `, "commands")
       const embed = new Discord.MessageEmbed()
         .setAuthor('Blacklist')
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
         .setDescription(`Blacklisted \`;;${args[1].toLowerCase()}\` in this server.`)
           return message.channel.send(embed)
     }
-    
+
     if (args[0] === 'del') {
       if (!args[1]) return message.channel.send('You need to specify a command to unblacklist.')
         if (commands === null) return message.channel.send('This command is not blacklisted.')
@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
           .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
         return message.channel.send(embed)
     }
-    
+
     if (args[0] === 'list') {
       const embed = new Discord.MessageEmbed()
         .setAuthor('Ping Words')
@@ -47,7 +47,7 @@ exports.run = async (client, message, args) => {
         .addField('Slot 3:', pingThree, true)
       return message.channel.send(embed)
     }
-    
+
     message.channel.send('Invalid argument. Argument can either be add, del or list.')
   } catch (err) {
     const errors = require('../modules/errors.js')

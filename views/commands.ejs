@@ -3,7 +3,7 @@
 <%- include('partials/header.ejs') %>
 <body>
   <%- include('partials/navbar.ejs') %>
-  
+
     <center>
       <%
         let commandNames = djsclient.commands.keyArray();
@@ -15,7 +15,7 @@
 
         sorted.forEach(c => {
           const cat = c.help.category;
-          
+
           if (currentCategory !== cat) {
         %>
           </div><h3><%= cat %> Commands</h3><div style="display: block;width: 35%;background-color: #222222;border-radius: 10px;padding: 10px;">
