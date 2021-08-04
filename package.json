@@ -40,7 +40,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.2",
     "form-data": "^4.0.0",
-    "humanize-duration": "^3.25.1",
+    "humanize-duration": "^3.27.0",
     "ip": "^1.1.5",
     "js-beautify": "^1.13.5",
     "mathjs": "^9.4.3",
