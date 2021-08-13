@@ -13,6 +13,9 @@ if (process.env.PREBOOT) eval(process.env.PREBOOT); // Execute anything in the p
 // Define NPM modules
 const Discord = require("discord.js");
 const Enmap = require("enmap");
+const {
+    ReactionRole
+} = require("reaction-role");
 
 // Define client
 const client = new Discord.Client({
@@ -113,6 +116,7 @@ client.levelCache = {};
 client.logger = require("./modules/logger");
 client.config = require("./config");
 client.errors = require("./modules/errors");
+
 require("./modules/commands")(client); // Import command module
 require("./modules/events")(client); // Import events module
 require("./modules/_functions")(client); // Import functions
@@ -132,5 +136,8 @@ for (let i = 0; i <= 1500; i++) {
 
 client.login(process.env.BOT_TOKEN);
 console.log("Logged into Discord API!");
+
+const ReactionRoles = new ReactionRole(process.env.BOT_TOKEN, process.env.MONGODB_URI);
+ReactionRoles.init();
 
 module.exports = client;
