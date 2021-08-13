@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
 
     try {
         const user = message.mentions.users.first() || client.users.cache.get(args[0])
-        if (!user) return message.channel.send()
+        if (!user) return message.channel.send(lang.NoUserSpecified)
         if (user.bot === true) return message.channel.send(lang.CannotMarryBots)
         if (user === message.author || message.author.id === user.id) return message.channel.send(lang.CannotMarrySelf)
 
