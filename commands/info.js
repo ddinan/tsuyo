@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
@@ -29,7 +32,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
         const married = client.life.get(user.id, 'spouse') === 0 ? lang.Nobody : `<@${client.life.get(user.id, 'spouse')}>`
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(`${user.tag}`)
             .addField(lang.ID, user.id, true)
             .addField(lang.AccountCreated, user.createdAt, true)
@@ -43,7 +46,9 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
-        message.channel.send(embed)
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

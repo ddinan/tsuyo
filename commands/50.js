@@ -1,5 +1,8 @@
 // WIP until Discord allows spoilers in embeds
-const Discord = require('discord.js');
+const {
+    MessageEmbed
+} = require('discord.js');
+
 const request = require('request');
 const colors = require('../lib/colors.json');
 
@@ -12,12 +15,14 @@ exports.run = async (client, message, args, level) => {
         if (message.channel.nsfw === false) return message.channel.send('You need to be in an NSFW channel to use this command.')
 
         random('fiftyfifty').then(url => {
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setAuthor('Reddit 50/50', 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url)
                 .setColor('#FF4300')
                 .setImage(`${url}`)
 
-            message.channel.send(embed);
+            message.channel.send({
+                embeds: [embed]
+            })
         })
     } catch (err) {
         const errors = require('../modules/errors.js')

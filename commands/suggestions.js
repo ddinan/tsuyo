@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
@@ -36,16 +39,18 @@ exports.run = async (client, message, args, level) => {
 
                 const input = message.content.startsWith(`${settings.prefix}sg add`) ? message.content.split(`${settings.prefix}sg add `) : message.content.split(`${settings.prefix}suggestions add`)
 
-                const embed = new Discord.MessageEmbed()
+                const embed = new MessageEmbed()
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setColor(colors.default)
                     .setDescription(input)
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
-                const newMsg = await message.channel.send(embed)
+                const newMsg = await message.channel.send({
+                    embeds: [embed]
+                })
 
-                const newEmbed = new Discord.MessageEmbed()
+                const newEmbed = new MessageEmbed()
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setColor(colors.default)
                     .setDescription(input)

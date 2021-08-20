@@ -1,4 +1,7 @@
-const Discord = require("discord.js");
+const {
+    MessageEmbed
+} = require("discord.js")
+
 const colors = require('../lib/colors.json')
 
 module.exports = (client, emoji) => {
@@ -7,17 +10,19 @@ module.exports = (client, emoji) => {
     const lang = require("../lib/languages/" + language + ".json")
 
     if (settings.logEmojiUpdates == "true") {
-        let modLogChannel = settings.modLogChannel;
+        let modLogChannel = settings.modLogChannel
 
         if (modLogChannel && emoji.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-            let embed = new Discord.MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle(`🙂 ${lang.EmojiDeleted}`)
                 .setColor(colors.red)
                 .setDescription(`${lang.Name}: ${emoji.name}\n${lang.ID}: ${emoji.id}`)
                 .addField(lang.EmojiURL, emoji.url)
                 .setTimestamp()
 
-            emoji.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed);
+            emoji.guild.channels.cache.find(c => c.name === settings.modLogChannel).send({
+                embeds: [embed]
+            })
         }
     }
-};
+}

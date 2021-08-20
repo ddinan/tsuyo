@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
@@ -6,7 +9,7 @@ exports.run = async (client, message, args, level) => {
     const lang = require("../lib/languages/" + language + ".json")
 
     try {
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(colors.default)
             .setImage(`${message.author.displayAvatarURL()}`)
             .addField(lang.YourAvatar, `[${lang.ImageURL}](${message.author.avatarURL()})`, true)
@@ -14,11 +17,14 @@ exports.run = async (client, message, args, level) => {
             .setTimestamp()
 
         if (!message.mentions.users.size) {
-            return message.channel.send(embed)
+            return message.channel.send({
+                embeds: [embed]
+            })
         }
 
         const user = message.mentions.users.first() || message.author
-        const embed2 = new Discord.MessageEmbed()
+
+        embed = new MessageEmbed()
             .setColor(colors.default)
             .setImage(`${user.avatarURL}`)
             .setThumbnail(`${user.avatarURL}`)
@@ -26,7 +32,9 @@ exports.run = async (client, message, args, level) => {
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
-        message.channel.send(embed2)
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 module.exports = (client, oldMember, newMember) => {
@@ -15,7 +18,7 @@ module.exports = (client, oldMember, newMember) => {
     if (!modLogChannel.permissionsFor(oldMember.guild.me).has('SEND_MESSAGES')) return
 
     if (oldMember.nickname !== newMember.nickname) {
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setAuthor(`👤 ${lang.NickChanged}`)
             .setColor(colors.default)
             .setDescription(`<@${newMember.id}> ${lang.ChangedNick}`)
@@ -24,11 +27,13 @@ module.exports = (client, oldMember, newMember) => {
             .setThumbnail(`${oldMember.user.displayAvatarURL}`)
             .setTimestamp()
 
-        modLogChannel.send(embed).catch()
+        modLogChannel.send({
+            embeds: [embed]
+        }).catch()
     }
 
     if (oldMember.user.name !== newMember.user.name) {
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setAuthor(`👤 ${lang.UsernameChanged}`)
             .setColor(colors.default)
             .setDescription(`<@${newMember.id}> ${lang.ChangedUsername}`)
@@ -37,7 +42,9 @@ module.exports = (client, oldMember, newMember) => {
             .setThumbnail(`${oldMember.user.displayAvatarURL}`)
             .setTimestamp()
 
-        modLogChannel.send(embed).catch()
+        modLogChannel.send({
+            embeds: [embed]
+        }).catch()
     }
 
     if (oldMember.roles !== newMember.roles) {
@@ -54,7 +61,7 @@ module.exports = (client, oldMember, newMember) => {
 
         if (output == outputNew) return
 
-        embed = new Discord.MessageEmbed()
+        embed = new MessageEmbed()
             .setAuthor(`👤 ${lang.RolesUpdated}`)
             .setColor(colors.default)
             .setDescription(`${lang.RolesUpdatedFor} <@${newMember.id}>`)
@@ -63,6 +70,8 @@ module.exports = (client, oldMember, newMember) => {
             .setThumbnail(`${oldMember.user.displayAvatarURL}`)
             .setTimestamp()
 
-        modLogChannel.send(embed).catch()
+        modLogChannel.send({
+            embeds: [embed]
+        }).catch()
     }
 }

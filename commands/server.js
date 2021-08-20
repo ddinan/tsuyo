@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
@@ -27,7 +30,7 @@ exports.run = async (client, message, args, level) => {
         if (message.guild.region === 'us-south') region = `:flag_us: ${lang.USSouth}`
         if (message.guild.region === 'us-west') region = `:flag_us: ${lang.USWest}`
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(colors.default)
             .setThumbnail(Icon)
             .setFooter(`${message.guild.id}`,
@@ -43,7 +46,9 @@ exports.run = async (client, message, args, level) => {
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
-        message.channel.send(embed)
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

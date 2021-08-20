@@ -32,6 +32,8 @@
     "connect-mongo": "^4.4.1",
     "cookie-parser": "^1.4.5",
     "discord-anti-spam": "^2.5.1",
+    "discord-buttons": "^4.0.0",
+    "discord-menu-buttons": "^1.4.7",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",

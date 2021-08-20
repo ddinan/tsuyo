@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const request = require('request')
 const colors = require('../lib/colors.json')
 
@@ -9,13 +12,15 @@ exports.run = async (client, message, args, level) => {
     try {
         request('https://dog.ceo/api/breeds/image/random', function(error, body) {
             var result = JSON.parse(body.body)
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor(colors.default)
                 .setImage(result.message)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            message.channel.send(embed)
+            message.channel.send({
+                embeds: [embed]
+            })
         })
     } catch (err) {
         const errors = require('../modules/errors.js')

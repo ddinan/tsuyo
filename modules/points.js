@@ -1,5 +1,7 @@
 const fs = require("fs");
-const Discord = require("discord.js");
+const {
+    MessageEmbed
+} = require("discord.js")
 const colors = require("../lib/colors.json");
 
 module.exports = (client, message) => {
@@ -26,7 +28,7 @@ module.exports = (client, message) => {
             level: 1
         })
 
-        var msgl = message.content.length / (Math.floor(Math.random() * (message.content.length - message.content.length / 100 + 1) + 10));
+        var msgl = message.content.length / (Math.floor(Math.random() * (message.content.length - message.content.length / 100 + 1) + 10))
         if (msgl < 10) {
             var randomnum = Math.floor((Math.random() * 2) * 100) / 100
             client.points.math(key, `+`, randomnum, `points`)
@@ -48,24 +50,29 @@ module.exports = (client, message) => {
         //const curLevel2 = Math.floor(0.2 * Math.sqrt(client.points.get(key, 'points')))
 
         if (client.points.get(key, `level`) < curLevel) {
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setTitle(`Ranking of:  ${message.author.username}`)
-                .setTimestamp()
                 .setDescription(`You've leveled up to guild level: **\`${curLevel}\`**! (Points: \`${Math.floor(client.points.get(key, `points`) * 100) / 100}\`) `)
-                .setColor(colors.green);
-            message.channel.send(`<@` + message.author.id + `>`);
-            message.channel.send(embed);
-            client.points.set(key, curLevel, `level`);
+                .setColor(colors.green)
+                .setTimestamp()
+
+            message.channel.send(`<@` + message.author.id + `>`)
+            message.channel.send({
+                embeds: [embed]
+            })
+            client.points.set(key, curLevel, `level`)
         }
 
         /*if (client.points.get(key2, `level`) < curLevel2) {
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setTitle(`Ranking of:  ${message.author.username}`)
                 .setTimestamp()
                 .setDescription(`You've leveled up to level: **\`${curLevel2}\`**! (Points: \`${Math.floor(client.points.get(key2, `points`) * 100) / 100}\`) `)
                 .setColor(colors.green);
             message.channel.send(`<@` + message.author.id + `>`);
-            message.channel.send(embed);
+            message.channel.send({
+            embeds: [embed]
+        })
             client.points.set(key2, curLevel2, `level`);
         }*/
     }

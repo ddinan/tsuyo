@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
@@ -8,7 +11,7 @@ exports.run = async (client, message, args) => {
     try {
         const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(`🛒 ${lang.Shop}`)
             .setDescription(`${lang.PurchaseItem} \`${prefix}buy <${lang.item}>\``)
             .setColor(colors.default)
@@ -20,7 +23,9 @@ exports.run = async (client, message, args) => {
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
-        message.channel.send(embed)
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

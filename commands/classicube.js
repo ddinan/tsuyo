@@ -1,7 +1,9 @@
 const ms = require('ms')
 const got = require(`got`)
 const request = require('request')
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
 
 exports.run = async (client, message, args) => {
     const language = client.getSettings(message.guild.id).language
@@ -20,7 +22,7 @@ exports.run = async (client, message, args) => {
                 var result = JSON.parse(body.body)
                 if (!result || result.username === null) return message.channel.send(lang.InvalidUser)
 
-                const embed = new Discord.MessageEmbed()
+                const embed = new MessageEmbed()
                     .setTitle(result.username)
                     .setColor(lavender)
                     .setThumbnail(`https://www.classicube.net/face/${result.username}.png`)
@@ -29,7 +31,9 @@ exports.run = async (client, message, args) => {
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
-                message.channel.send(embed)
+                message.channel.send({
+                    embeds: [embed]
+                })
             })
         }
 
@@ -40,7 +44,8 @@ exports.run = async (client, message, args) => {
 
             if (args[1].startsWith('+')) {
                 const skin = args[1].replace('+', '')
-                const mEmbed = new Discord.MessageEmbed()
+
+                const embed = new MessageEmbed()
                     .setAuthor(skin + lang.UsersSkin)
                     .setTitle(lang.SkinUrl)
                     .setURL(`https://minotar.net/skin/${skin}.png`)
@@ -49,14 +54,15 @@ exports.run = async (client, message, args) => {
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
-                message.channel.send(mEmbed)
+                message.channel.send({
+                    embeds: [embed]
+                })
             } else {
-
                 request(`https://www.classicube.net/api/player/${args[1]}`, function(error, body) {
                     var result = JSON.parse(body.body)
                     if (!result || result.username === null) return message.channel.send(`\`${args[1]}\` is not a registered user.`)
 
-                    const embed = new Discord.MessageEmbed()
+                    const embed = new MessageEmbed()
                         .setAuthor(result.username + `'s skin`)
                         .setTitle(lang.SkinUrl)
                         .setURL(`https://www.classicube.net/skins/${result.username}.png`)
@@ -65,7 +71,9 @@ exports.run = async (client, message, args) => {
                         .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                         .setTimestamp()
 
-                    message.channel.send(embed)
+                    message.channel.send({
+                        embeds: [embed]
+                    })
                 })
             }
         }

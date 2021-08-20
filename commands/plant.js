@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 const ms = require('ms')
 
@@ -87,13 +90,17 @@ exports.run = async (client, message, args) => {
 
             client.garden.set(`${message.author.id}`, plant, slot)
             client.garden.set(`${message.author.id}`, "1", stage)
-            const embed = new Discord.MessageEmbed()
+
+            const embed = new MessageEmbed()
                 .setAuthor(`🌼 ${lang.Garden}`)
                 .setColor(colors.green)
                 .setDescription(`${lang.PlantedSeed}\`${args[0]}\`. ${lang.WaterSeed} \`` + prefix + 'water`.')
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
-            return message.channel.send(embed)
+
+            return message.channel.send({
+                embeds: [embed]
+            })
         } else {
             message.channel.send(lang.SpecifyPlantSlot)
         }

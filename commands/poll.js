@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
@@ -26,7 +29,7 @@ exports.run = async (client, message, args, level) => {
         }
         const input = message.content.split(`${settings.prefix}poll `)
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(`🗳 ${lang.Poll}`)
             .setColor(colors.default)
             .addField(`${lang.ReactWith} ✅ ${lang.Or} ${noEmoji} ${lang.ToVote}`, input, true)
@@ -37,7 +40,9 @@ exports.run = async (client, message, args, level) => {
             message.channel.send(lang.NoArgumentSpecified)
         } else {
             message.delete()
-            message.channel.send(embed).then(message => {
+            message.channel.send({
+                embeds: [embed]
+            }).then(message => {
                 message.react(yesEmoji)
                     .then(() => message.react(noEmoji))
             })

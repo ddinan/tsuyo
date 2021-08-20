@@ -1,5 +1,8 @@
 const colors = require('../lib/colors.json')
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 
 exports.run = (client, message, args, level) => {
     const language = client.getSettings(message.guild.id).language
@@ -9,7 +12,7 @@ exports.run = (client, message, args, level) => {
 
     try {
         if (!args[0]) {
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setTitle(lang.Help)
                 .setColor(colors.default)
                 .setThumbnail(client.user.avatarURL)
@@ -20,14 +23,16 @@ exports.run = (client, message, args, level) => {
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            message.channel.send(embed)
+            message.channel.send({
+                embeds: [embed]
+            })
         } else {
             // Show individual command/alias/category's help
             let command = args[0]
             if (client.commands.has(command) || client.aliases.has(command)) {
                 command = client.commands.get(command) || client.aliases.get(command)
 
-                const embedTiny = new Discord.MessageEmbed()
+                embed = new MessageEmbed()
                     .setTitle(`${lang.Help} - ${prefix}${command.help.name}`)
                     .setColor(colors.default)
                     .setThumbnail(client.user.avatarURL)
@@ -38,7 +43,9 @@ exports.run = (client, message, args, level) => {
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
-                message.channel.send(embedTiny)
+                message.channel.send({
+                    embeds: [embed]
+                })
             } else {
                 const currentCategory = ''
                 let output = ''

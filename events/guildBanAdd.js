@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 module.exports = (client, guild, user) => {
@@ -15,14 +18,16 @@ module.exports = (client, guild, user) => {
             if (!modLogChannel.permissionsFor(guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(guild.me).has('SEND_MESSAGES')) return
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setTitle(`🔨 ${lang.UserBanned}`)
                 .setColor(colors.red)
                 .setDescription(`**${lang.TotalMemberCount}:** \`${guild.memberCount}\`\n<@${user.id}> ${lang.BannedFromDiscord}`)
                 .setThumbnail(user.displayAvatarURL)
                 .setTimestamp()
 
-            modLogChannel.send(embed)
+            modLogChannel.send({
+                embeds: [embed]
+            })
         }
     }
 }

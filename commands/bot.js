@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 const moment = require('moment')
 const version = require('discord.js')
@@ -10,7 +13,8 @@ exports.run = (client, message, args, level) => {
 
     try {
         const duration = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]')
-        const embed = new Discord.MessageEmbed()
+
+        const embed = new MessageEmbed()
             .setAuthor(lang.BotInformation)
             .setColor(colors.default)
             .setThumbnail(client.user.avatarURL)
@@ -24,7 +28,10 @@ exports.run = (client, message, args, level) => {
             .setImage("https://i.imgur.com/sCNV086.png")
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
-        message.channel.send(embed)
+
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

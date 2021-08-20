@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 module.exports = (client, channel) => {
@@ -12,13 +15,15 @@ module.exports = (client, channel) => {
             const modLogChannel = channel.guild.channels.cache.find(c => c.name == settings.modLogChannel)
             if (!modLogChannel.permissionsFor(channel.guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(channel.guild.me).has('SEND_MESSAGES')) return
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setAuthor(`🔨 ${lang.ChannelCreated}`)
                 .setColor(colors.green)
                 .setDescription(`${lang.CreatedChannel} ${channel}`)
                 .setTimestamp()
 
-            modLogChannel.send(embed)
+            modLogChannel.send({
+                embeds: [embed]
+            })
         }
     }
 }

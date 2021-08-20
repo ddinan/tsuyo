@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args, level) => {
@@ -35,12 +38,15 @@ exports.run = async (client, message, args, level) => {
 
                 const modLogChannel = settings.modLogChannel
                 if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-                    const embed = new Discord.MessageEmbed()
+                    const embed = new MessageEmbed()
                         .setTitle(lang.UserWarned)
                         .setColor(colors.red)
                         .setDescription(`${lang.Name}: ${user.username}\n${lang.ID}: ${user.id}\n${lang.Moderator}: ${message.author.username}`)
+                        .setTimestamp()
 
-                    message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed)
+                    message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send({
+                        embeds: [embed]
+                    })
                 }
 
                 if (client.warns.cache.get(message.guild.id)[member.id] == 3) {

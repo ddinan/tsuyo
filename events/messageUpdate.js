@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 module.exports = (client, message, messageNew) => {
@@ -18,7 +21,7 @@ module.exports = (client, message, messageNew) => {
             if (!modLogChannel.permissionsFor(message.guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setAuthor(`📝 ${lang.MessageEdited}`)
                 .setColor(colors.default)
                 .setDescription(`${lang.MessageEditedBy} <@${messageNew.author.id}> ${lang.In} ${message.channel}`)
@@ -27,7 +30,9 @@ module.exports = (client, message, messageNew) => {
                 .setTimestamp()
 
             if (message.guild.channels.cache.find(channel => channel.name == settings.modLogChannel)) {
-                message.guild.channels.cache.find(channel => channel.name == settings.modLogChannel).send(embed).catch()
+                message.guild.channels.cache.find(channel => channel.name == settings.modLogChannel).send({
+                    embeds: [embed]
+                }).catch()
             }
         }
     }

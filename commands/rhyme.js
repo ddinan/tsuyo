@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const rhyme = require('rhyme')
 const colors = require('../lib/colors.json')
 
@@ -9,13 +12,15 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     try {
         if (!args[0]) return message.channel.send(lang.NoArgumentSpecified)
 
-        const msg = await message.channel.send(
-            new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(colors.default)
             .setDescription(lang.FindingRhymes)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
-        )
+
+        const msg = await message.channel.send({
+            embeds: [embed]
+        })
 
         rhyme(async (rl) => {
             let rhymes = ''
@@ -27,7 +32,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
             rhymes = rhymes.slice(0, -2)
 
-            const embed = new Discord.MessageEmbed()
+            embed = new MessageEmbed()
                 .setTitle(`${args[0]}`)
                 .setColor(colors.default)
                 .setDescription(`${rhymes || lang.NoRhymes}`)

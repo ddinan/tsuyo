@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 const ms = require('ms')
 exports.run = async (client, message, args) => {
@@ -78,7 +81,7 @@ exports.run = async (client, message, args) => {
         const money = client.money.get(message.author.id, 'money')
         client.money.set(`${message.author.id}`, money + worth, 'money')
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setAuthor(`🎣 ${lang.Fishing}`)
             .setColor(colors.default)
             .setDescription(`${lang.FoundAndSold} **${rarity}** :${fish}: ${lang.For} **${worth}**!`)
@@ -88,32 +91,41 @@ exports.run = async (client, message, args) => {
         if (fish === "clownfish") {
             const nemo = client.emojis.cache.get("827417100233998357");
 
-            const embed2 = new Discord.MessageEmbed()
+            embed = new MessageEmbed()
                 .setAuthor(`🎣 ${lang.Fishing}`)
                 .setColor(colors.default)
                 .setDescription(`${lang.FoundAndSold} **${rarity}** ${nemo} ${lang.For} **${worth}**!`)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
-            return message.channel.send(embed2)
+            return message.channel.send({
+                embeds: [embed]
+            })
         } else if (fish === "chest") {
             const chest = client.emojis.cache.get("827303211844632686");
 
-            const embed2 = new Discord.MessageEmbed()
+            embed = new MessageEmbed()
                 .setAuthor(`🎣 ${lang.Fishing}`)
                 .setColor(colors.green)
                 .setDescription(`${lang.FoundAndSold} **${rarity}** ${chest} ${lang.For} **${worth}**!`)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
-            return message.channel.send(embed2)
+            return message.channel.send({
+                embeds: [embed]
+            })
         } else if (fish === "nothing") {
-            const embed2 = new Discord.MessageEmbed()
+            embed = new MessageEmbed()
                 .setAuthor(`🎣 ${lang.Fishing}`)
                 .setColor(colors.green)
                 .setDescription(lang.FoundNothing)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
-            return message.channel.send(embed2)
-        } else return message.channel.send(embed)
+
+            return message.channel.send({
+                embeds: [embed]
+            })
+        } else return message.channel.send({
+            embeds: [embed]
+        })
 
     } catch (err) {
         const errors = require('../modules/errors.js')

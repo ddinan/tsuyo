@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const randomPuppy = require('random-puppy')
 const colors = require('../lib/colors.json')
 
@@ -11,13 +14,16 @@ exports.run = async (client, message, args, level) => {
         const random = subReddits[Math.floor(Math.random() * subReddits.length)]
 
         const img = await randomPuppy(random)
-        const embed = new Discord.MessageEmbed()
+
+        const embed = new MessageEmbed()
             .setColor(colors.default)
             .setImage(img)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
-        message.channel.send(embed)
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

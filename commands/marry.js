@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 exports.run = async (client, message, args) => {
@@ -42,11 +45,14 @@ exports.run = async (client, message, args) => {
         if (spouse !== 0) return message.channel.send(lang.MoreSpouses)
         if (uSpouse !== 0) return message.channel.send(`${user.tag} ${lang.AlreadyHasSpouse}`)
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new MessageEmbed()
             .setDescription(`**${user.tag}**, **${message.author.tag}** ${lang.AskingMarriage}`)
 
         const noEmoji = message.client.emojis.cache.get('637573919204966410')
-        message.channel.send(embed).then(message => {
+
+        message.channel.send({
+            embeds: [embed]
+        }).then(message => {
             message.react('✅').then(() => message.react(noEmoji));
 
             const filter = (reaction, sent) => {
@@ -71,7 +77,10 @@ exports.run = async (client, message, args) => {
                         embed.setDescription(`${user.tag} ${lang.And} ${proposer.user.tag} ${lang.AreNowMarried}`)
                             .setImage('https://media.giphy.com/media/vTfFCC3rSfKco/giphy.gif')
                             .setColor(colors.pink)
-                        message.channel.send(embed)
+
+                        message.channel.send({
+                            embeds: [embed]
+                        })
                     }
                     if (reaction.emoji.id === '637573919204966410') { // Decline emoji
                         embed.setTitle(`${lang.Sorry} **${proposer.user.tag}**, **${user.tag}** ${lang.DeclinedProposal}`)

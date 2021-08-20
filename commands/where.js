@@ -1,4 +1,7 @@
-const Discord = require('discord.js');
+const {
+    MessageEmbed
+} = require('discord.js');
+
 const colors = require('../lib/colors.json');
 
 exports.run = async (client, message, args, level) => {
@@ -10,7 +13,7 @@ exports.run = async (client, message, args, level) => {
         if (!client.channels.cache.get(args[0])) return message.channel.send(lang.NoChannel)
         const channel = client.channels.cache.find(ch => ch.id === args[0])
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(colors.default)
             .addField(lang.Guild, channel.guild.name)
             .addField(lang.Channel, channel.name)
@@ -18,7 +21,9 @@ exports.run = async (client, message, args, level) => {
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
-        message.author.send(embed)
+        message.author.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

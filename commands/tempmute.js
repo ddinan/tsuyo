@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 const ms = require('ms')
 
@@ -34,12 +37,15 @@ exports.run = async (client, message, args, level) => {
 
                         const modLogChannel = settings.modLogChannel
                         if (modLogChannel && message.guild.channels.cache.find(c => c.name === settings.modLogChannel)) {
-                            const embed = new Discord.MessageEmbed()
+                            const embed = new MessageEmbed()
                                 .setTitle(lang.UserTempMuted)
                                 .setColor(colors.red)
                                 .setDescription(`${lang.Name}: ${user.username}\n${lang.ID}: ${user.id}\n${lang.Moderator}: ${message.author.username}`)
+                                .setTimestamp()
 
-                            message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send(embed).catch(console.error)
+                            message.guild.channels.cache.find(c => c.name === settings.modLogChannel).send({
+                                embeds: [embed]
+                            }).catch(console.error)
                         }
 
                         await setTimeout(async () => {

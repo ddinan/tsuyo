@@ -1,4 +1,7 @@
-const Discord = require("discord.js");
+const {
+    MessageEmbed
+} = require("discord.js");
+
 const colors = require("../lib/colors.json");
 const moment = require("moment");
 const version = require("discord.js");
@@ -12,9 +15,10 @@ exports.run = (client, message, args, level) => {
     try {
         const duration = moment
             .duration(client.uptime)
-            .format(" D [days], H [hrs], m [mins], s [secs]");
-        const port = process.env.port || 3000;
-        const embed = new Discord.MessageEmbed()
+            .format(" D [days], H [hrs], m [mins], s [secs]")
+        const port = process.env.port || 3000
+
+        const embed = new MessageEmbed()
             .setAuthor(lang.ProcessInformation)
             .setColor(colors.default)
             .setThumbnail(client.user.avatarURL)
@@ -25,8 +29,11 @@ exports.run = (client, message, args, level) => {
             .addField(lang.DashboardURL, `${ip.address()}:${port}`, true)
             .addField(lang.VoteURL, `${ip.address()}:80`, true)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
-            .setTimestamp();
-        message.channel.send(embed)
+            .setTimestamp()
+
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

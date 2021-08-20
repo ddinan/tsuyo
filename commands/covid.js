@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const axios = require('axios');
 const colors = require("../lib/colors.json");
 const countries = require('../lib/countries.json');
@@ -18,7 +21,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             const payload = await axios.get(`${url}${slug}`)
             const covidData = payload.data.pop();
             const country = args[0].charAt(0).toUpperCase() + args[0].substr(1).toLowerCase()
-            const embed = new Discord.MessageEmbed()
+
+            const embed = new MessageEmbed()
                 .setAuthor(`${lang.CovidStatisticsFor} ${country}`)
                 .setColor(colors.default)
                 .addField(lang.Confirmed, covidData.Confirmed, true)
@@ -28,7 +32,9 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            message.channel.send(embed)
+            message.channel.send({
+                embeds: [embed]
+            })
         }
     } catch (err) {
         const errors = require('../modules/errors.js')

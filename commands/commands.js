@@ -1,5 +1,7 @@
 const colors = require('../lib/colors.json')
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
 
 exports.run = (client, message, args, level) => {
     const language = client.getSettings(message.guild.id).language
@@ -12,7 +14,7 @@ exports.run = (client, message, args, level) => {
             let currentCategory = ''
 
             let output = `${lang.Type} ${prefix}commands <${lang.Category}> ${lang.InThatCategory}.`
-            const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
+            const sorted = client.commands.sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
 
             sorted.forEach(async c => {
                 const cat = c.help.category
@@ -22,20 +24,22 @@ exports.run = (client, message, args, level) => {
                 }
             })
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setTitle(lang.Commands)
                 .setColor(colors.default)
                 .addField(output, `\n${lang.ValidCategories}:\n\`admin\`, \`economy\`, \`fun\`, \`moderation\`, \`utility\``)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            message.channel.send(embed)
+            message.channel.send({
+                embeds: [embed]
+            })
         } else {
             let command = args[0]
             if (client.commands.has(command) || client.aliases.has(command)) {
                 command = client.commands.get(command) || client.aliases.get(command)
 
-                const embedTiny = new Discord.MessageEmbed()
+                embed = new MessageEmbed()
                     .setTitle(`${lang.Help} - ${prefix}${command.help.name}`)
                     .setColor(colors.default)
                     .setThumbnail(client.user.avatarURL)
@@ -46,12 +50,14 @@ exports.run = (client, message, args, level) => {
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
-                message.channel.send(embedTiny)
+                message.channel.send({
+                    embeds: [embed]
+                })
             } else {
                 const currentCategory = ''
                 let output = ''
 
-                const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
+                const sorted = client.commands.sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
                 sorted.forEach(c => {
                     const cat = c.help.category.toLowerCase()
                     if (cat == args[0].toLowerCase()) {
@@ -61,7 +67,8 @@ exports.run = (client, message, args, level) => {
                 })
 
                 if (!output) return message.reply(lang.InvalidCategory)
-                const embed = new Discord.MessageEmbed()
+
+                const embed = new MessageEmbed()
                     .setTitle(lang.Commands)
                     .setColor(colors.default)
                     .setThumbnail(client.user.avatarURL)
@@ -69,7 +76,9 @@ exports.run = (client, message, args, level) => {
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
 
-                message.channel.send(embed)
+                message.channel.send({
+                    embeds: [embed]
+                })
             }
         }
     } catch (err) {

@@ -1,5 +1,7 @@
 const colors = require('../lib/colors.json')
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
 
 exports.run = async (client, message, args) => {
     const language = client.getSettings(message.guild.id).language
@@ -17,7 +19,7 @@ exports.run = async (client, message, args) => {
             worms: 0
         })
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(`🎒`)
             .setColor(colors.default)
             .addField(`💍 ${lang.WeddingRings}`, client.inventory.get(key, 'rings'))
@@ -27,7 +29,9 @@ exports.run = async (client, message, args) => {
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 
-        message.channel.send(embed)
+        message.channel.send({
+            embeds: [embed]
+        })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)

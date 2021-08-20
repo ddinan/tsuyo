@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const colors = require('../lib/colors.json')
 
 const random = require('random');
@@ -47,7 +47,7 @@ exports.run = async (client, message, args) => {
         let playerCardString;
         let msgID;
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new MessageEmbed()
             .setAuthor('🃏 Blackjacker')
             .setColor(colors.default)
             .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
@@ -68,7 +68,7 @@ exports.run = async (client, message, args) => {
             playerCards = [getNextCard(), getNextCard()];
             showStatus();
 
-            embed = new Discord.MessageEmbed()
+            embed = new MessageEmbed()
                 .setAuthor('🃏 Blackjack')
                 .setColor(colors.default)
                 .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
@@ -76,7 +76,9 @@ exports.run = async (client, message, args) => {
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            message.channel.send(embed).then(newMsg => {
+            message.channel.send({
+            embeds: [embed]
+        }).then(newMsg => {
                 msgID = newMsg.id
                 newMsg.react('👊').then(() => newMsg.react('🛑'));
 
@@ -113,7 +115,7 @@ exports.run = async (client, message, args) => {
             checkForEndOfGame();
             showStatus()
 
-            const newEmbed = new Discord.MessageEmbed()
+            const newEmbed = new MessageEmbed()
                 .setAuthor('🃏 Blackjack')
                 .setColor(colors.default)
                 .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)
@@ -134,7 +136,7 @@ exports.run = async (client, message, args) => {
             checkForEndOfGame();
             showStatus();
 
-            const newEmbed = new Discord.MessageEmbed()
+            const newEmbed = new MessageEmbed()
                 .setAuthor('🃏 Blackjack')
                 .setColor(colors.default)
                 .addField('Dealer\'s cards', dealerCardString + '\n(Score: ' + dealerScore + ')', false)

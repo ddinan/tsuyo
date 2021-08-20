@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 
 module.exports = (client, message) => {
@@ -15,14 +18,16 @@ module.exports = (client, message) => {
             if (!modLogChannel.permissionsFor(message.guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setAuthor(`🗑️ ${lang.MessageDeleted}`)
                 .setColor(colors.default)
                 .setDescription(`${lang.MessageDeletedBy} <@${message.author.id}> ${lang.In} ${message.channel}`)
                 .addField(lang.Message, `${message}`)
                 .setTimestamp()
 
-            modLogChannel.send(embed)
+            modLogChannel.send({
+                embeds: [embed]
+            })
         }
     }
 }

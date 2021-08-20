@@ -1,4 +1,7 @@
-const Discord = require('discord.js')
+const {
+    MessageEmbed
+} = require('discord.js')
+
 const colors = require('../lib/colors.json')
 const ms = require('ms')
 
@@ -9,27 +12,29 @@ exports.run = async (client, message, args) => {
     try {
         const reminderTime = args[0]
         if (!reminderTime) {
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor(colors.red)
                 .setTitle(lang.InvalidSyntax)
                 .setDescription(`\`${client.getSettings(message.guild.id).prefix}remind <${lang.Time}> <${lang.Message}>\`\n\n${lang.RemindFormats}`)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            message.channel.send(embed)
+            message.channel.send({
+                embeds: [embed]
+            })
         }
 
         const reminder = args.slice(1).join(' ')
 
         if (reminder) {
-            const success = new Discord.MessageEmbed()
+            const success = new MessageEmbed()
                 .setColor(colors.green)
                 .setTitle(`**${lang.Success}**`)
                 .setDescription(`${lang.SuccessMessage} **${reminderTime}**!`)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            const fail = new Discord.MessageEmbed()
+            const fail = new MessageEmbed()
                 .setColor(colors.red)
                 .setTitle(`**${lang.Fail}:**`)
                 .setDescription(lang.FailMessage)
@@ -39,7 +44,7 @@ exports.run = async (client, message, args) => {
             message.channel.send(success)
 
             setTimeout(function() {
-                const remindEmbed = new Discord.MessageEmbed()
+                const remindEmbed = new MessageEmbed()
                     .setColor(colors.default)
                     .addField(lang.Reminder, `${reminder}`)
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())

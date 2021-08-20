@@ -1,4 +1,7 @@
-const Discord = require("discord.js");
+const {
+    MessageEmbed
+} = require("discord.js");
+
 const colors = require("../lib/colors.json");
 exports.run = async (client, message, args) => {
     const language = client.getSettings(message.guild.id).language
@@ -12,14 +15,16 @@ exports.run = async (client, message, args) => {
 
         if (!input) {
             let command = client.commands.get("8ball")
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor(colors.red)
                 .setTitle(lang.InvalidSyntax)
                 .setDescription(`\`${prefix}${command.help.usage}\`\n\n${command.help.description}`)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            message.channel.send(embed);
+            message.channel.send({
+                embeds: [embed]
+            })
         } else {
             if (message.content.toLowerCase().includes("who") || message.content.toLowerCase().includes("whose")) {
                 if (message.channel.type === "dm") {
@@ -28,15 +33,18 @@ exports.run = async (client, message, args) => {
                     message.channel.send(`${result}`);
                 }
                 var member = message.guild.members.cache.random();
-                const embed = new Discord.MessageEmbed()
+                const embed = new MessageEmbed()
                     .setColor(colors.default)
                     .setThumbnail(member.avatarURL)
                     .addField(member.displayName, `<@${member.id}>`)
                     .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                     .setTimestamp()
-                message.channel.send(embed);
+
+                message.channel.send({
+                    embeds: [embed]
+                })
             } else {
-                message.channel.send(result);
+                message.channel.send(result)
             }
         }
     } catch (err) {
