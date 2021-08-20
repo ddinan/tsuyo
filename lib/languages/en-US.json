@@ -74,6 +74,8 @@
     "Category": "category",
     "CategoryUpper": "Category",
     "InThatCategory": "to view all commands in that category",
+    "Command": "command",
+    "MoreInfoOnHowToUse": "for more information on how to use it",
     "Commands": "Commands",
     "ValidCategories": "Valid categories",
     "Usage": "Usage",
