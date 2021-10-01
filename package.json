@@ -22,7 +22,7 @@
   "author": "Venk#2020",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "better-sqlite-pool": "^0.3.1",
     "better-sqlite3": "^7.4.3",
     "body-parser": "^1.19.0",
