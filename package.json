@@ -34,7 +34,7 @@
     "discord-anti-spam": "^2.5.8",
     "discord-buttons": "^4.0.0",
     "discord-menu-buttons": "^1.4.7",
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "enmap": "^5.8.7",
