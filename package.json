@@ -31,7 +31,7 @@
     "colors": "^1.4.0",
     "connect-mongo": "^4.4.1",
     "cookie-parser": "^1.4.5",
-    "discord-anti-spam": "^2.5.8",
+    "discord-anti-spam": "^2.6.1",
     "discord-buttons": "^4.0.0",
     "discord-menu-buttons": "^1.4.7",
     "discord.js": "^13.1.0",
