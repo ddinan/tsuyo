@@ -34,16 +34,39 @@ By default, the only thing you will need to edit in **_.env_** is the bot's toke
 
     TOKEN=SEE-ABOVE-IF-NOT-SURE
 
-Optionally, you can edit the other stuff too if you want to add DBL voting and server count.
+Optionally, you can edit the other stuff too if you want to add DBL voting and server count and dashboard.
+
+### Setting up the dashboard with MongoDB
+Setting up the dashboard is disabled by default, only follow these steps if you plan on hosting the dashboard.
+
+1. Create a **free** account with [MongoDB](https://www.mongodb.com/).
+2. Create a **new cluster** using either **premium** or **free** plans.
+3. After the cluster has been created, click **connect**.
+
+![](https://i.imgur.com/0nLS6Di.png)
+
+4. Set up credentials and then click on **Choose a connection method**. Remember your `<dbUser>` and `<dbUserPassword>` values, we will be using them later. 
+
+![](https://i.imgur.com/nAEi8NV.png)
+
+5. Select **Connect with the MongoDB shell**.
+
+![](https://i.imgur.com/P159czd.png)
+
+6. Grab your `<dbName>` and `<identifier>` values from here, we will be using them shortly.
+
+![](https://i.imgur.com/XTeYUxQ.png)
+
+7. After MongoDB has been set up, navigate to your `.env` file located where the bot folder is and add the following line into it. Replace `<dbUser>`, `<dbUserPassword>`, `<dbName>` and `<identifier>` with the values you have set up with MongoDB.
+`MONGODB_HOST=mongodb+srv://<dbUser>:<dbUserPassword>@<dbName>.<identifier>.mongodb.net/database?retryWrites=true&w=majority`
+8. Run the bot and the dashboard should be running.
+
 
 ### Contributing guidelines:
-Due to the extremely long amount of text, you can find information on editing files, pull requests, merge requests and issues [here](https://github.com/TsuyoBot/main/wiki/Contributing-Guidelines).
+You can find information on editing files, pull requests, merge requests and issues [here](https://github.com/TsuyoBot/main/wiki/Contributing-Guidelines).
 
 ### Don't want to host the bot yourself?
 We have a public instance of the bot which you can add to your Discord [here](https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455).
 
 ### Having problems?
 Why not join the [official Tsuyo Bot Support Discord](https://discord.gg/3hbeQgY)? With lots of things to do and loads of members to chat with, it's one of the most friendly places on the internet... sorta.
-
-### Disclaimer:
-Tsuyo is a fork of [Cytrus-RE](https://github.com/Cytrus-RE/cytrus-re), which was in-turn made by [Terrific Tea Studios](https://terrific-tea.github.io/).
