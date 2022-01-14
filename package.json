@@ -56,7 +56,7 @@
     "random-puppy": "^1.1.0",
     "reaction-role": "^4.1.1",
     "reconlx": "^2.2.0",
-    "redis": "^3.1.2",
+    "redis": "^4.0.2",
     "request": "^2.88.2",
     "rhyme": "^0.0.3",
     "snyk": "^1.730.0",
