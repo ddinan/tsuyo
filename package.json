@@ -60,7 +60,7 @@
     "request": "^2.88.2",
     "rhyme": "^0.0.3",
     "snyk": "^1.858.0",
-    "superagent": "^6.1.0",
+    "superagent": "^7.1.2",
     "top.gg": "^2.3.1",
     "zaq": "^2.1.5",
     "zxcvbn": "^4.4.2"
