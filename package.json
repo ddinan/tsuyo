@@ -43,7 +43,7 @@
     "form-data": "^4.0.0",
     "humanize-duration": "^3.27.0",
     "ip": "^1.1.5",
-    "js-beautify": "^1.14.0",
+    "js-beautify": "^1.14.3",
     "mathjs": "^9.4.3",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.2.2",
