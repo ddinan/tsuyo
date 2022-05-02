@@ -68,7 +68,7 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "forever": "^3.0.4",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.16"
   },
   "bugs": {
     "url": "https://github.com/derekdinan/Tsuyo/issues"
