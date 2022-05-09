@@ -44,7 +44,7 @@
     "humanize-duration": "^3.27.0",
     "ip": "^1.1.5",
     "js-beautify": "^1.14.0",
-    "mathjs": "^9.4.3",
+    "mathjs": "^10.5.2",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.2.2",
     "ms": "^2.1.3",
