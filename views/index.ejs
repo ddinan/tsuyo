@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/index.css" type="text/css">
 </head>
+
 <body>
     <%- include('./partials/navbar.ejs') %>
 
     <div class="cover">
-      <div class="text">
-        <img class="logo" src="https://cdn.discordapp.com/avatars/492871769485475840/29ea7a72135ebde63f8cebd5f82ef42b.png?size=256" oncontextmenu="return false;" draggable="false" oncopy="return false;" oncut="return false;">
-        <h1>Tsuyo - A community-built Discord bot.</h1>
-        <p>Equipped with many features, this bot is easy to set up and optimizes your Discord experience.</p>
-        <div class="buttons">
-          <a class="add" href="https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455">Add to Discord</a>
-          <a class="support" href="https://discord.gg/3hbeQgY">Join support server</a>
+        <div class="text">
+            <img class="logo" src="https://cdn.discordapp.com/avatars/492871769485475840/29ea7a72135ebde63f8cebd5f82ef42b.png?size=256" oncontextmenu="return false;" draggable="false" oncopy="return false;" oncut="return false;">
+            <h1>Tsuyo - A community-built Discord bot.</h1>
+            <p>Equipped with many features, this bot is easy to set up and optimizes your Discord experience.</p>
+            <div class="buttons">
+                <a class="add" href="https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455">Add to Discord</a>
+                <a class="support" href="https://discord.gg/3hbeQgY">Join support server</a>
+            </div>
         </div>
-      </div>
     </div>
 
-  <div class="features">
-    <h1 style="padding-top: 125px; text-align: center">Features</h1>
-    <table style="width:100%">
-      <tr>
-        <td><h2>Welcome</h2><p>Greet members with a custom welcome message.</p></td>
-        <td><h2>Fully Configurable</h2><p>Configure the bot to perform to your Discord's needs.</p></td>
-        <td><h2>Logging</h2><p>Choose actions you would like to monitor.</p></td>
-      </tr>
-      <tr>
-        <td><h2>PingWords</h2><p>Get notified whenever someone says a specific word or phrase.</p></td>
-        <td><h2>Levels</h2><p>Earn XP and level up by chatting with your friends!</p></td>
-        <td><h2>Fun Commands</h2><p>Over 30+ commands for you to try out.</p></td>
-      </tr>
-      <tr>
-        <td><h2>Moderation</h2><p>Easily moderate your server with an easy to use moderation system.</p><td>
-      </tr>
-    </table>
-  </div>
+    <div class="features">
+        <h1 style="padding-top: 33px; padding-bottom: 33px; text-align: center">Features</h1>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <h2>Welcome</h2>
+                    <p>Greet members with a custom welcome message.</p>
+                </td>
+                <td>
+                    <h2>Fully Configurable</h2>
+                    <p>Configure the bot to perform to your Discord's needs.</p>
+                </td>
+                <td>
+                    <h2>Logging</h2>
+                    <p>Choose actions you would like to monitor.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>PingWords</h2>
+                    <p>Get notified whenever someone says a specific word or phrase.</p>
+                </td>
+                <td>
+                    <h2>Levels</h2>
+                    <p>Earn XP and level up by chatting with your friends!</p>
+                </td>
+                <td>
+                    <h2>Fun Commands</h2>
+                    <p>Over 30+ commands for you to try out.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>Moderation</h2>
+                    <p>Easily moderate your server with an easy to use moderation system.</p>
+                <td>
+            </tr>
+        </table>
+    </div>
 </body>
-  <footer>
+
+<footer>
     <%- include('./partials/footer.ejs') %>
-  </footer>
+</footer>
+
 </html>

@@ -7,7 +7,7 @@ const stack = require('error-stack-parser')
 
 module.exports = {
     embedError: function(err, lang, message) {
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setTitle(`❌ ${lang.ErrorOccurred}`)
             .setColor(colors.red)
             .addField("Error", `\`${err}\``, true)
@@ -20,7 +20,7 @@ module.exports = {
     },
     embedInvalidSyntax: function(err, lang, message) {
         // Coming soon tm
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setTitle(`❌ ${lang.ErrorOccurred}`)
             .setColor(colors.red)
             .addField("Error2", `\`${err}\``, true)

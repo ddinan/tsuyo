@@ -1,12 +1,5 @@
 /* Global styles */
-
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,500');
-
-body {
-    background: #0D0515;
-    margin: 0 0;
-    padding: 0 0;
-}
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
@@ -22,24 +15,21 @@ p, a {
 }
 
 /* Custom scrollbar */
-
 ::-webkit-scrollbar {
-  width: 12px;
-  border-radius: 10px;
+    width: 12px;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8E5DAD;
+    background: #8E5DAD;
 }
 
 /* footer */
-
 .footer {
-    background: #0D0515;
     padding: 15px 41px;
     margin-bottom: 45px;
 }
@@ -63,6 +53,6 @@ p, a {
 }
 
 .footer .left .home {
-  font-weight: 450;
-  color: #995BBD;
+    font-weight: 450;
+    color: #995BBD;
 }

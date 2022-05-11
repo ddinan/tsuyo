@@ -1,29 +1,29 @@
 h1 {
-  font-size: 52px;
+    font-size: 52px;
 }
 
 p {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .cover {
-  background: linear-gradient(to top, #220E3F20, #220E3F99), url("https://i.imgur.com/Zk2UrWl.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  margin-top: -23px;
-  padding-top: 20px;
-  height: 225px;
+    background: linear-gradient(to top, #220E3F20, #220E3F99), url("https://i.imgur.com/Zk2UrWl.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-top: -23px;
+    padding-top: 20px;
+    height: 225px;
 }
 
 .text {
-  padding-top: 20px;
-  color: white;
-  text-align: left;
+    padding-top: 20px;
+    color: white;
+    text-align: left;
 }
 
 .text .tag {
-  color: silver;
-  font-size: 22px;
+    color: silver;
+    font-size: 22px;
 }
 
 .text .speech-bubble {
@@ -37,44 +37,47 @@ p {
 }
 
 .text .speech-bubble:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 28px solid transparent;
-	border-right-color: #0D0515;
-	border-left: 0;
-	margin-top: -28px;
-	margin-left: -28px;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 28px solid transparent;
+    border-right-color: #0D0515;
+    border-left: 0;
+    margin-top: -28px;
+    margin-left: -28px;
 }
 
 .text .logo {
-  margin-left: 150px;
-  margin-right: 50px;
+    margin-left: 150px;
+    margin-right: 50px;
     float: left;
-	width: 150px;
-	height: 150px;
-	box-sizing: border-box;
-	border: 5px white solid;
-	border-radius: 50%;
-	overflow: hidden;
-	box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    border: 5px white solid;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
 }
 
-.text .logo img { width: 100%; height: auto; }
+.text .logo img {
+    width: 100%;
+    height: auto;
+}
 
 .info {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 .info h1 {
-  font-size: 48px;
+    font-size: 48px;
 }
 
 .info .data {
-  font-weight: 100;
-  padding-left: 50px;
-  color: silver;
+    font-weight: 100;
+    padding-left: 50px;
+    color: silver;
 }

@@ -50,7 +50,7 @@ module.exports = (client, message) => {
         //const curLevel2 = Math.floor(0.2 * Math.sqrt(client.points.get(key, 'points')))
 
         if (client.points.get(key, `level`) < curLevel) {
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle(`Ranking of:  ${message.author.username}`)
                 .setDescription(`You've leveled up to guild level: **\`${curLevel}\`**! (Points: \`${Math.floor(client.points.get(key, `points`) * 100) / 100}\`) `)
                 .setColor(colors.green)
@@ -64,7 +64,7 @@ module.exports = (client, message) => {
         }
 
         /*if (client.points.get(key2, `level`) < curLevel2) {
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle(`Ranking of:  ${message.author.username}`)
                 .setTimestamp()
                 .setDescription(`You've leveled up to level: **\`${curLevel2}\`**! (Points: \`${Math.floor(client.points.get(key2, `points`) * 100) / 100}\`) `)

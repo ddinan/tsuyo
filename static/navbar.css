@@ -1,9 +1,8 @@
 /* Global styles */
-
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,500');
 
 body {
-    background: #0D0515;
+    background: #130726;
     margin: 0 0;
     padding: 0 0;
 }
@@ -22,26 +21,24 @@ p, a {
 }
 
 /* Custom scrollbar */
-
 ::-webkit-scrollbar {
-  width: 12px;
-  border-radius: 10px;
+    width: 12px;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8E5DAD;
+    background: #8E5DAD;
 }
 
 /* Navbar */
-
 .navbar {
-    background: #0D0515;
+    background: linear-gradient(to right, #3e1f70, #34216e);
     padding: 15px 41px;
-    margin-bottom: 45px;
+    padding-bottom: 58px;
 }
 
 .navbar a {
@@ -63,17 +60,17 @@ p, a {
 }
 
 .navbar .left .home {
-  font-weight: 450;
-  color: #995BBD;
+    font-weight: 450;
+    color: #995BBD;
 }
 
 .navbar .pfp {
-  margin-top: -7px;
-  margin-right: 10px;
-  width: 32px;
-  float: right;
-  border-radius: 50px;
-  border: 2px;
+    margin-top: -7px;
+    margin-right: 10px;
+    width: 32px;
+    float: right;
+    border-radius: 50px;
+    border: 2px;
 }
 
 .navbar .right {
@@ -82,13 +79,13 @@ p, a {
 }
 
 .navbar .right .logout {
-  background-color: #DC4545;
-  font-weight: 450;
-  padding: 6px 10px 6px 10px;
+    background-color: #DC4545;
+    font-weight: 450;
+    padding: 6px 10px 6px 10px;
 }
 
 .navbar .right .login {
-  background-color: #3ad43e;
-  font-weight: 450;
-  padding: 6px 10px 6px 10px;
+    background-color: #3ad43e;
+    font-weight: 450;
+    padding: 6px 10px 6px 10px;
 }

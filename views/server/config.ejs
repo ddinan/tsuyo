@@ -2,21 +2,20 @@
 <html lang="en">
 <head><link rel="stylesheet" href="../static/index.css" type="text/css"></head>
 <body>
-  <%- include('../partials/header.ejs') %>
-  <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/header.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
 
-  <div class="page-content">
-    <form method="post">
-      <% const settings = djsclient.getSettings(guild);
-      for (let key in settings) { %>
-        <h3><%= key %></h3>
-        <input width="30%" type="text" style="text-align: left;color: white;background-color: #23272A;border: none;padding: 10px;" name="<%= key %>" value="<%= settings[key] %>" placeholder="<%= key %>">
-        <hr style="height: 0.2px;color: #eeeeee;">
-      <% } %>
+    <div class="page-content">
+      <form method="post">
+          <% const settings = djsclient.getSettings(guild);
+            for (let key in settings) { %>
+                <h3><%= key %></h3>
+                <input width="30%" type="text" style="text-align: left;color: white;background-color: #23272A;border: none;padding: 10px;" name="<%= key %>" value="<%= settings[key] %>" placeholder="<%= key %>">
+                <hr style="height: 0.2px;color: #eeeeee;">
+            <% } %>
 
-      <input type="submit" id="configsavechanges" value="Save Changes">
-    </form>
-
-  </div>
+            <input type="submit" id="configsavechanges" value="Save Changes">
+        </form>
+    </div>
 </body>
 </html>
