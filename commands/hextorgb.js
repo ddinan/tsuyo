@@ -5,10 +5,22 @@ exports.run = async (client, message, args, level) => {
     try {
         if (!args[0]) return message.channel.send(lang.NoArgumentSpecified)
 
-        const hex = args.join(' ').replace('#', '')
-        const r = Number(hex.substring(0, 2))
-        const g = parseInt(hex.substring(2, 4))
-        const b = parseInt(hex.substring(4, 6))
+        function hexToRGB(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        const hex = args[0]
+
+        if (hexToRGB(hex) == null) return message.channel.send(lang.InvalidArgument)
+
+        const r = hexToRGB(hex).r
+        const g = hexToRGB(hex).g
+        const b = hexToRGB(hex).b
 
         message.channel.send(`${lang.RGBCode} rgb(${r}, ${g}, ${b})`)
     } catch (err) {

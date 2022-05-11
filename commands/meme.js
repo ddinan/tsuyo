@@ -15,7 +15,7 @@ exports.run = async (client, message, args, level) => {
 
         const img = await randomPuppy(random)
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(colors.default)
             .setImage(img)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())

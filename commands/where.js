@@ -13,7 +13,7 @@ exports.run = async (client, message, args, level) => {
         if (!client.channels.cache.get(args[0])) return message.channel.send(lang.NoChannel)
         const channel = client.channels.cache.find(ch => ch.id === args[0])
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(colors.default)
             .addField(lang.Guild, channel.guild.name)
             .addField(lang.Channel, channel.name)

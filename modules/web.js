@@ -10,15 +10,15 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 const initWeb = (client) => {
     app.set("view engine", "ejs");
     app.set('trust proxy', true);
     app.use(express.static("static"));
-    // app.use(
-    //   cookieParser()
-    // );
+    app.use(
+        cookieParser()
+    )
     app.use(
         cors({
             credentials: true
@@ -78,7 +78,7 @@ const initWeb = (client) => {
     });
     app.get("/invite", (req, res) =>
         res.send(
-            '<script>window.location.href = "https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455";</script><noscript><a href="https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455">https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455</a></noscript>'
+            '<script>window.location.href = "https://discord.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455";</script><noscript><a href="https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455">https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455</a></noscript>'
         )
     );
 

@@ -67,7 +67,7 @@ exports.run = async (client, message, args) => {
             const money = client.money.get(message.author.id, 'money')
             client.money.set(`${message.author.id}`, money + worth, 'money')
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor(`🌼 ${lang.Garden}`)
                 .setColor(colors.default)
                 .setDescription(`${lang.HarvestedAndSold} **${rarity}** :${getPlant}: ${lang.For} **${worth}**!`)

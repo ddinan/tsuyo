@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
 
         const color = !args[0] ? hex : args[0]
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(hex)
             .setDescription(`${lang.RandomHex} \`#${hex}\``)
             .setTitle("#" + hex)

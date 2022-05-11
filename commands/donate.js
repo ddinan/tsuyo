@@ -8,7 +8,7 @@ exports.run = (client, message, args, level) => {
     const lang = require("../lib/languages/" + language + ".json")
 
     try {
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setTitle(`💰 ${lang.Donating}`)
             .setColor(colors.default)
             .setThumbnail('https://cdn.discordapp.com/avatars/492871769485475840/6164d0068b8e76e497af9b0e1746f671.png?size=2048')

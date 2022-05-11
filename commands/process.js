@@ -16,9 +16,9 @@ exports.run = (client, message, args, level) => {
         const duration = moment
             .duration(client.uptime)
             .format(" D [days], H [hrs], m [mins], s [secs]")
-        const port = process.env.port || 3000
+        const port = process.env.port || 8080
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setAuthor(lang.ProcessInformation)
             .setColor(colors.default)
             .setThumbnail(client.user.avatarURL)
@@ -27,7 +27,7 @@ exports.run = (client, message, args, level) => {
             .addField(`NPM ${lang.Version}`, `${process.version}`, true)
             .addField(lang.Uptime, `${duration}`, true)
             .addField(lang.DashboardURL, `${ip.address()}:${port}`, true)
-            .addField(lang.VoteURL, `${ip.address()}:80`, true)
+            .addField(lang.VoteURL, `${ip.address()}:2245`, true)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 

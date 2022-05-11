@@ -9,7 +9,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     const language = client.getSettings(message.guild.id).language
     const lang = require("../lib/languages/" + language + ".json")
     try {
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(colors.default)
             .setDescription(joke({
                 exclude_tags: ['dirty', 'racist', 'marriage', 'sex', 'death']

@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     try {
         const reminderTime = args[0]
         if (!reminderTime) {
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setColor(colors.red)
                 .setTitle(lang.InvalidSyntax)
                 .setDescription(`\`${client.getSettings(message.guild.id).prefix}remind <${lang.Time}> <${lang.Message}>\`\n\n${lang.RemindFormats}`)

@@ -18,7 +18,7 @@ module.exports = (client, guild, user) => {
             if (!modLogChannel.permissionsFor(guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(guild.me).has('SEND_MESSAGES')) return
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle(`🔨 ${lang.UserBanned}`)
                 .setColor(colors.red)
                 .setDescription(`**${lang.TotalMemberCount}:** \`${guild.memberCount}\`\n<@${user.id}> ${lang.BannedFromDiscord}`)

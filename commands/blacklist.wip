@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
       const cmds = client.blacklist.cache.cache.get(`${message.guild.id}`, 'commands')
 
         client.blacklist.set(`${message.guild.id}`, `${cmds.replace("null", "")} + , + ${args[1].toLowerCase()} `, "commands")
-      const embed = new MessageEmbed()
+      let embed = new MessageEmbed()
         .setAuthor('Blacklist')
         .setColor(colors.green)
         .setDescription(`Blacklisted \`;;${args[1].toLowerCase()}\` in this server.`)
@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
         if (commands === null) return message.channel.send('This command is not blacklisted.')
         var newList = commands
         client.pingwords.set(`${message.author.id}`, newList, 'pingOne')
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
           .setAuthor('Ping Words')
           .setCmessage.channel.send({
             embeds: [embed]
@@ -45,7 +45,7 @@ exports.run = async (client, message, args) => {
     }
 
     if (args[0] === 'list') {
-      const embed = new MessageEmbed()
+      let embed = new MessageEmbed()
         .setAuthor('Ping Words')
         .setCmessage.channel.send({
             embeds: [embed]

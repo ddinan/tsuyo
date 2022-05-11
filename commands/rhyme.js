@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     try {
         if (!args[0]) return message.channel.send(lang.NoArgumentSpecified)
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(colors.default)
             .setDescription(lang.FindingRhymes)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())

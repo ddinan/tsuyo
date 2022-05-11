@@ -46,7 +46,7 @@ exports.run = (client, message, args, level) => {
             }
         } else {
             let command = client.commands.get("rps")
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setColor(colors.red)
                 .setTitle(lang.InvalidSyntax)
                 .setDescription(`\`${prefix}${command.help.usage}\`\n\n${command.help.description}`)

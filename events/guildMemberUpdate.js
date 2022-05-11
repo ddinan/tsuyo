@@ -18,7 +18,7 @@ module.exports = (client, oldMember, newMember) => {
     if (!modLogChannel.permissionsFor(oldMember.guild.me).has('SEND_MESSAGES')) return
 
     if (oldMember.nickname !== newMember.nickname) {
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setAuthor(`👤 ${lang.NickChanged}`)
             .setColor(colors.default)
             .setDescription(`<@${newMember.id}> ${lang.ChangedNick}`)
@@ -33,7 +33,7 @@ module.exports = (client, oldMember, newMember) => {
     }
 
     if (oldMember.user.name !== newMember.user.name) {
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setAuthor(`👤 ${lang.UsernameChanged}`)
             .setColor(colors.default)
             .setDescription(`<@${newMember.id}> ${lang.ChangedUsername}`)

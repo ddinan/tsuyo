@@ -91,7 +91,7 @@ exports.run = async (client, message, args) => {
             client.garden.set(`${message.author.id}`, plant, slot)
             client.garden.set(`${message.author.id}`, "1", stage)
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor(`🌼 ${lang.Garden}`)
                 .setColor(colors.green)
                 .setDescription(`${lang.PlantedSeed}\`${args[0]}\`. ${lang.WaterSeed} \`` + prefix + 'water`.')

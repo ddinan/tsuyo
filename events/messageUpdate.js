@@ -21,7 +21,7 @@ module.exports = (client, message, messageNew) => {
             if (!modLogChannel.permissionsFor(message.guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor(`📝 ${lang.MessageEdited}`)
                 .setColor(colors.default)
                 .setDescription(`${lang.MessageEditedBy} <@${messageNew.author.id}> ${lang.In} ${message.channel}`)

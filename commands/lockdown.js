@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
     var originalChannel
 
     function unlockChannel(channel) {
-        channel.updateOverwrite(channel.guild.roles.everyone, {
+        channel.permissionOverwrites.edit(channel.guild.roles.everyone, {
             SEND_MESSAGES: null
         }).then(() => {
             clearTimeout(client.lockit[channel.id]);
@@ -20,13 +20,13 @@ exports.run = async (client, message, args, level) => {
     }
 
     function lockChannel(channel) {
-        channel.updateOverwrite(message.channel.guild.roles.everyone, {
+        channel.permissionOverwrites.edit(message.channel.guild.roles.everyone, {
             SEND_MESSAGES: false
         }).then(() => {
-            //originalChannel.send(`Channel locked down for ${ms(ms(args[0]), { long:true })}. To lift, run **${settings.prefix}lockdown ${validUnlocks[Math.floor(Math.random() * validUnlocks.length)]}**`).then(() => {
+            originalChannel.send(`Channel locked down for ${ms(ms(args[0]), { long:true })}.`)
 
             client.lockit[channel.id] = setTimeout(() => {
-                channel.updateOverwrite(channel.guild.roles.everyone, {
+                channel.permissionOverwrites.edit(channel.guild.roles.everyone, {
                     SEND_MESSAGES: null
                 }).catch(console.error);
                 delete client.lockit[channel.id];
@@ -35,15 +35,16 @@ exports.run = async (client, message, args, level) => {
     }
 
     try {
-        const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === settings.modRole.toLowerCase());
-        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === settings.adminRole.toLowerCase());
+        const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === settings.modRole.toLowerCase())
+        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === settings.adminRole.toLowerCase())
+
         // Ensure admin role actually exists
 
         if (!adminRole) {
             return message.channel.send(lang.NoAdminRole)
         }
 
-        if (!message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.member.roles.cache.has(adminRole.id) && !message.member.permissions.has("ADMINISTRATOR")) {
             return message.channel.send(lang.NoPermission)
         }
 

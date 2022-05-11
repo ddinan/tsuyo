@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
                 if (args[2] > 3) return message.channel.send('You can only have 3 ping words.')
 
                 client.pingwords.set(`${message.author.id}`, args[1].toLowerCase(), slot)
-                const embed = new MessageEmbed()
+                let embed = new MessageEmbed()
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[2]}\` to \`${args[1].toLowerCase()}\`.`)
@@ -54,7 +54,7 @@ exports.run = async (client, message, args) => {
             if (args[1] === '1') {
                 if (pingOne === null) return message.channel.send('You do not have a pingword in this slot.')
                 client.pingwords.set(`${message.author.id}`, null, 'pingOne')
-                const embed = new MessageEmbed()
+                let embed = new MessageEmbed()
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
@@ -69,7 +69,7 @@ exports.run = async (client, message, args) => {
                 if (pingTwo === null) return message.channel.send('You do not have a pingword in this slot.')
                 client.pingwords.set(`${message.author.id}`, null, 'pingTwo')
 
-                const embed = new MessageEmbed()
+                let embed = new MessageEmbed()
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
@@ -85,7 +85,7 @@ exports.run = async (client, message, args) => {
                 if (pingThree === null) return message.channel.send('You do not have a pingword in this slot.')
                 client.pingwords.set(`${message.author.id}`, null, 'pingThree')
 
-                const embed = new MessageEmbed()
+                let embed = new MessageEmbed()
                     .setAuthor('Ping Words')
                     .setColor(colors.green)
                     .setDescription(`Set your pingword in slot \`${args[1]}\` to \`null\`.`)
@@ -102,7 +102,7 @@ exports.run = async (client, message, args) => {
         }
 
         if (args[0] === 'list') {
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor('Ping Words')
                 .setColor(colors.default)
                 .addField('Slot 1:', pingOne, true)

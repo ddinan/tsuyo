@@ -15,7 +15,7 @@ module.exports = (client, channel) => {
             const modLogChannel = channel.guild.channels.cache.find(c => c.name == settings.modLogChannel)
             if (!modLogChannel.permissionsFor(channel.guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(channel.guild.me).has('SEND_MESSAGES')) return
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor(`🔨 ${lang.ChannelCreated}`)
                 .setColor(colors.green)
                 .setDescription(`${lang.CreatedChannel} ${channel}`)

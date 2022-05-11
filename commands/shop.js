@@ -11,14 +11,14 @@ exports.run = async (client, message, args) => {
     try {
         const prefix = message.guild === null ? ';;' : client.getSettings(message.guild.id).prefix
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setTitle(`🛒 ${lang.Shop}`)
-            .setDescription(`${lang.PurchaseItem} \`${prefix}buy <${lang.item}>\``)
+            .setDescription(`${lang.PurchaseItem} \`${prefix}buy <${lang.Item}>\``)
             .setColor(colors.default)
             .addField(`💍 ${lang.WeddingRing} ($1,300)`, `${lang.WeddingRingDesc} \`${prefix}marry\`.`, true)
             .addField(`🥫 ${lang.PetFood} ($50)`, `${lang.PetFoodDesc} \`${prefix}pet\`.`, true)
             .addField(`🌰 ${lang.Seed} ($5)`, `${lang.SeedDesc} \`${prefix}garden\`.`, true)
-            .addField(`🪱 ${lang.Worm}($10)`, `${lang.WormDesc} \`${prefix}fish\`.`, true)
+            .addField(`🪱 ${lang.Worm} ($20)`, `${lang.WormDesc} \`${prefix}fish\`.`, true)
             //.addField('🚗 Car ($25,000)', `Go fast.`, true)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()

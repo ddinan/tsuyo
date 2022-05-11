@@ -12,8 +12,8 @@ exports.run = async (client, message, args, level) => {
         const yesEmoji = '✅'
         const noEmoji = message.client.emojis.cache.get('637573919204966410')
         const settings = client.getSettings(message.guild.id)
-        const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).modRole.toLowerCase());
-        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase());
+        const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).modRole.toLowerCase())
+        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase())
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
@@ -24,12 +24,12 @@ exports.run = async (client, message, args, level) => {
             return message.channel.send(lang.NoAdminRole)
         }
 
-        if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.member.roles.cache.has(modRole.id) && !message.member.permissions.has("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.permissions.has("ADMINISTRATOR")) {
             return message.channel.send(lang.NoPermission)
         }
         const input = message.content.split(`${settings.prefix}poll `)
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setTitle(`🗳 ${lang.Poll}`)
             .setColor(colors.default)
             .addField(`${lang.ReactWith} ✅ ${lang.Or} ${noEmoji} ${lang.ToVote}`, input, true)

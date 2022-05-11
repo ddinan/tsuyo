@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
 
     try {
         if (!args[0]) {
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle(lang.Help)
                 .setColor(colors.default)
                 .setThumbnail(client.user.avatarURL)
@@ -46,22 +46,7 @@ exports.run = (client, message, args, level) => {
                 message.channel.send({
                     embeds: [embed]
                 })
-            } else {
-                const currentCategory = ''
-                let output = ''
-                const userCommands = client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level)
-
-                const sorted = userCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1)
-                sorted.forEach(c => {
-                    const cat = c.help.category.toLowerCase()
-                    if (cat == args[0].toLowerCase()) {
-                        if (level < client.levelCache[c.conf.permLevel]) return
-                        output += '`' + c.help.name + '` '
-                    }
-                })
-
-                if (!output) return message.reply(lang.InvalidCommand)
-            }
+            } else return message.reply(lang.InvalidCommand)
         }
     } catch (err) {
         const errors = require('../modules/errors.js')

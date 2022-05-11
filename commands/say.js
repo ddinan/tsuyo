@@ -3,8 +3,8 @@ exports.run = async (client, message, args, level) => {
     const lang = require("../lib/languages/" + language + ".json")
 
     try {
-        const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).modRole.toLowerCase());
-        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase());
+        const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).modRole.toLowerCase())
+        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase())
 
         // Ensure mod/admin roles actually exist
         if (!modRole) {
@@ -15,7 +15,7 @@ exports.run = async (client, message, args, level) => {
             return message.channel.send(lang.NoAdminRole)
         }
 
-        if (!message.member.roles.cache.has(modRole.id) && !message.member.hasPermission("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.member.roles.cache.has(modRole.id) && !message.member.permissions.has("MANAGE_MESSAGES") && !message.member.roles.cache.has(adminRole.id) && !message.member.permissions.has("ADMINISTRATOR")) {
             return message.channel.send(lang.NoPermission)
         }
 

@@ -49,49 +49,49 @@ exports.run = (client, message, args, level) => {
                 }
             })
 
-            const embed1 = new MessageEmbed()
+            let embed1 = new MessageEmbed()
                 .setTitle(lang.Commands)
                 .setColor(colors.default)
                 .addField(`${lang.Type} ${prefix}commands <${lang.Category}> ${lang.InThatCategory}.`, `\n${lang.ValidCategories}:\n\`admin\`, \`economy\`, \`fun\`, \`moderation\`, \`utility\``)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            const embed2 = new MessageEmbed()
+            let embed2 = new MessageEmbed()
                 .setTitle('🔮 Admin')
                 .setColor(colors.default)
                 .addField(`${lang.Type} ${prefix}help <${lang.Command}> ${lang.MoreInfoOnHowToUse}.`, output)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            const embed3 = new MessageEmbed()
+            let embed3 = new MessageEmbed()
                 .setTitle('💰 Economy')
                 .setColor(colors.default)
                 .addField(`${lang.Type} ${prefix}help <${lang.Command}> ${lang.MoreInfoOnHowToUse}.`, output2)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            const embed4 = new MessageEmbed()
+            let embed4 = new MessageEmbed()
                 .setTitle('🎉 Fun')
                 .setColor(colors.default)
                 .addField(`${lang.Type} ${prefix}help <${lang.Command}> ${lang.MoreInfoOnHowToUse}.`, output3)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            const embed5 = new MessageEmbed()
+            let embed5 = new MessageEmbed()
                 .setTitle('👮‍♂️ Moderation')
                 .setColor(colors.default)
                 .addField(`${lang.Type} ${prefix}help <${lang.Command}> ${lang.MoreInfoOnHowToUse}.`, output4)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            const embed6 = new MessageEmbed()
+            let embed6 = new MessageEmbed()
                 .setTitle('🔨 Utility')
                 .setColor(colors.default)
                 .addField(`${lang.Type} ${prefix}help <${lang.Command}> ${lang.MoreInfoOnHowToUse}.`, output5)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 
-            const embeds = [
+            let embeds = [
                 embed1,
                 embed2,
                 embed3,
@@ -142,7 +142,7 @@ exports.run = (client, message, args, level) => {
 
                 if (!output) return message.reply(lang.InvalidCategory)
 
-                const embed = new MessageEmbed()
+                let embed = new MessageEmbed()
                     .setTitle(lang.Commands)
                     .setColor(colors.default)
                     .setThumbnail(client.user.avatarURL)

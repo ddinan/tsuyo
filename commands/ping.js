@@ -19,7 +19,7 @@ exports.run = async (client, message, args, level) => {
             embeds: [pingEmbed]
         })
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(colors.default)
             .addField(lang.MessageTrip,
                 `${msg.createdTimestamp - message.createdTimestamp}ms`)

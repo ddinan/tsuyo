@@ -31,28 +31,30 @@ exports.run = async (client, message, args) => {
             const choices = ["fish", "nothing"];
 
             const random = Math.floor(Math.random() * choices.length);
-            fish = choices[random];
+            fish = choices[random]
         } else if (d < 0.8) {
             const choices = ["tropical_fish", "blowfish", "lobster", "moneybag", "crab"];
 
             const random = Math.floor(Math.random() * choices.length);
-            fish = choices[random];
+            fish = choices[random]
         } else if (d < 0.95) {
             const choices = ["frog", "chest", "octopus", "squid"];
 
             const random = Math.floor(Math.random() * choices.length);
-            fish = choices[random];
+            fish = choices[random]
         } else if (d < 0.98) {
             const choices = ["seal", "dolphin", "turtle", ];
 
             const random = Math.floor(Math.random() * choices.length);
-            fish = choices[random];
+            fish = choices[random]
         } else if (d < 0.99) {
             const choices = ["person_surfing", "clownfish", "whale2", "merperson"];
 
             const random = Math.floor(Math.random() * choices.length);
-            fish = choices[random];
+            fish = choices[random]
         }
+
+
 
         client.inventory.set(message.author.id, worms - 1, 'worms')
         var rarity
@@ -67,7 +69,7 @@ exports.run = async (client, message, args) => {
             rarity = "common"
             worth = 0
         }
-        if (rarity === "common") worth = 25
+        if (rarity === "common" && fish !== "nothing") worth = 25
         if (rarity === "uncommon") worth = 50
         if (rarity === "rare") worth = 100
         if (rarity === "very rare") worth = 250
@@ -78,10 +80,12 @@ exports.run = async (client, message, args) => {
             money: 0
         })
 
+        console.log(fish + " " + rarity + " " + worth)
+
         const money = client.money.get(message.author.id, 'money')
         client.money.set(`${message.author.id}`, money + worth, 'money')
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setAuthor(`🎣 ${lang.Fishing}`)
             .setColor(colors.default)
             .setDescription(`${lang.FoundAndSold} **${rarity}** :${fish}: ${lang.For} **${worth}**!`)

@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
 
         const rep = client.reputation.get(`${user.id}`, 'reputation')
 
-        client.reputation.set(`${user.id}`, rep + 1, 'reputation')
+        client.reputation.set(`${user.id}`, parseInt(rep) + 1, 'reputation')
         message.channel.send(`${lang.YouGave} ${user.tag} +1 ${lang.Reputation}.`)
         client.cooldown.set(`${message.author.id}`, date, 'rep') // Activate 24 hour cooldown
     } catch (err) {

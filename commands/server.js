@@ -30,7 +30,7 @@ exports.run = async (client, message, args, level) => {
         if (message.guild.region === 'us-south') region = `:flag_us: ${lang.USSouth}`
         if (message.guild.region === 'us-west') region = `:flag_us: ${lang.USWest}`
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(colors.default)
             .setThumbnail(Icon)
             .setFooter(`${message.guild.id}`,

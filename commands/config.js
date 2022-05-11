@@ -9,9 +9,17 @@ exports.run = async (client, message, args, level) => {
         const settings = client.getSettings(message.guild.id)
         const defaults = client.config.defaultSettings
         const overrides = client.settings.get(message.guild.id)
+
+        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase())
+
+        // Ensure admin role actually exists
+
+        if (!adminRole) {
+            return message.channel.send(lang.NoAdminRole)
+        }
         if (!client.settings.has(message.guild.id)) client.settings.set(message.guild.id, client.config.defaultSettings)
 
-        if (!message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.member.permissions.has("ADMINISTRATOR")) {
             return message.channel.send(lang.NoPermission)
         }
 
@@ -28,31 +36,20 @@ exports.run = async (client, message, args, level) => {
             else client.settings.set(message.guild.id, args.slice(2).join(' '), args[1])
 
             message.channel.send(`${args[1]} ${lang.EditedTo} ${args.slice(2).join(' ')}!`)
-        } else
-
-        if (args[0] === 'del' || args[0] === 'reset') {
-            if (!args[1]) return message.channel.send(lang.NoOptionSpecified)
-            if (!defaults[args[1]]) return message.channel.send(lang.InvalidOption)
-            if (!overrides[args[1]]) return message.channel.send(lang.NoOverrideUsingDefaults)
-
-            const response = await client.awaitchannel.send(message, `${lang.ConfirmReset} ${args[1]} ${lang.ToDefaultValue}`)
-
-            if (['y', 'yes', '1'].includes(response.toLowerCase())) {
-                client.settings.delete(message.guild.id, args[1])
-                message.channel.send(`${args[1]} ${lang.SuccessfullyReset}.`)
-            } else
-            if (['n', 'no', 'cancel', '0'].includes(response)) {
-                message.channel.send(`${lang.Setting} \`${args[1]}\` ${lang.RemainsAt} \`${settings[args[1]]}\`.`)
-            }
         } else {
             let embed = new Discord.MessageEmbed()
                 .setTitle(`⚙️ ${lang.ServerSettings}`)
                 .setColor(colors.default)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
-            Object.keys(client.getSettings(message.guild.id)).forEach((setting) => embed = embed.addField(setting, settings[setting], true))
 
-            await message.channel.send(embed)
+            Object.keys(client.getSettings(message.guild.id)).forEach((setting) => {
+                embed = embed.addField(setting, `${settings[setting]}`, true)
+            })
+
+            await message.channel.send({
+                embeds: [embed]
+            })
         }
     } catch (err) {
         message.channel.send(client.errors.genericError + err.stack).catch();

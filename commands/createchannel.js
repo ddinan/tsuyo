@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
     const lang = require("../lib/languages/" + language + ".json")
 
     try {
-        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase());
+        const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === client.getSettings(message.guild.id).adminRole.toLowerCase())
 
         // Ensure admin role actually exists
 
@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
             return message.channel.send(lang.NoAdminRole)
         }
 
-        if (!message.member.roles.cache.has(adminRole.id) && !message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.member.roles.cache.has(adminRole.id) && !message.member.permissions.has("ADMINISTRATOR")) {
             return message.channel.send(lang.NoPermission)
         }
         if (!args[1]) return message.reply(lang.NoArgumentSpecified)

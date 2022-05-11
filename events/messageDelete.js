@@ -18,7 +18,7 @@ module.exports = (client, message) => {
             if (!modLogChannel.permissionsFor(message.guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor(`🗑️ ${lang.MessageDeleted}`)
                 .setColor(colors.default)
                 .setDescription(`${lang.MessageDeletedBy} <@${message.author.id}> ${lang.In} ${message.channel}`)

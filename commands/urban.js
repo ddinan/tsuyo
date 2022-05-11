@@ -33,7 +33,7 @@ exports.run = async (client, message, args, level) => {
                 )
             }
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setColor('#1D2439')
                 .setThumbnail('https://i.imgur.com/D19IeLX.png')
                 .setTitle(result.word)

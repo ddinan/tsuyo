@@ -15,7 +15,7 @@ module.exports = (client, member) => {
             if (!modLogChannel.permissionsFor(member.guild.me).has('VIEW_CHANNEL')) return
             if (!modLogChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES')) return
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor(`📤 ${lang.MemberLeft}`)
                 .setColor(colors.red)
                 .setDescription(`**${lang.TotalMemberCount}:** \`${member.guild.memberCount}\`\n<@${member.user.id}> ${lang.LeftTheDiscord}`)

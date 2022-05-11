@@ -9,7 +9,7 @@ exports.run = async (client, message, args, level) => {
     const lang = require("../lib/languages/" + language + ".json")
 
     try {
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(colors.default)
             .setImage(`${message.author.displayAvatarURL()}`)
             .addField(lang.YourAvatar, `[${lang.ImageURL}](${message.author.avatarURL()})`, true)
@@ -26,9 +26,8 @@ exports.run = async (client, message, args, level) => {
 
         embed = new MessageEmbed()
             .setColor(colors.default)
-            .setImage(`${user.avatarURL}`)
-            .setThumbnail(`${user.avatarURL}`)
-            .addField(`${user.username}${lang.UsersAvatar}`, `${user.avatarURL()}`, true)
+            .setImage(`${user.avatarURL()}`)
+            .addField(`${user.username}${lang.UsersAvatar}`, `[${lang.ImageURL}](${user.avatarURL()})`, true)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 

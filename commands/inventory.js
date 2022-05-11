@@ -19,13 +19,13 @@ exports.run = async (client, message, args) => {
             worms: 0
         })
 
-        const embed = new MessageEmbed()
-            .setTitle(`🎒`)
+        let embed = new MessageEmbed()
+            .setTitle(`🎒 ${lang.YourInventory}`)
             .setColor(colors.default)
-            .addField(`💍 ${lang.WeddingRings}`, client.inventory.get(key, 'rings'))
-            .addField(`🌰 ${lang.Seeds}`, client.inventory.get(key, 'seeds'))
-            .addField(`🥫 ${lang.PetFood}`, client.inventory.get(key, 'petfood') + ' cans')
-            .addField(`🪱 ${lang.Worms}`, client.inventory.get(key, 'worms') + ' worms')
+            .addField(`💍 ${lang.WeddingRings}`, `${client.inventory.get(key, 'rings')}`, true)
+            .addField(`🌰 ${lang.Seeds}`, `${client.inventory.get(key, 'seeds')}`, true)
+            .addField(`🥫 ${lang.PetFood}`, `${client.inventory.get(key, 'petfood')}`, true)
+            .addField(`🪱 ${lang.Worms}`, `${client.inventory.get(key, 'worms')}`, true)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 

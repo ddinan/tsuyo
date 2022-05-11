@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
 
         if (!input) {
             let command = client.commands.get("8ball")
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setColor(colors.red)
                 .setTitle(lang.InvalidSyntax)
                 .setDescription(`\`${prefix}${command.help.usage}\`\n\n${command.help.description}`)
@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
                     message.channel.send(`${result}`);
                 }
                 var member = message.guild.members.cache.random();
-                const embed = new MessageEmbed()
+                let embed = new MessageEmbed()
                     .setColor(colors.default)
                     .setThumbnail(member.avatarURL)
                     .addField(member.displayName, `<@${member.id}>`)

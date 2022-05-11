@@ -32,12 +32,12 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
         const married = client.life.get(user.id, 'spouse') === 0 ? lang.Nobody : `<@${client.life.get(user.id, 'spouse')}>`
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setTitle(`${user.tag}`)
-            .addField(lang.ID, user.id, true)
-            .addField(lang.AccountCreated, user.createdAt, true)
-            .addField(lang.Status, user.presence.status, true)
-            .addField(lang.MarriedTo, married, true)
+            .addField(lang.ID, `${user.id}`, true)
+            .addField(lang.AccountCreated, `${user.createdAt}`, true)
+            .addField(lang.Status, `${user.presence?.status}`, true)
+            .addField(lang.MarriedTo, `${married}`, true)
             .addField(lang.Reputation, `+${client.reputation.get(user.id, 'reputation')}`, true)
             //.addField(`Job`, user.user, true)
             //.addField(`Achievements`, user.user, true)

@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
             const filtered = !isGlobal ? client.points.filter(p => p.guild === message.guild.id).array() : client.points.array();
             const sorted = filtered.sort((a, b) => b.points - a.points)
             const top10 = sorted.splice(0, 10);
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle(`${globalName} ${lang.Leaderboard}`)
                 .setDescription(lang.TopTenXP)
                 .setColor(colors.default)
@@ -68,7 +68,7 @@ exports.run = async (client, message, args) => {
             const filtered = !isGlobal ? client.money.filter(p => p.guild === message.guild.id).array() : client.money.array();
             const sorted = filtered.sort((a, b) => b.money - a.money)
             const top10 = sorted.splice(0, 10);
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle(`${globalName} ${lang.Leaderboard}`)
                 .setTimestamp()
                 .setDescription(lang.TopTenMoney)
@@ -98,7 +98,7 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['l', 'top', 'most', 'baltop', 'leaderboards'],
+    aliases: ['l', 'lb', 'top', 'most', 'baltop', 'leaderboards'],
     guildOnly: false,
     permLevel: 'User'
 }

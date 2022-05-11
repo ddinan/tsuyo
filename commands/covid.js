@@ -22,13 +22,13 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             const covidData = payload.data.pop();
             const country = args[0].charAt(0).toUpperCase() + args[0].substr(1).toLowerCase()
 
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .setAuthor(`${lang.CovidStatisticsFor} ${country}`)
                 .setColor(colors.default)
-                .addField(lang.Confirmed, covidData.Confirmed, true)
-                .addField(lang.Deaths, covidData.Deaths, true)
-                .addField(lang.Recovered, covidData.Recovered, true)
-                .addField(lang.Active, covidData.Active, true)
+                .addField(lang.Confirmed, `${covidData.Confirmed}`, true)
+                .addField(lang.Deaths, `${covidData.Deaths}`, true)
+                .addField(lang.Recovered, `${covidData.Recovered}`, true)
+                .addField(lang.Active, `${covidData.Active}`, true)
                 .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
                 .setTimestamp()
 

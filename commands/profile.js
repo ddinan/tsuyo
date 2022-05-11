@@ -10,12 +10,14 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         function delay(delayInms) {
             return new Promise(resolve => {
                 setTimeout(() => {
-                    resolve(2);
-                }, delayInms);
-            });
+                    resolve(2)
+                }, delayInms)
+            })
         }
 
-        rankuser = message.mentions.users.first() || message.author;
+        const rankuser = guild.members.fetch().then(members => {
+            const online = members.filter((member) => !member.user?.bot && member.presence?.status != 'offline').map((member) => member);
+        })
 
         client.points.ensure(`${message.guild.id}-${rankuser.id}`, {
             user: rankuser.id,
@@ -24,27 +26,27 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             level: 1
         })
 
-        const filtered = client.points.filter(p => p.guild === message.guild.id).array();
-        const sorted = filtered.sort((a, b) => b.points - a.points);
-        const top10 = sorted.splice(0, message.guild.memberCount);
-        let i = 0;
+        const filtered = client.points.filter(p => p.guild === message.guild.id).array()
+        const sorted = filtered.sort((a, b) => b.points - a.points)
+        const top10 = sorted.splice(0, message.guild.memberCount)
+        let i = 0
 
         for (const data of top10) {
-            await delay(15);
+            await delay(15)
             try {
-                i++;
-                if (client.users.cache.get(data.user).tag === rankuser.tag) break;
+                i++
+                if (client.users.cache.get(data.user).tag === rankuser.tag) break
             } catch {
-                i = lang.ErrorCountingRank;
-                break;
+                i = lang.ErrorCountingRank
+                break
             }
         }
-        const key = `${message.guild.id}-${rankuser.id}`;
-        let curpoints = Number(client.points.get(key, `points`).toFixed(2));
-        let curnextlevel = Number(((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)) * ((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)));
-        if (client.points.get(key, `level`) === undefined) i = lang.NoRank;
+        const key = `${message.guild.id}-${rankuser.id}`
+        let curpoints = Number(client.points.get(key, `points`).toFixed(2))
+        let curnextlevel = Number(((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)) * ((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)))
+        if (client.points.get(key, `level`) === undefined) i = lang.NoRank
 
-        let status = rankuser.presence.status;
+        let status = rankuser.presence.status !== null ? rankuser.presence.status : "offline"
 
         const rank = new canvacord.Rank()
             .setAvatar(rankuser.displayAvatarURL({
@@ -61,13 +63,13 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             .setUsername(rankuser.username, colors.default)
             .setRank(Number(i), "Rank", true)
             .setLevel(Number(client.points.get(key, `level`)), lang.Level, true)
-            .setDiscriminator(rankuser.discriminator, colors.default);
+            .setDiscriminator(rankuser.discriminator, colors.default)
         rank.build()
             .then(async data => {
-                const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-                message.channel.send(attachment);
-                return;
-            });
+                const attachment = new Discord.MessageAttachment(data, "RankCard.png")
+                message.channel.send(attachment)
+                return
+            })
     } catch (err) {
         const errors = require('../modules/errors.js')
         errors.embedError(err, lang, message)
