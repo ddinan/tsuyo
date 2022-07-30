@@ -13,7 +13,7 @@ const config = {
     "globalBan": [""],
     "token": "process.env.BOT_TOKEN",
     // LINKS:
-    "github": "https://github.com/derekdinan/Tsuyo",
+    "github": "https://github.com/ddinan/Tsuyo",
     "supportServer": "https://discord.gg/3hbeQgY",
     "botInvite": "https://discordapp.com/oauth2/authorize?client_id=492871769485475840&scope=bot&permissions=1506142455",
 
