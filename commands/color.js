@@ -15,7 +15,7 @@ exports.run = async (client, message, args, level) => {
             .setColor(hex)
             .setDescription(`${lang.RandomHex} \`#${hex}\``)
             .setTitle("#" + hex)
-            .setImage(`https://derekdinan.github.io/ClassiCube-Stuff/hex-to-img/?hex=${color}`)
+            .setImage(`https://ddinan.github.io/ClassiCube-Stuff/hex-to-img/?hex=${color}`)
             .setFooter(`${lang.RespondingTo} ${message.author.tag}`, message.author.avatarURL())
             .setTimestamp()
 

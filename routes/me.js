@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const client = require('../bot.js')
 
 router.get('/', (req, res) => {
     if (!req.session.user) {
@@ -7,7 +8,8 @@ router.get('/', (req, res) => {
     }
     res.render('me', {
         pageTitle: 'Home - Tsuyo',
-        user: req.session.user || null
+        user: req.session.user || null,
+        djsclient: client
     })
 })
 

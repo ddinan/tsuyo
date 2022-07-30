@@ -33,8 +33,7 @@ router.post('/config', async (req, res) => {
     if (!req.session.guilds) return res.redirect('/')
     if (!client.guilds.cache.has(req.query.id)) return res.redirect('/')
     if (!client.guilds.cache.get(req.query.id).members.cache.has(req.session.user.id)) return res.redirect('/')
-
-    if (!client.guilds.cache.get(req.query.id).members.cache.get(req.session.user.id).permissions.has('MANAGE_SERVER')) return console.log("nope")
+    if (!client.guilds.cache.get(req.query.id).members.cache.get(req.session.user.id).permissions.has('MANAGE_SERVER')) return res.redirect('/')
 
     client.settings.set(req.query.id, req.body)
     res.render('server/config', {

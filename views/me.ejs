@@ -21,6 +21,7 @@
 
     <div class="info">
         <h1 style="padding-top: 50px; text-align: left">Info</h1>
+
         <table style="width:100%">
             <tr>
                 <td>
@@ -29,7 +30,15 @@
             </tr>
             <tr>
                 <td>
-                    <h2>Balance <span class="data">$21980321</span></h2>
+                    <%  djsclient.money.ensure(`${user.id}`, {
+                            member: user.id,
+                            money: 0
+                        })
+
+                        const money = djsclient.money.get(user.id, 'money')
+                    %>
+
+                    <h2>Balance <span class="data">$<% money %></span></h2>
                 </td>
             </tr>
         </table>

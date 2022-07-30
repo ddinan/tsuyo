@@ -87,7 +87,7 @@ module.exports = async (client) => {
     client.logger.log(`Running on Node ${process.version.replace(" ", "")}`, "ready");
     client.logger.log(`Running Discord.js v${require("discord.js").version.replace(" ", "")}`, "ready");
 
-    client.logger.log("Running Tsuyo v1.2 | https://github.com/derekdinan/Tsuyo");
+    client.logger.log("Running Tsuyo v1.2 | https://github.com/ddinan/Tsuyo");
     client.startuptime = new Date().getTime() - client.starttime;
     client.logger.log("It took " + client.startuptime + "ms to start Tsuyo.");*/
 
